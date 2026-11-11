@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Leaflet: private PDF reader, form filler and annotator for Linux</title>
+<meta name="description" content="A light, private PDF and document app for Linux: read, fill in and annotate PDFs, edit DOCX/ODT. No network, no metadata. GTK 4 + WebKit.">
+<meta name="keywords" content="pdf reader linux, annotate pdf linux, fill pdf forms, docx odt editor, remove pdf metadata">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/leaflet/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="Leaflet: private PDF reader, form filler and annotator for Linux">
+<meta property="og:description" content="A light, private PDF and document app for Linux: read, fill in and annotate PDFs, edit DOCX/ODT. No network, no metadata. GTK 4 + WebKit.">
+<meta property="og:url" content="https://anti-ghostsec.github.io/leaflet/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Leaflet: private PDF reader, form filler and annotator for Linux">
+<meta name="twitter:description" content="A light, private PDF and document app for Linux: read, fill in and annotate PDFs, edit DOCX/ODT. No network, no metadata. GTK 4 + WebKit.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "Leaflet", "description": "A light, private PDF and document app for Linux: read, fill in and annotate PDFs, edit DOCX/ODT. No network, no metadata. GTK 4 + WebKit.", "url": "https://anti-ghostsec.github.io/leaflet/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Linux", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/leaflet"], "softwareVersion": "build-17f93c6", "downloadUrl": "https://github.com/anti-ghostsec/leaflet/releases/latest", "@id": "https://anti-ghostsec.github.io/leaflet/#app"}, {"@type": "SoftwareSourceCode", "name": "leaflet", "codeRepository": "https://github.com/anti-ghostsec/leaflet", "programmingLanguage": "Python", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/leaflet/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Leaflet", "item": "https://anti-ghostsec.github.io/leaflet/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › Leaflet</p>
+<section class="hero" style="padding-top:12px">
+<h1>📄 Leaflet: private PDF reader, form filler and annotator for Linux</h1>
+<p>A light, private PDF and document app for Linux: read, fill in and annotate PDFs, edit DOCX/ODT. No network, no metadata. GTK 4 + WebKit.</p>
+<div class="facts"><span class="chip">Python</span><span class="chip">MIT</span><span class="chip">Latest: build-17f93c6</span><span class="chip">Updated 2026-11-10</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/leaflet">View source on GitHub</a><a class="btn" href="https://github.com/anti-ghostsec/leaflet/releases/latest">Download</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text">
+<p dir="auto">A light, private app for PDFs and word-processor documents on Linux.</p>
+<p dir="auto">Leaflet is for the everyday jobs that don't need an office suite: read a PDF, fill in a form,
+highlight something, put pages in order, join two PDFs; open a <code>.docx</code> or <code>.odt</code>, fix a few
+lines, and save it again or send it on as a PDF. It is a small GTK 4 app around a WebKit view,
+starts in a moment, and runs comfortably on a 1 GB machine.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Features</h2><a id="features" class="anchor" aria-label="Permalink: Features" href="#features"></a></div>
+<p dir="auto"><strong>PDF</strong></p>
+<ul dir="auto">
+<li>Fast viewing with a page sidebar, zoom (fit width, fit page, 25–500 %), page jump, find with match count</li>
+<li>Select and copy text</li>
+<li>Fill in forms (text fields, check boxes, radio buttons, lists)</li>
+<li>Highlight text, add notes (text boxes) and freehand drawings</li>
+<li>Turn, delete, reorder (drag in the sidebar, or Alt+↑/↓) and insert pages from another PDF; undo for page changes</li>
+<li>Save, or save a copy; print</li>
+<li>Password-protected PDFs open (viewing, forms and annotations; page changes, and cleaning the metadata on saving,
+need an unencrypted copy)</li>
+</ul>
+<p dir="auto"><strong>Documents</strong></p>
+<ul dir="auto">
+<li>Opens DOCX, ODT, RTF and plain text; new documents too</li>
+<li>Text with bold, italic, underline, strike-through, super- and subscript; headings; alignment</li>
+<li>Bulleted and numbered lists (nested), simple tables (add/remove rows and columns), pictures, links, page breaks</li>
+<li>Saves as DOCX, ODT or plain text, and exports as PDF</li>
+<li>An outline of the headings in the sidebar, word count, find</li>
+</ul>
+<p dir="auto"><strong>General</strong></p>
+<ul dir="auto">
+<li>Three looks: Light, Dark and Classic (grey and bevelled, made to sit on a Windows 95-style desktop such as FerroOS).
+"Follow the system" picks Light or Dark; <code>LEAFLET_THEME=classic</code> forces one.</li>
+<li>Drag a file onto the window to open it; one document per window</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Privacy and safety</h2><a id="privacy-and-safety" class="anchor" aria-label="Permalink: Privacy and safety" href="#privacy-and-safety"></a></div>
+<ul dir="auto">
+<li><strong>No network.</strong> The window is served from a private <code>leaflet://</code> scheme, its Content-Security-Policy allows
+nothing else, and its web view's proxy is a closed port, so a document can't load anything from the internet,
+not even a picture. Links in documents open in your browser only when you click one and say yes.</li>
+<li><strong>A PDF's JavaScript never runs.</strong> PDF.js is bundled without its scripting support and without the JavaScript
+engine it would use (<code>quickjs</code>); there's nothing in Leaflet that could run a PDF's scripts. Launch actions are
+ignored.</li>
+<li><strong>Nothing added to the files you save.</strong>
+<ul dir="auto">
+<li>Saved PDFs: the author, creator, producer, keywords, subject and dates in the document info are removed, and so
+are the XMP metadata packets (the document's, and those on its pages and pictures). The title is kept, because
+viewers show it. Notes and other annotations lose the name of whoever made them and their dates; what they say
+stays. Pictures stored as JPEG lose their EXIF (camera, place, time), XMP, IPTC, thumbnails and comments.</li>
+<li>Pages you deleted, and old versions of changed parts, are removed from the file rather than left hidden in it,
+and that includes what pointed at a deleted page: its bookmarks, links to it, its form fields and their values,
+and its entries in the tag (structure) tree.</li>
+<li>Exported PDFs (from a document): the same; there's no "created with" or creation date.</li>
+<li>DOCX and ODT: written without a metadata part (<code>docProps/core.xml</code>, <code>meta.xml</code>), so no author, company,
+editing time or program name; every file inside the zip has the same fixed date. Author names and the like that
+were in the original file are not carried over either. Pictures are written without their EXIF (GPS position,
+camera, time), XMP, IPTC, comments and text; the picture itself is copied as it is, not re-compressed.</li>
+<li>What a picture keeps is what it needs to look the same: its colour profile (ICC) and colour markers, and the one
+EXIF field that says which way up it is.</li>
+<li>An encrypted PDF is the exception: Leaflet can't rewrite it, so it is saved with its metadata as it was, and
+Leaflet says so before saving.</li>
+</ul>
+</li>
+<li><strong>No list of recent files</strong> unless you switch it on in Settings. Opened files aren't added to the desktop's
+"Recent files" either.</li>
+<li><strong>No telemetry, no update checks.</strong> The only file Leaflet writes on its own is <code>~/.config/leaflet/settings.json</code>
+(theme, window size, and the recent list if you switched it on). Printing a PDF and exporting one go through a
+private temporary folder, which is removed as soon as the job is done, and when Leaflet quits or is stopped.</li>
+<li><strong>Untrusted files are handled with care.</strong> Word and OpenDocument files are read with Python's standard library:
+sizes are checked before anything is unpacked, XML with a DOCTYPE is refused by the parser itself, whatever the
+file's encoding (no entity tricks), and the editor only ever gets HTML that Leaflet built itself from known
+pieces. Pasted content is cleaned the same way. PDFs are parsed by PDF.js inside WebKit's sandboxed web process.</li>
+<li><strong>The document view can't choose files.</strong> The part of Leaflet that shows a document (and so runs on whatever is
+in it) never names a file to read or write. A file is opened because you picked it in the file dialog, named it
+on the command line, dropped it on the window or clicked it in the recent list; it is saved to the file that is
+open, or where you say in the "Save as" dialog. Nothing else is accepted.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">What Leaflet doesn't do (yet)</h2><a id="what-leaflet-doesnt-do-yet" class="anchor" aria-label="Permalink: What Leaflet doesn't do (yet)" href="#what-leaflet-doesnt-do-yet"></a></div>
+<p dir="auto">Leaflet keeps documents simple, and is honest about it: when a file has something it can't keep, a bar at the top
+says what, before you save over the original.</p>
+<ul dir="auto">
+<li>Documents lose on saving: headers and footers, footnotes, comments, tracked changes (shown as accepted), text
+boxes and shapes, charts, equations, fonts, colours and sizes of text, line spacing, columns, page size and
+margins (saved as A4 with standard margins), cell borders and shading, rows merged across cells (split again).
+Pictures in EMF/WMF/SVG aren't shown. Old binary <code>.doc</code> files can't be opened.</li>
+<li>RTF files can be opened and edited, but are saved as DOCX, ODT or text.</li>
+<li>PDFs: no editing of the existing text, no signing (a signed PDF's signature stops being valid when it's saved),
+no XFA forms, no OCR. Highlights are made from selected text; note and drawing colours use PDF.js's defaults.
+Fields and annotations on pages merged in from another PDF come along, but bookmarks (outlines) of the merged
+file don't.</li>
+<li>Saving a PDF removes the names on its notes and comments (see above), which a review that depends on who said
+what won't want. Metadata inside JPEG 2000 pictures in a PDF is not removed, and neither is anything in an
+encrypted PDF.</li>
+<li>A file dropped from a program that hands over only its contents (not a file on disk) opens as a copy: "Save" asks
+where to put it.</li>
+<li>One document per window, no tabs.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Requirements</h2><a id="requirements" class="anchor" aria-label="Permalink: Requirements" href="#requirements"></a></div>
+<ul dir="auto">
+<li>Python 3.10+</li>
+<li>GTK 4 and WebKitGTK 6.0 with GObject introspection</li>
+</ul>
+<p dir="auto">Nothing else: PDF.js and pdf-lib are included (see <a href="https://github.com/anti-ghostsec/leaflet/blob/main/ui/vendor/README.md">ui/vendor</a>).</p>
+<p dir="auto">Debian / Ubuntu:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-webkit-6.0"><pre>sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-webkit-6.0</pre></div>
+<p dir="auto">Fedora:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="sudo dnf install python3-gobject gtk4 webkitgtk6.0"><pre>sudo dnf install python3-gobject gtk4 webkitgtk6.0</pre></div>
+<p dir="auto">Arch:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="sudo pacman -S python-gobject gtk4 webkitgtk-6.0"><pre>sudo pacman -S python-gobject gtk4 webkitgtk-6.0</pre></div>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Run</h2><a id="run" class="anchor" aria-label="Permalink: Run" href="#run"></a></div>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="python3 leaflet.py [FILE ...]"><pre>python3 leaflet.py [FILE ...]</pre></div>
+<p dir="auto">To add Leaflet to your app menu (and the "Open with" list for PDF, DOCX, ODT and RTF files):</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="./install.sh"><pre>./install.sh</pre></div>
+<p dir="auto"><code>./install.sh --uninstall</code> removes it again.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Keyboard shortcuts</h2><a id="keyboard-shortcuts" class="anchor" aria-label="Permalink: Keyboard shortcuts" href="#keyboard-shortcuts"></a></div>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Keys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open / New document / Save / Save as</td>
+<td>Ctrl+O / Ctrl+N / Ctrl+S / Ctrl+Shift+S</td>
+</tr>
+<tr>
+<td>Print / Close window / Quit</td>
+<td>Ctrl+P / Ctrl+W / Ctrl+Q</td>
+</tr>
+<tr>
+<td>Find / next / previous</td>
+<td>Ctrl+F / F3 or Enter / Shift+F3 or Shift+Enter</td>
+</tr>
+<tr>
+<td>Zoom in / out / fit width</td>
+<td>Ctrl+= / Ctrl+− / Ctrl+0, or Ctrl+wheel</td>
+</tr>
+<tr>
+<td>Pages or outline sidebar / Full screen / Shortcuts</td>
+<td>F9 / F11 / F1</td>
+</tr>
+<tr>
+<td>PDF: go to page / first / last page</td>
+<td>Ctrl+G / Home / End</td>
+</tr>
+<tr>
+<td>PDF: turn pages right / left</td>
+<td>Ctrl+R / Ctrl+Shift+R</td>
+</tr>
+<tr>
+<td>PDF: select, highlight, note, draw</td>
+<td>Esc, H, N, D</td>
+</tr>
+<tr>
+<td>PDF page list: select more / all, delete, move</td>
+<td>Shift- or Ctrl+click / Ctrl+A, Delete, Alt+↑/↓ or drag</td>
+</tr>
+<tr>
+<td>Document: bold / italic / underline</td>
+<td>Ctrl+B / Ctrl+I / Ctrl+U</td>
+</tr>
+<tr>
+<td>Document: text / heading 1–3</td>
+<td>Ctrl+0 / Ctrl+1–3</td>
+</tr>
+<tr>
+<td>Document: bullets / numbering, indent in a list</td>
+<td>Ctrl+Shift+8 / Ctrl+Shift+7, Tab / Shift+Tab</td>
+</tr>
+<tr>
+<td>Document: align left / centre / right / justify</td>
+<td>Ctrl+L / Ctrl+E / Ctrl+R / Ctrl+J</td>
+</tr>
+<tr>
+<td>Document: page break / export as PDF</td>
+<td>Ctrl+Enter / Ctrl+Shift+E</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Tests</h2><a id="tests" class="anchor" aria-label="Permalink: Tests" href="#tests"></a></div>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="tests/run.sh           # document formats, what the window accepts from the page (Python), PDF operations (node)
+tests/run.sh --live    # also drives the real window on a virtual screen (Xvfb), with screenshots"><pre>tests/run.sh           <span class="pl-c"><span class="pl-c">#</span> document formats, what the window accepts from the page (Python), PDF operations (node)</span>
+tests/run.sh --live    <span class="pl-c"><span class="pl-c">#</span> also drives the real window on a virtual screen (Xvfb), with screenshots</span></pre></div>
+<p dir="auto">The test files are made from scratch by <code>tests/fixtures.py</code>, including a PDF that tries to run JavaScript and
+reach a local address: the live check counts every request the window makes, and fails on any. The PDF tests open
+what they save with the bundled PDF.js too, and with <code>qpdf --check</code> when qpdf is installed.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">License</h2><a id="license" class="anchor" aria-label="Permalink: License" href="#license"></a></div>
+<p dir="auto">Code is MIT licensed (see <a href="https://github.com/anti-ghostsec/leaflet/blob/main/LICENSE">LICENSE</a>). PDF.js is under the Apache License 2.0 and pdf-lib under the MIT
+License; see <a href="https://github.com/anti-ghostsec/leaflet/blob/main/ui/vendor/README.md">ui/vendor</a>.</p>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/leaflet">leaflet on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

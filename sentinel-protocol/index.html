@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Sentinel Protocol: social network and messenger over Tor, no phone number</title>
+<meta name="description" content="A social network, messenger and group rooms in one app, with Tor built in and run by volunteers instead of a company. No phone number or email.">
+<meta name="keywords" content="tor messenger, anonymous social network, decentralized messenger, no phone number messenger">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/sentinel-protocol/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="The Sentinel Protocol: social network and messenger over Tor, no phone number">
+<meta property="og:description" content="A social network, messenger and group rooms in one app, with Tor built in and run by volunteers instead of a company. No phone number or email.">
+<meta property="og:url" content="https://anti-ghostsec.github.io/sentinel-protocol/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Sentinel Protocol: social network and messenger over Tor, no phone number">
+<meta name="twitter:description" content="A social network, messenger and group rooms in one app, with Tor built in and run by volunteers instead of a company. No phone number or email.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "The Sentinel Protocol", "description": "A social network, messenger and group rooms in one app, with Tor built in and run by volunteers instead of a company. No phone number or email.", "url": "https://anti-ghostsec.github.io/sentinel-protocol/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Linux", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/The-Sentinel-Protocol"], "@id": "https://anti-ghostsec.github.io/sentinel-protocol/#app"}, {"@type": "SoftwareSourceCode", "name": "The-Sentinel-Protocol", "codeRepository": "https://github.com/anti-ghostsec/The-Sentinel-Protocol", "programmingLanguage": "Rust", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/sentinel-protocol/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "The Sentinel Protocol", "item": "https://anti-ghostsec.github.io/sentinel-protocol/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › The Sentinel Protocol</p>
+<section class="hero" style="padding-top:12px">
+<h1>🛡️ The Sentinel Protocol: social network and messenger over Tor, no phone number</h1>
+<p>A social network, messenger and group rooms in one app, with Tor built in and run by volunteers instead of a company. No phone number or email.</p>
+<div class="facts"><span class="chip">Rust</span><span class="chip">Updated 2026-11-10</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/The-Sentinel-Protocol">View source on GitHub</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text"><div align="center" dir="auto">
+
+<p dir="auto"><strong>Say what you think. Nobody needs to know where you are.</strong></p>
+<p dir="auto">A social network, messenger and group rooms in one app, with Tor built in,<br>run by volunteers instead of a company, and private by design.</p>
+<p dir="auto">Tor built in · No phone number or email · No company servers · Ready for quantum computers</p>
+<p dir="auto"><a href="#get-it">Get it</a> · <a href="#the-best-of-tor-and-matrix-in-one-app">Why it's different</a> · <a href="#run-a-pillar-the-easy-safe-way-to-help">Run a Pillar</a> · <a href="https://github.com/anti-ghostsec/The-Sentinel-Protocol/blob/main/DESIGN.md">How it works</a> · <a href="https://github.com/anti-ghostsec/The-Sentinel-Protocol/blob/main/TESTER_GUIDE.md">Tester guide</a></p>
+</div>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">What it is</h2><a id="what-it-is" class="anchor" aria-label="Permalink: What it is" href="#what-it-is"></a></div>
+<ul dir="auto">
+<li><strong>A public square:</strong> profiles, posts, photos and videos, following, and a Discover page for finding people and topics. Like Twitter, without the company.</li>
+<li><strong>A private messenger:</strong> end-to-end encrypted messages only you and the other person can read. Like Signal, without the phone number.</li>
+<li><strong>Rooms:</strong> group chats, free or paid, private or public, with moderators, ask-to-join and polls.</li>
+</ul>
+<p dir="auto">Everything travels through Tor, everything stored on the network is encrypted, and your account is made on your own device in seconds. No phone number, no email, no sign-up server.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">The best of Tor and Matrix, in one app</h2><a id="the-best-of-tor-and-matrix-in-one-app" class="anchor" aria-label="Permalink: The best of Tor and Matrix, in one app" href="#the-best-of-tor-and-matrix-in-one-app"></a></div>
+<p dir="auto">Tor hides <em>where</em> you are. Matrix-style encryption hides <em>what</em> you say. Sentinel builds both in from the start, then goes further, so the network itself learns as little as possible about <em>who talks to whom</em>.</p>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th></th>
+<th align="center">Tor alone</th>
+<th align="center">Matrix alone</th>
+<th align="center"><strong>Sentinel</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hides your internet address from the people and servers you talk to</td>
+<td align="center">✅</td>
+<td align="center">❌ the server sees it</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td>End-to-end encrypted messages and group chats</td>
+<td align="center">❌ not a messenger</td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td>Servers can't see who messages whom</td>
+<td align="center">n/a</td>
+<td align="center">❌ the server sees it</td>
+<td align="center">✅ sealed sender, shared mailboxes</td>
+</tr>
+<tr>
+<td>Servers can't see who's in a group</td>
+<td align="center">n/a</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td>Public posts and following, readable only by people you choose</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td>No exit nodes: nothing ever leaves Tor for the open internet</td>
+<td align="center">❌ websites need exits</td>
+<td align="center">n/a</td>
+<td align="center">✅ onion services only</td>
+</tr>
+<tr>
+<td>Messages protected against future quantum computers</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">✅ hybrid ML-KEM</td>
+</tr>
+<tr>
+<td>Photos and videos cleaned of GPS, device and app traces before sending</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td>No company or server that can be shut down or pressured</td>
+<td align="center">✅</td>
+<td align="center">❌ servers can be</td>
+<td align="center">✅ volunteer Pillars</td>
+</tr>
+<tr>
+<td>Social network, messenger and rooms in one app</td>
+<td align="center">❌</td>
+<td align="center">❌ chat only</td>
+<td align="center">✅</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Run a Pillar: the easy, safe way to help</h2><a id="run-a-pillar-the-easy-safe-way-to-help" class="anchor" aria-label="Permalink: Run a Pillar: the easy, safe way to help" href="#run-a-pillar-the-easy-safe-way-to-help"></a></div>
+<p dir="auto">The network runs on <strong>Pillars</strong>: computers lent by volunteers that carry encrypted posts and messages. Running one is much simpler, and much safer, than running a Tor relay.</p>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th></th>
+<th align="center">Tor relay</th>
+<th align="center">Tor exit relay</th>
+<th align="center"><strong>Sentinel Pillar</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Your internet address published in a public list</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center"><strong>never</strong>: reachable only as an onion service</td>
+</tr>
+<tr>
+<td>Strangers' traffic leaves the internet from your connection</td>
+<td align="center">no</td>
+<td align="center">yes</td>
+<td align="center"><strong>never</strong></td>
+</tr>
+<tr>
+<td>Can read the messages and private posts it carries</td>
+<td align="center">no</td>
+<td align="center">sometimes</td>
+<td align="center"><strong>never</strong>: they arrive sealed</td>
+</tr>
+<tr>
+<td>Abuse complaints or legal letters sent to your provider</td>
+<td align="center">rare</td>
+<td align="center">common</td>
+<td align="center"><strong>no</strong>: nobody sees your address</td>
+</tr>
+<tr>
+<td>Earns you something</td>
+<td align="center">no</td>
+<td align="center">no</td>
+<td align="center"><strong>credits</strong>, paid privately to your Pillar</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Turn it on in the app (Settings → Help run Sentinel), or run the one-file Pillar program on any computer that stays on. A Raspberry Pi is perfect. Add disk space and it becomes an <strong>Archive</strong>, storing encrypted pieces of photos and videos and earning credits every day.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">What makes it private</h2><a id="what-makes-it-private" class="anchor" aria-label="Permalink: What makes it private" href="#what-makes-it-private"></a></div>
+<ul dir="auto">
+<li><strong>Split knowledge.</strong> No computer in the network ever knows both <em>where</em> you are and <em>who</em> you are.</li>
+<li><strong>Sealed everything.</strong> Posts, profiles and messages are encrypted and padded before they leave your device. Pillars store data they can't read.</li>
+<li><strong>Reading without revealing.</strong> Timelines, Discover and mailboxes are fetched in shared buckets over separate Tor circuits, so nobody learns who you follow, what you read, or how many messages you get.</li>
+<li><strong>Deniable messages.</strong> The person you talk to knows it's you, but can't prove it to anyone else.</li>
+<li><strong>Post-quantum.</strong> Messages and room keys use a hybrid of X25519 and ML-KEM-768. Signatures, credits and updates are quantum-safe too.</li>
+<li><strong>Anonymous credits.</strong> Pay for paid rooms or for keeping files longer with zero-knowledge proofs: nobody can trace who paid whom.</li>
+<li><strong>Safety built in.</strong> Emergency passphrase (silently erases the real account), disguise mode (the app becomes a working calculator), key files, auto-lock, panic wipe, screen protection, High-risk mode, and recovery words to take your account to a new device.</li>
+<li><strong>Reliable delivery.</strong> If someone's Pillar is down, your message is handed to another Pillar that keeps trying for a week, so it arrives even after you've gone offline.</li>
+<li><strong>Kept clean, without spying.</strong> Public posts can be reported to the Pillars that hold them, and room messages to the room's moderators; illegal content is removed by the people who can see it. Private conversations stay private.</li>
+<li><strong>Updates nobody can hijack.</strong> Releases are signed with post-quantum release keys (a majority must agree once there are several) and must be carried identically by at least two Pillars, so no one can slip a special version to one person.</li>
+</ul>
+<p dir="auto">The details are in <a href="https://github.com/anti-ghostsec/The-Sentinel-Protocol/blob/main/DESIGN.md">How Sentinel works</a>.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Get it</h2><a id="get-it" class="anchor" aria-label="Permalink: Get it" href="#get-it"></a></div>
+<p dir="auto">Download from the <strong>Releases</strong> section of this page. Everything is inside: Tor, the video tools, the browser engine.</p>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>On</th>
+<th>Download</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Windows 10 or 11</strong></td>
+<td><code>sentinel-windows-setup.exe</code>: installs for your user only, no admin rights needed</td>
+</tr>
+<tr>
+<td><strong>Android 7 or newer</strong></td>
+<td><code>sentinel-android.apk</code></td>
+</tr>
+<tr>
+<td><strong>Linux</strong> (Ubuntu 22.04+, Debian 12+)</td>
+<td><code>sentinel-linux.AppImage</code> (runs as is: <code>chmod +x</code>, then open it) or <code>sentinel-linux.deb</code></td>
+</tr>
+<tr>
+<td><strong>A computer that stays on</strong></td>
+<td><code>sentinel-pillar-windows.exe</code>, <code>sentinel-pillar-linux-x86_64</code>, or <code>sentinel-pillar-linux-arm64</code> (Raspberry Pi)</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Check your download against <code>SHA256SUMS.txt</code> in the same release. The <a href="https://github.com/anti-ghostsec/The-Sentinel-Protocol/blob/main/TESTER_GUIDE.md">tester guide</a> walks you through the first ten minutes.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Where it's going</h2><a id="where-its-going" class="anchor" aria-label="Permalink: Where it's going" href="#where-its-going"></a></div>
+<p dir="auto">Sentinel works today, end to end, over the real Tor network: accounts, posts, messages, rooms, media, credits, several devices per account and signed updates, on Windows and Android, with Pillars on Windows and Linux.</p>
+<p dir="auto">Next up:</p>
+<ul dir="auto">
+<li><strong>More Pillars run by more people.</strong> Every new Pillar makes the network faster and harder to block.</li>
+<li><strong>An independent security audit</strong>, and builds anyone can reproduce byte for byte.</li>
+<li><strong>Private fetching (PIR)</strong>, larger encrypted groups, and more Sentinel Apps for rooms.</li>
+<li><strong>Working through internet shutdowns</strong> over local Wi-Fi, Bluetooth and USB.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Get involved</h2><a id="get-involved" class="anchor" aria-label="Permalink: Get involved" href="#get-involved"></a></div>
+<ul dir="auto">
+<li><strong>Run a Pillar.</strong> It's the single biggest help.</li>
+<li><strong>Try it with friends</strong> and report what breaks, with the connection log from Settings → Connection.</li>
+<li><strong>Review the code and the design.</strong> Security researchers and cryptographers are especially welcome: <a href="https://github.com/anti-ghostsec/The-Sentinel-Protocol/blob/main/DESIGN.md">How Sentinel works</a> and the code in <a href="https://github.com/anti-ghostsec/The-Sentinel-Protocol/blob/main/sentinel-proto/"><code>sentinel-proto/</code></a>.</li>
+</ul>
+<details>
+<summary><b>Building it yourself</b></summary>
+<br>
+<p dir="auto">The code lives in <a href="https://github.com/anti-ghostsec/The-Sentinel-Protocol/blob/main/sentinel-proto/"><code>sentinel-proto/</code></a>, and <a href="https://github.com/anti-ghostsec/The-Sentinel-Protocol/blob/main/sentinel-proto/README.md">its README</a> explains how to build each part. Releases are built with <code>sentinel-proto/scripts/build-release.ps1</code>, which strips every local path out of the programs and checks the result.</p>
+<p dir="auto">The app uses FFmpeg to rebuild videos and audio, so a recording can't be traced to the phone or app that made it. FFmpeg is too big for GitHub, so only its fingerprints are kept here. To fetch it, run this from the <code>sentinel-proto</code> folder (the release and Linux build scripts do it for you):</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="powershell -ExecutionPolicy Bypass -File scripts\get-ffmpeg.ps1"><pre class="notranslate"><code>powershell -ExecutionPolicy Bypass -File scripts\get-ffmpeg.ps1
+</code></pre></div>
+<p dir="auto">It downloads FFmpeg 8.1 from <a href="https://github.com/BtbN/FFmpeg-Builds">BtbN/FFmpeg-Builds</a> over HTTPS, checks the published fingerprint, and unpacks it into <code>vendor/ffmpeg/win64/</code>. The app only ever runs FFmpeg files matching the fingerprints it was built with. Phones don't need it: they rebuild videos with their own encoders.</p>
+</details>
+<div align="center" dir="auto">
+<br>
+<p dir="auto"><em>Built for people who need privacy most, so it's private enough for everyone.</em></p>
+</div>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/The-Sentinel-Protocol">The-Sentinel-Protocol on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

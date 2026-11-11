@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BetterSearch: desktop booru search in Rust with boolean queries</title>
+<meta name="description" content="Desktop booru search in Rust: boolean searches, links and relations, encrypted local vault">
+<meta name="keywords" content="booru search app, booru desktop client, rust image search, encrypted local vault">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/bettersearch/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="BetterSearch: desktop booru search in Rust with boolean queries">
+<meta property="og:description" content="Desktop booru search in Rust: boolean searches, links and relations, encrypted local vault">
+<meta property="og:url" content="https://anti-ghostsec.github.io/bettersearch/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BetterSearch: desktop booru search in Rust with boolean queries">
+<meta name="twitter:description" content="Desktop booru search in Rust: boolean searches, links and relations, encrypted local vault">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "BetterSearch", "description": "Desktop booru search in Rust: boolean searches, links and relations, encrypted local vault", "url": "https://anti-ghostsec.github.io/bettersearch/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Linux", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/BetterSearch"], "softwareVersion": "v0.1.15", "downloadUrl": "https://github.com/anti-ghostsec/BetterSearch/releases/latest", "@id": "https://anti-ghostsec.github.io/bettersearch/#app"}, {"@type": "SoftwareSourceCode", "name": "BetterSearch", "codeRepository": "https://github.com/anti-ghostsec/BetterSearch", "programmingLanguage": "Rust", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/bettersearch/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "BetterSearch", "item": "https://anti-ghostsec.github.io/bettersearch/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › BetterSearch</p>
+<section class="hero" style="padding-top:12px">
+<h1>🖼️ BetterSearch: desktop booru search in Rust with boolean queries</h1>
+<p>Desktop booru search in Rust: boolean searches, links and relations, encrypted local vault</p>
+<div class="facts"><span class="chip">Rust</span><span class="chip">MIT</span><span class="chip">Latest: v0.1.15</span><span class="chip">Updated 2026-11-03</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/BetterSearch">View source on GitHub</a><a class="btn" href="https://github.com/anti-ghostsec/BetterSearch/releases/latest">Download</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text">
+<p dir="auto">A desktop booru search with real boolean searches and <strong>links</strong>: named
+groups of tags on a post (<code>relation: rabbit · eat · carrot</code>) that you can
+search for. Written in Rust; the window is <a href="https://github.com/emilk/egui">egui</a>.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="cargo run --release -p bettersearch"><pre>cargo run --release -p bettersearch</pre></div>
+<p dir="auto">It starts on <strong>e926</strong> (e621's safe-only site) with only <em>Safe</em> ticked. Pick
+the sites and ratings from the two menus in the top bar. Add your name or e621 username in ⚙
+Settings; e621 asks every app to say who runs it.</p>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Site</th>
+<th>Account</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>e926, e621</td>
+<td>optional (API key)</td>
+</tr>
+<tr>
+<td>Danbooru</td>
+<td>optional: without one, searches take 2 tags (Gold 6, Platinum 12)</td>
+</tr>
+<tr>
+<td>Safebooru</td>
+<td>not needed</td>
+</tr>
+<tr>
+<td>Gelbooru</td>
+<td>required: user id and API key from its account options page</td>
+</tr>
+<tr>
+<td>e6ai</td>
+<td>optional (its own account; e621's API)</td>
+</tr>
+<tr>
+<td>aibooru</td>
+<td>optional (Danbooru's API)</td>
+</tr>
+<tr>
+<td>xbooru, TBIB, Hypnohub</td>
+<td>not needed</td>
+</tr>
+<tr>
+<td>Realbooru (photos)</td>
+<td>not needed; read from its pages, since its API was shut off years ago</td>
+</tr>
+<tr>
+<td>yande.re, Konachan, Konachan.net, Sakugabooru</td>
+<td>not needed (Moebooru)</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">All of those are off until ticked in the site menu, and every one can be mixed
+with the others.</p>
+<p dir="auto">Danbooru sits behind Cloudflare and throttles: a challenge or a 429 gets up to
+three tries, waiting whatever <code>Retry-After</code> asks. A page that comes back with no
+addresses at all is retried once after a pause, since that is usually a cut-back
+answer rather than the real one.</p>
+<p dir="auto"><strong>Custom boorus</strong> (⚙ Settings → Custom boorus) take any site speaking one of
+those four APIs: the address, a name, and the API family. https only, and the
+address is the site root, not a page. They're searched like the built-ins and
+can be removed again. Logins are optional and only for sites that need one.</p>
+<p dir="auto"><code>tools/probe-site.sh &lt;host&gt;</code> says in a few seconds whether a site is addable
+and which family to pick, without changing anything.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Taste</h2><a id="taste" class="anchor" aria-label="Permalink: Taste" href="#taste"></a></div>
+<p dir="auto">Off by default. When on, a <strong>Guide</strong> appears at the top of the left panel: chat
+with it, and it answers knowing your tags, your brief and the searches you've
+already run, so it doesn't send you round the same one again. Ask for picks and
+it searches your own tags without a model. The model list is fetched from the
+endpoint, so nothing has to be typed from memory.</p>
+<p dir="auto"><strong>What leaves the machine, and that's all:</strong> the top 40 weighted tags, and the
+ratings you have ticked if "send the ratings I tick" is left on. No pictures,
+no post ids, no history, no account. That payload goes to whichever endpoint is
+set — Venice by default — with a plain User-Agent; the key stays in the vault.
+Nothing is sent until you press <strong>Write brief</strong>, and briefs are capped by the
+per-hour limit in the same section.</p>
+<p dir="auto">A search the guide proposes that finds nothing is retried once with the tags no
+ticked site has (and any rating those sites can't carry) removed, and it says
+which. The guide is also told which sites are in use and what ratings they take.</p>
+<p dir="auto">The searches themselves never involve the model: they are built from the tag
+weights locally, so a bad brief can't send you somewhere you don't browse. The
+model only writes prose.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Local API</h2><a id="local-api" class="anchor" aria-label="Permalink: Local API" href="#local-api"></a></div>
+<p dir="auto">Off by default. ⚙ Settings → Local API lets a program on this computer search
+and fetch pictures with a bearer token: <code>/api/v1/health</code>, <code>/openapi.json</code>,
+<code>/search</code>, <code>/post/{site}/{id}</code>, <code>/file</code>, <code>/thumb</code>, <code>/taste</code>, and — only with
+read-only switched off — <code>/favorite</code> and <code>/feedback</code>. It listens on loopback
+unless "also from the local network" is ticked, is rate-limited, and logs paths
+and statuses but not query strings.</p>
+<p dir="auto">The port and token go in <code>api.json</code> beside the vault (mode 0600) so a caller can
+find them; nothing else is in it, and it's removed when the API is off. The
+token can be replaced in Settings at any time.</p>
+<p dir="auto"><code>/file</code> exists because booru CDNs hotlink-protect and key-gate their URLs: the
+app has the session and the keys, so the caller doesn't need either.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Blocked sites</h2><a id="blocked-sites" class="anchor" aria-label="Permalink: Blocked sites" href="#blocked-sites"></a></div>
+<p dir="auto">Rule34.xxx, furry.booru.org, safebooru.donmai.us and every <code>booru.org</code> site
+answer an interactive challenge to plain clients.</p>
+<p dir="auto"><strong>Sign in…</strong> in the same place opens a browser window inside the app: pass the
+check (or log in) there and press Done, and the cookies come back with the
+User-Agent that earned them. Nothing is written by that window; the session is
+ephemeral.</p>
+<p dir="auto">Otherwise, open the site once in a browser, then hand its cookie to the app (⚙ Settings →
+Blocked sites): either <strong>Copy cookies now</strong>, which reads it out of a Firefox or
+LibreWolf profile, or paste the <code>Cookie</code> header yourself. The cookie is kept in
+the vault and sent to that host only, and searches work from then on until it
+expires.</p>
+<p dir="auto"><strong>Reading the browser is off by default</strong> — with the box unticked the app opens
+no browser files at all, and cookies come only from the button or a paste.
+Tick it and a stale cookie is refreshed by itself before a search.</p>
+<p dir="auto">Wisp keeps its session in memory by default; turn on <strong>Persistent profile</strong> in
+its menu, load the site, and its WebKit cookie store is read like a Firefox
+profile. Otherwise paste. <code>cf_clearance</code> usually lasts hours, not days, and Cloudflare ties it to the
+User-Agent of whoever earned it — so the UA is stored with the cookie and sent
+with it: the browser's own for a Wisp or Firefox find, a Firefox one for a
+pasted cookie. If the two don't match the site refuses it and it has to be
+pasted again.</p>
+<p dir="auto">With automatic reading on, a stored cookie over ten minutes old is refreshed
+again before a search, so it keeps working without you doing anything. Paheal answers HTML rather than its API.</p>
+<p dir="auto">On Danbooru and Gelbooru <em>Safe</em> means <code>general</code> (plus Safebooru's old
+<code>safe</code>), and <code>sensitive</code> counts as <em>Questionable</em>. Danbooru's 2-tag limit
+doesn't count rating, score, size, date, id or md5, so those always go to the
+site; other tags are sent rarest first and the rest are checked here.
+Gelbooru-style sites have no alias API and no tag categories in post answers,
+so their tags all show as general. Some of them (TBIB) never send file
+addresses; the folder and file name always are sent, so the addresses are
+rebuilt from those. Realbooru has no API at all: its list pages
+are read instead, and file addresses are rebuilt from the thumbnail's hash with
+the site as referer.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Searching</h2><a id="searching" class="anchor" aria-label="Permalink: Searching" href="#searching"></a></div>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Write</th>
+<th>Finds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fox wolf</code></td>
+<td>both tags (unless <code>fox_wolf</code> exists on the site, which wins)</td>
+</tr>
+<tr>
+<td><code>-sketch</code></td>
+<td>not this tag</td>
+</tr>
+<tr>
+<td><code>fox | wolf</code> or <code>~fox ~wolf</code></td>
+<td>either</td>
+</tr>
+<tr>
+<td><code>(fox | wolf) -(sketch | comic)</code></td>
+<td>groups, nested as deep as you like</td>
+</tr>
+<tr>
+<td><code>fox*</code></td>
+<td>wildcard</td>
+</tr>
+<tr>
+<td><code>score:&gt;100 rating:s order:score</code></td>
+<td>metatags</td>
+</tr>
+<tr>
+<td><code>[eat]</code></td>
+<td>posts where <code>eat</code> is in a link with other tags</td>
+</tr>
+<tr>
+<td><code>relation[rabbit eat]</code></td>
+<td>a <code>relation</code> link holding both</td>
+</tr>
+<tr>
+<td><code>@animal</code></td>
+<td>any tag in your group <code>animal</code></td>
+</tr>
+<tr>
+<td><code>-@fat</code></td>
+<td>none of the tags in your group <code>fat</code> (sent to the site as <code>-a -b …</code>)</td>
+</tr>
+<tr>
+<td><code>favorited:yes</code></td>
+<td>your favorites (kept on this computer)</td>
+</tr>
+<tr>
+<td><code>rabbit eat relation</code></td>
+<td>rabbits eating what the relation index says rabbits eat</td>
+</tr>
+<tr>
+<td><code>@animal eat relation</code></td>
+<td>each animal in the group eating its own things</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Sites only take a flat list of tags with limits, so each search is <strong>planned</strong>
+(open "How this search runs" to see the plan):</p>
+<ul dir="auto">
+<li>Tags the site can take are sent to it, <strong>rarest first</strong> when there are more
+than its limit (e621: 40). The rest are checked here as posts load.</li>
+<li>One OR of plain tags goes as <code>~a ~b</code>. A bigger OR, like
+<code>(fox smile) | (wolf -sketch)</code>, runs as <strong>one search per side, merged newest
+first</strong>, with repeats dropped.</li>
+<li><strong>Old tag names</strong>: a tag sent to the site counts as on every post the site
+sends for it, since the site follows its own aliases (Safebooru answers
+<code>golden_eyes</code> with <code>amber_eyes</code> posts). Tags checked here are swapped for the
+site's current names first, on sites that can say (e621, Danbooru).</li>
+<li>Every post that comes back is checked against the <strong>whole</strong> search, so the
+results are exact whatever the site could take.</li>
+<li>A link's tags go to the site like plain tags (they're all on its post), and
+the link itself is checked here. Posts saved on this computer are checked
+first. A search with nothing to send the site (only <code>-links</code>) runs on saved
+posts alone.</li>
+<li>The first page asks for about what fits on screen, not the site's whole page
+(320 posts take e621 three times as long as 60), and the next page loads
+while you look, so scrolling doesn't wait.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Saved searches</h2><a id="saved-searches" class="anchor" aria-label="Permalink: Saved searches" href="#saved-searches"></a></div>
+<p dir="auto"><strong>☆ Save</strong> next to Search keeps the search with its sites and ratings, under a
+name. They're listed at the top of the tags panel: click one to run it, ✕
+then <strong>Delete</strong> to remove it. Each remembers the newest post it showed on
+every site, so the next run marks posts that came in since with <strong>NEW</strong> and
+counts them under the results.</p>
+<p dir="auto">Saved searches live in the encrypted vault like everything else. Deleting one
+removes it and its query from your search history, and the database runs with
+secure delete on, so deleted rows are overwritten rather than left in free
+space; the next save writes a vault without them.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Several sites at once</h2><a id="several-sites-at-once" class="anchor" aria-label="Permalink: Several sites at once" href="#several-sites-at-once"></a></div>
+<p dir="auto">Tick more than one site in the site menu and a search runs on all of them, at
+the same time, so it waits on the slowest site rather than each in turn.
+Results take turns between the sites, and a file that turns up on two sites
+(same MD5; Safebooru copies a lot of Danbooru) shows once.</p>
+<p dir="auto">Sites name things differently, so searches are written in <strong>your</strong> words and
+<strong>tag translations</strong> say what to search on each site instead. Open them from
+the site menu, or right-click a tag on a post → "Translate for other sites…".</p>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Your tag</th>
+<th>Site</th>
+<th>Search as</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>girl</code></td>
+<td>e926</td>
+<td><code>female</code></td>
+</tr>
+<tr>
+<td><code>girl</code></td>
+<td>Danbooru</td>
+<td><code>1girl | 2girls</code></td>
+</tr>
+<tr>
+<td><code>sketch</code></td>
+<td>Danbooru</td>
+<td><em>(empty: not on this site, left out there)</em></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">A translation can be any search without links. When several sites are picked
+and one sends nothing at all, the app checks that site's tag counts and says
+which tags it doesn't have, so you know where a translation is needed. Site aliases still
+apply after translating (e621 turns <code>wolf_ears</code> into <code>ears</code> on its own).</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Browsing</h2><a id="browsing" class="anchor" aria-label="Permalink: Browsing" href="#browsing"></a></div>
+<ul dir="auto">
+<li><strong>Keys</strong> (when you're not typing in a box): ← → move between posts, ↑ ↓ a
+row, Enter shows the selected post large, Esc goes back, F favorites, Z
+switches the large view between fit and full size.</li>
+<li><strong>Large view</strong>: double-click a thumbnail (or Enter, or "View large"). ◀ ▶
+go through the results and load more at the end; "Original" shows the full
+file instead of the site's sample.</li>
+<li><strong>GIFs and videos play in the large view.</strong> GIFs are decoded here, every
+frame. Videos (webm, mp4) are downloaded into memory, put in a RAM-only file
+that never touches the disk, and decoded by <code>ffmpeg</code> into frames the app
+draws, with sound (PulseAudio if running, else ALSA). Space pauses, M mutes,
+the bar seeks; videos loop. ffmpeg may only read that one file
+(<code>-protocol_whitelist file</code>), so a crafted video can't make it fetch
+anything. Needs <code>ffmpeg</code> installed; without it, "Open file" plays elsewhere.</li>
+<li><strong>Ticking posts</strong>: the box at a thumbnail's top right (or Ctrl+click) ticks
+it, and a bar above the results acts on every ticked post at once:
+<strong>↓ Download</strong> saves each full file to the folder you last saved to
+(Downloads/BetterSearch at first), <strong>♥ Favorite</strong> adds them all (♡ takes them
+back out), and <strong>Share</strong> opens the FerroOS share box. One file goes to it
+straight from memory; several are saved like Download first, since the box
+takes several only as files. Share only shows on FerroOS, where
+<code>/usr/local/bin/ferro-share</code> exists. Right-click and the post panel still
+have their own Save file….</li>
+<li><strong>Tags in the post panel</strong>: click to add one to the search, click again to
+take it out; − leaves it out. ✓ and ⊘ show what the search does with it.</li>
+<li><strong>Find similar</strong> (post panel): posts sharing the most <em>telling</em> tags with
+this one. Rare tags count for more than everyday ones, and the post's
+species or character is required, so a dog playing guitar finds dogs
+(playing guitar, or dressed alike), not anyone in a plaid shirt.
+<strong>Other versions</strong> asks e621's picture search for edits, crops and reposts
+of the same picture (e621/e926 only; Danbooru's needs an account).
+"Back to search" returns to your search.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Favorites</h2><a id="favorites" class="anchor" aria-label="Permalink: Favorites" href="#favorites"></a></div>
+<p dir="auto">♥ in the post panel (or F, or right-click a thumbnail) keeps a post in your
+favorites: in the encrypted vault, no account needed, with a copy of the post
+so it's there offline. ♥ next to Search shows them from every site;
+<code>favorited:yes fox</code> searches within them and <code>favorited:no</code> leaves them out.
+The site is never told.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">The tags panel</h2><a id="the-tags-panel" class="anchor" aria-label="Permalink: The tags panel" href="#the-tags-panel"></a></div>
+<p dir="auto">The panel on the left (☰ Tags) shows:</p>
+<ul dir="auto">
+<li><strong>In your search</strong>: your tags as chips. Click one to flip it from wanted
+(✓) to excluded (⊘) to gone.</li>
+<li><strong>In these posts</strong>: every tag on what's loaded, with a bar for how many
+posts have it. Click to search with it, − to exclude it. <strong>Hover a tag</strong> and
+the posts without it dim.</li>
+<li><strong>Your groups</strong>, <strong>links in these posts</strong>, <strong>your usual tags</strong> (from your
+history) and <strong>recent searches</strong>.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Relations: <code>rabbit eat relation</code></h2><a id="relations-rabbit-eat-relation" class="anchor" aria-label="Permalink: Relations: rabbit eat relation" href="#relations-rabbit-eat-relation"></a></div>
+<ul dir="auto">
+<li><code>rabbit eat</code> is plain tags: a rabbit eating anything, a steak included.</li>
+<li><code>rabbit eat relation</code> (also <code>rabbit relation eat</code>, <code>link</code> or <code>@relation</code> in
+place of <code>relation</code>) uses the <strong>relation index</strong>: rabbits eating what
+rabbits eat, searched as <code>rabbit eating ~carrot ~vegetable …</code>.</li>
+<li><code>@animal eat relation</code> pairs each animal in your group with <em>its own</em>
+things: dogs with what dogs eat, rabbits with carrots, never rabbits with
+bones.</li>
+</ul>
+<p dir="auto"><strong>The index fills itself.</strong> The first time you ask about a subject and verb,
+the app learns from how tags appear together on the site (e621/e926 by
+sampling random posts, Danbooru from its whole-site counts; ~15 s, once).
+A good answer is tied to <em>both</em>: carrot comes with rabbit far more than with
+posts in general, and comes with eating, directly or through the verb's big
+companions (eating → food). Rabbit ears are tied only to rabbit, plates only
+to eating; carrot is tied to both. The verb is looked up as the site tags it
+(<code>eat</code> → <code>eating</code>, <code>ride</code> → <code>riding</code>).</p>
+<p dir="auto">Ties are judged cautiously (from the low end of what a sample could mean),
+tags on 1% or more of the site are skipped as too broad, and when the verb
+has bridges an answer must come with one (eaten things come with food; a
+character's sweater seen at a few meals doesn't). On e926 that learns
+rabbit + eat → vegetable, carrot; horse + eat → apple, muffin; a stray tag
+or two still gets through. Dogs and cats learn little there: their eating
+posts don't share a clear food in a 640-post sample. So: often right,
+sometimes a stray, sometimes nothing. In the tags panel each
+one has ✓ keep and ✕ reject; rejected ones are never used or learned again,
+and relations you set up yourself count as kept. Groups &amp; relations lists the
+whole index with <strong>Learn again</strong>.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Links, groups and relations</h2><a id="links-groups-and-relations" class="anchor" aria-label="Permalink: Links, groups and relations" href="#links-groups-and-relations"></a></div>
+<p dir="auto">A <strong>link</strong> says how tags on a post go together: select a post, tick two or
+more of its tags, pick a link name and press <strong>Link</strong> (<code>relation: rabbit · eat · carrot</code>). Add your own tags to a post in "Your tags"; they count in
+searches like site tags.</p>
+<p dir="auto"><strong>Links fill themselves in.</strong> Once you've made a link, every post with the
+same tags gets it too, marked <em>filled in</em>, with ✓ to keep it or ✕ to say "not
+on this post" (it won't come back there). Turn this off in ⚙ Settings to get
+the links offered with a + instead.</p>
+<p dir="auto"><strong>Groups</strong> name a set of tags and <strong>relations</strong> say how tags go together
+everywhere, not just on one post. Open <em>Groups &amp; relations</em> from the tags
+panel, or right-click a tag → "Add to a group…":</p>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Set up</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>group <code>animal</code></td>
+<td>dog, rabbit</td>
+</tr>
+<tr>
+<td>group <code>object</code></td>
+<td>bone, carrot</td>
+</tr>
+<tr>
+<td>relation</td>
+<td>rabbit —eat→ carrot, dog —eat→ bone</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Search</th>
+<th>Finds</th>
+</tr>
+</thead>
+</table></markdown-accessiblity-table>
+<p dir="auto">| <code>@animal smile</code> | any animal, smiling (sent to the site as <code>~dog ~rabbit smile</code>) |
+| <code>eat[@animal @object]</code>, <code>eat[rabbit]</code> | posts with a link (made by you or filled in) between them |</p>
+<p dir="auto"><code>link</code> and <code>relation</code> only ask with a subject and verb around them, so
+<code>link zelda</code> is still the tag.</p>
+<p dir="auto">Under the hood the search becomes the links your relations allow
+(<code>rabbit eat</code> → <code>eat[carrot rabbit] | eat[lettuce rabbit]</code>; open "How this
+search runs" to see it). Pairs nothing relates are dropped, so the site is
+only asked about real pairs, one search each, merged newest first. Relations
+fill in under the site's own names too: e621 calls <code>dog</code> <code>domestic_dog</code>, and
+dog —holding→ guitar still fills in on those posts. Posts saved here merge in
+by age, so links using tags of your own still work.</p>
+<p dir="auto">A relation says the tags go together; it can't see the picture. <code>rabbit eat</code>
+finds rabbits with carrots. To insist on the act, add the site's tag:
+<code>rabbit eat eating</code>.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Posts without images</h2><a id="posts-without-images" class="anchor" aria-label="Permalink: Posts without images" href="#posts-without-images"></a></div>
+<p dir="auto">e621 leaves the images out, for people who aren't logged in, on posts with
+tags from its default blacklist (about one in eight explicit posts). Those
+are skipped in the grid and counted under it; ⚙ Settings can show them
+anyway. With your e621 username and API key in Settings, e621 sends them;
+<strong>Check logins</strong> there asks each site whether it accepts your login. With an
+API key but no login name, the name at the top of Settings is used.</p>
+<p dir="auto"><strong>Gelbooru's images.</strong> gelbooru.com's image servers serve the site itself only:
+an app asking for an image is redirected to its post list. The app sends the
+site as the <code>Referer</code> for its own image hosts, which is all it takes — the
+pictures show like anywhere else. (Only to <code>gelbooru.com</code> hosts; nothing else
+sees where a file came from.) Most Gelbooru posts are copies from Danbooru:
+with both ticked, the same file shows once.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Privacy: the vault</h2><a id="privacy-the-vault" class="anchor" aria-label="Permalink: Privacy: the vault" href="#privacy-the-vault"></a></div>
+<p dir="auto">Everything the app keeps (settings and logins, search history, links,
+groups, translations and the posts you've seen) lives in one encrypted file,
+<code>~/.local/share/bettersearch/vault.bin</code>. On start the app asks for your PIN,
+decrypts the file <strong>into memory only</strong>, and works on it there; it writes an
+encrypted copy back a second after your own changes, every 30 seconds while
+posts load, and on lock or exit. Nothing is written in the clear. Thumbnails
+are only ever in memory.</p>
+<ul dir="auto">
+<li>The key comes from your PIN with <strong>Argon2id</strong> (192 MiB, 3 passes, about a
+second per try); the data is sealed with <strong>XChaCha20-Poly1305</strong>, header
+included, so a wrong PIN or a changed byte is refused.</li>
+<li><strong>PINs are at least 6 characters.</strong> Each guess costs someone who copies
+<code>vault.bin</code> about a second of one processor core, so every 4-digit PIN fell
+in about 3 hours; every 6-digit one takes about 12 days (less with many
+cores). A few words, or a longer mix of letters and digits, holds out for
+years. A vault set up when 4 was enough still opens with its PIN, then asks
+for a new one before anything else. Change it any time in ⚙ Settings.</li>
+<li><strong>There's no recovery.</strong> Forget the PIN and the only way on is "Erase and
+start over" on the PIN screen.</li>
+<li>⚙ Settings has <strong>Lock now</strong> and <strong>Clear search history</strong>. Deleting (a saved
+search, history, a link) overwrites the data inside the database, and each
+unlock compacts it, so nothing deleted is carried into the next vault.</li>
+<li><strong>One file.</strong> <code>vault.bin</code> is the only thing the app writes in normal use.
+SQLite's temporary files, sorts and <code>VACUUM</code> copy are <code>MEMORY</code>; thumbnails,
+video playback (a <code>memfd</code>) and the local API's image cache never leave RAM.
+Setting the local API up may write one more file, <code>api.json</code>, holding only
+the port and its bearer token so another program can find it — no history,
+no view data, no account; it's removed when the API is switched off.</li>
+<li>Data from before the vault (<code>bettersearch.db</code>, <code>settings.json</code>) is moved in
+on first run and the plain files are deleted once the vault reads back.
+Deleting doesn't scrub the disk, so old copies may linger in free space.</li>
+<li><strong>Closing wipes what's readable.</strong> The vault key, logins, API keys, the token
+and the cookie jar are zeroed on the way out, and SQLite's own memory is
+zeroed as it's freed. Post text and thumbnails are simply dropped; the
+kernel clears pages before another program gets them, but swap keeps copies
+until it is reused, so a hibernate still writes RAM to disk.</li>
+<li><strong>Locking clears the database from memory.</strong> SQLite's memory (the database
+itself, its page cache, the copies made for saving) is zeroed as it's freed,
+and so is every decrypted or serialized copy of the vault, so locking or
+quitting doesn't leave it in freed memory for something else to read.
+SQLite's working space (sorting, compacting) stays in memory, never in
+temporary files. What the window is showing (posts, tags, text you typed) is
+ordinary memory and isn't wiped.</li>
+<li>While unlocked, the data is in the app's memory like any open document; the
+system could page it to swap.</li>
+</ul>
+<p dir="auto">What leaves the computer: searches, autocomplete words and image requests go
+to the sites you tick, over https. Your name (from Settings) goes only to
+e621/e926, which ask for it in the User-Agent; other sites get the app's name
+alone. Logins go to their own site only (e621 and Danbooru in the request
+header; Gelbooru's API wants them in the address, so network errors are shown
+without addresses). Downloads are https-only, refuse redirects to plain http,
+and stop at 400 MB. Links opened in the browser must be web links. Nothing
+else is sent anywhere.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Layout</h2><a id="layout" class="anchor" aria-label="Permalink: Layout" href="#layout"></a></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="crates/core   bettersearch-core: no GUI, reusable
+  query.rs      the search language: parser, evaluator
+  plan.rs       turns a search into site queries plus a local check
+  search.rs     runs a plan on one site: translations, aliases, paging, filtering
+  multi.rs      several sites together: takes turns, drops repeats by MD5
+  sites/        one adapter per API family: e621/e926, Danbooru 2, Gelbooru 0.2 (Safebooru, gelbooru.com)
+  taggraph/     tags, votes, links, aliases (Rust port of taggraph/)
+  wipe.rs       SQLite's memory, zeroed as it's freed
+  store.rs      the SQLite database: graph, post cache, history, groups, relations,
+                favorites, saved searches, the relation index
+  learn.rs      learns relations from how tags appear together
+  similar.rs    posts sharing a post's most telling tags
+crates/app    bettersearch: the egui window
+  lock.rs       PIN screen and the saver
+  vault.rs      the encrypted file (Argon2id + XChaCha20-Poly1305)
+  media.rs      GIF and video playback (ffmpeg, from memory)
+  tags_panel.rs the tags panel
+  groups.rs     the Groups &amp; relations window
+taggraph/     the original TypeScript module from the website"><pre class="notranslate"><code>crates/core   bettersearch-core: no GUI, reusable
+  query.rs      the search language: parser, evaluator
+  plan.rs       turns a search into site queries plus a local check
+  search.rs     runs a plan on one site: translations, aliases, paging, filtering
+  multi.rs      several sites together: takes turns, drops repeats by MD5
+  sites/        one adapter per API family: e621/e926, Danbooru 2, Gelbooru 0.2 (Safebooru, gelbooru.com)
+  taggraph/     tags, votes, links, aliases (Rust port of taggraph/)
+  wipe.rs       SQLite's memory, zeroed as it's freed
+  store.rs      the SQLite database: graph, post cache, history, groups, relations,
+                favorites, saved searches, the relation index
+  learn.rs      learns relations from how tags appear together
+  similar.rs    posts sharing a post's most telling tags
+crates/app    bettersearch: the egui window
+  lock.rs       PIN screen and the saver
+  vault.rs      the encrypted file (Argon2id + XChaCha20-Poly1305)
+  media.rs      GIF and video playback (ffmpeg, from memory)
+  tags_panel.rs the tags panel
+  groups.rs     the Groups &amp; relations window
+taggraph/     the original TypeScript module from the website
+</code></pre></div>
+<p dir="auto"><code>taggraph/</code> is the module from the website, kept for reference. The Rust port
+keeps its schema, aliases, rename/merge and link votes, and drops what only a
+public site needs (rate limits, blocking, adult flags; the rating filter does
+that job here). Tag names use booru form (<code>long_hair</code>, not <code>long hair</code>).
+Votes still record who made them, so a shared graph could sync later.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="cargo test --workspace                     # 82 tests (63 core + 19 app); two use ffmpeg if installed, one live test is --ignored
+cargo run -p bettersearch-core --example live -- &quot;fox (smile | grin) -sketch&quot;   # live, against e926
+cargo run -p bettersearch-core --example live -- &quot;fox_ears (smile | blush)&quot; safebooru
+cargo run -p bettersearch-core --example live -- &quot;fox_ears smile -hat&quot; danbooru
+TRANSLATE=&quot;e926:fox_ears=fox&quot; cargo run -p bettersearch-core --example live -- &quot;fox_ears smile&quot; e926,safebooru,danbooru
+cargo run -p bettersearch-core --example live -- &quot;rabbit eat relation&quot;   # learns, prints the index
+SIMILAR=6819203 cargo run -p bettersearch-core --example live -- x          # posts like #6819203
+TAG_GROUPS=&quot;animal:fox,wolf;object:sword,guitar&quot; RELATIONS=&quot;holding:fox,sword;holding:wolf,guitar&quot; \
+  cargo run -p bettersearch-core --example live -- &quot;@animal holding @object&quot;"><pre>cargo <span class="pl-c1">test</span> --workspace                     <span class="pl-c"><span class="pl-c">#</span> 82 tests (63 core + 19 app); two use ffmpeg if installed, one live test is --ignored</span>
+cargo run -p bettersearch-core --example live -- <span class="pl-s"><span class="pl-pds">"</span>fox (smile | grin) -sketch<span class="pl-pds">"</span></span>   <span class="pl-c"><span class="pl-c">#</span> live, against e926</span>
+cargo run -p bettersearch-core --example live -- <span class="pl-s"><span class="pl-pds">"</span>fox_ears (smile | blush)<span class="pl-pds">"</span></span> safebooru
+cargo run -p bettersearch-core --example live -- <span class="pl-s"><span class="pl-pds">"</span>fox_ears smile -hat<span class="pl-pds">"</span></span> danbooru
+TRANSLATE=<span class="pl-s"><span class="pl-pds">"</span>e926:fox_ears=fox<span class="pl-pds">"</span></span> cargo run -p bettersearch-core --example live -- <span class="pl-s"><span class="pl-pds">"</span>fox_ears smile<span class="pl-pds">"</span></span> e926,safebooru,danbooru
+cargo run -p bettersearch-core --example live -- <span class="pl-s"><span class="pl-pds">"</span>rabbit eat relation<span class="pl-pds">"</span></span>   <span class="pl-c"><span class="pl-c">#</span> learns, prints the index</span>
+SIMILAR=6819203 cargo run -p bettersearch-core --example live -- x          <span class="pl-c"><span class="pl-c">#</span> posts like #6819203</span>
+TAG_GROUPS=<span class="pl-s"><span class="pl-pds">"</span>animal:fox,wolf;object:sword,guitar<span class="pl-pds">"</span></span> RELATIONS=<span class="pl-s"><span class="pl-pds">"</span>holding:fox,sword;holding:wolf,guitar<span class="pl-pds">"</span></span> \
+  cargo run -p bettersearch-core --example live -- <span class="pl-s"><span class="pl-pds">"</span>@animal holding @object<span class="pl-pds">"</span></span></pre></div>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Adding a site</h2><a id="adding-a-site" class="anchor" aria-label="Permalink: Adding a site" href="#adding-a-site"></a></div>
+<p dir="auto">Implement <code>sites::Site</code> (search with a cursor, tag counts, aliases,
+autocomplete, image fetch) and say what its search box can take in
+<code>Capabilities</code> (including metatags that don't count toward its tag limit). The planner and the window need nothing else. Next up:</p>
+<ul dir="auto">
+<li>Moebooru (Konachan, yande.re), more Danbooru and Gelbooru 0.2 sites</li>
+<li>blacklists with conditions</li>
+<li>thumbnails cached on disk (encrypted, like everything else)</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Licence</h2><a id="licence" class="anchor" aria-label="Permalink: Licence" href="#licence"></a></div>
+<p dir="auto">MIT, see <a href="https://github.com/anti-ghostsec/BetterSearch/blob/main/LICENSE">LICENSE</a>.</p>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/BetterSearch">BetterSearch on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

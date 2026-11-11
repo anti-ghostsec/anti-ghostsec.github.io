@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FerroOS: privacy-first hardened Linux with a Windows 95 desktop</title>
+<meta name="description" content="A hardened, privacy-first Linux with an authentic Windows 95 desktop: full-disk encryption, a duress PIN, Tor built in, and Steam/Proton on a lean Debian…">
+<meta name="keywords" content="privacy linux distro, windows 95 linux, hardened debian, duress pin, full disk encryption, tor, steam proton">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/ferroos/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="FerroOS: privacy-first hardened Linux with a Windows 95 desktop">
+<meta property="og:description" content="A hardened, privacy-first Linux with an authentic Windows 95 desktop: full-disk encryption, a duress PIN, Tor built in, and Steam/Proton on a lean Debian…">
+<meta property="og:url" content="https://anti-ghostsec.github.io/ferroos/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FerroOS: privacy-first hardened Linux with a Windows 95 desktop">
+<meta name="twitter:description" content="A hardened, privacy-first Linux with an authentic Windows 95 desktop: full-disk encryption, a duress PIN, Tor built in, and Steam/Proton on a lean Debian…">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "FerroOS", "description": "A hardened, privacy-first Linux with an authentic Windows 95 desktop: full-disk encryption, a duress PIN, Tor built in, and Steam/Proton on a lean Debian base.", "url": "https://anti-ghostsec.github.io/ferroos/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Linux", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/FerroOS"], "screenshot": "https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png", "softwareVersion": "v1.0.74", "downloadUrl": "https://github.com/anti-ghostsec/FerroOS/releases/latest", "@id": "https://anti-ghostsec.github.io/ferroos/#app"}, {"@type": "SoftwareSourceCode", "name": "FerroOS", "codeRepository": "https://github.com/anti-ghostsec/FerroOS", "programmingLanguage": "Rust", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/ferroos/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "FerroOS", "item": "https://anti-ghostsec.github.io/ferroos/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › FerroOS</p>
+<section class="hero" style="padding-top:12px">
+<h1>⭐ FerroOS: privacy-first hardened Linux with a Windows 95 desktop</h1>
+<p>A hardened, privacy-first Linux with an authentic Windows 95 desktop: full-disk encryption, a duress PIN, Tor built in, and Steam/Proton on a lean Debian base.</p>
+<div class="facts"><span class="chip">Rust</span><span class="chip">Apache-2.0</span><span class="chip">Latest: v1.0.74</span><span class="chip">Updated 2026-11-10</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/FerroOS">View source on GitHub</a><a class="btn" href="https://github.com/anti-ghostsec/FerroOS/releases/latest">Download</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text">
+<p dir="auto">A hardened, privacy-first operating system pairing an authentic Windows 95 desktop experience with the full power of modern Linux. Idling at an <strong>ultra-lean memory footprint</strong>, it runs native 3D games through Steam and Proton, NVIDIA/CUDA computing, and the complete Debian software ecosystem while enforcing uncompromising privacy by default: hardware kill switches in the system tray, per-app RAM limits, Landlock sandboxing, full-disk LUKS2 Argon2id encryption, duress self-destruct, and runtime physical memory scrubbing.</p>
+<p dir="auto"><a target="_blank" rel="noopener noreferrer" href="https://github.com/anti-ghostsec/FerroOS/blob/ferro-os/docs/screenshots/heavy-desktop.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png" alt="FerroOS Heavy Desktop" style="max-width: 100%;"></a></p>
+<blockquote>
+<p dir="auto"><strong>Heads up:</strong> FerroOS is an independent privacy and systems engineering project. While built with defense-in-depth principles, it has not undergone formal third-party cryptographic auditing. For life-critical threat models, consider established systems such as Tails or Whonix.</p>
+</blockquote>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Heavy vs. Lite: Two Editions, One Vision</h2><a id="heavy-vs-lite-two-editions-one-vision" class="anchor" aria-label="Permalink: Heavy vs. Lite: Two Editions, One Vision" href="#heavy-vs-lite-two-editions-one-vision"></a></div>
+<p dir="auto">FerroOS is built from a unified codebase in two distinct editions tailored for different hardware targets:</p>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Feature / Metric</th>
+<th>FerroOS Heavy <em>(Primary Edition)</em></th>
+<th>FerroOS Lite <em>(Embedded Companion)</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primary Focus</strong></td>
+<td>Daily workstation, gaming, privacy, full Linux apps</td>
+<td>Minimal footprint, air-gapped / embedded devices</td>
+</tr>
+<tr>
+<td><strong>Base System</strong></td>
+<td>Hardened Debian stable minbase</td>
+<td>Custom Linux kernel + static Rust userspace (<code>ferro</code>)</td>
+</tr>
+<tr>
+<td><strong>Idle RAM Footprint</strong></td>
+<td><strong>Ultra-Lean</strong></td>
+<td><strong>~29 MB</strong> (target &lt; 50 MB)</td>
+</tr>
+<tr>
+<td><strong>Display Server</strong></td>
+<td>Xorg with lean <code>ferro-wm</code> (no compositor unless <em>Smooth drawing</em> is ticked)</td>
+<td>Direct Linux DRM/KMS software framebuffer (<code>ferro-shell</code>)</td>
+</tr>
+<tr>
+<td><strong>Hardware Graphics</strong></td>
+<td>Intel Gen1–14, AMD Radeon, NVIDIA nouveau/proprietary, UEFI GOP</td>
+<td>bochs, virtio-gpu, standard KMS modesetting</td>
+</tr>
+<tr>
+<td><strong>3D &amp; Gaming</strong></td>
+<td>Native Vulkan, OpenGL, Steam/Proton, Mesa 3D</td>
+<td>Isolated Debian glibc container</td>
+</tr>
+<tr>
+<td><strong>Compute &amp; AI</strong></td>
+<td>On-demand NVIDIA driver &amp; CUDA, Python toolchain for PyTorch / llama.cpp</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Storage Encryption</strong></td>
+<td>Full-disk LUKS2 (Argon2id PBKDF), no swap</td>
+<td>Custom Argon2id + XChaCha20-Poly1305 encrypted vault</td>
+</tr>
+<tr>
+<td><strong>Boot Architecture</strong></td>
+<td>Microsoft-signed shim + Debian signed GRUB &amp; kernel</td>
+<td>Microsoft-signed shim + unified kernel image</td>
+</tr>
+<tr>
+<td><strong>Secure Boot</strong></td>
+<td>Out-of-the-box (UEFI Secure Boot enabled)</td>
+<td>MOK enrollment (<code>ferro-mok.der</code>)</td>
+</tr>
+<tr>
+<td><strong>Anti-Forensics</strong></td>
+<td>Never sleeps (keys never left in a sleeping machine), runtime memory scrubbing</td>
+<td>Amnesic RAM-only mode, cold-boot page zeroing</td>
+</tr>
+<tr>
+<td><strong>Duress Self-Destruct</strong></td>
+<td>Anti-coercion PIN nukes LUKS2 headers &amp; keyslots</td>
+<td>Duress PIN nukes vault header &amp; crypto keyslots</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Download &amp; Installation</h2><a id="download--installation" class="anchor" aria-label="Permalink: Download &amp; Installation" href="#download--installation"></a></div>
+<p dir="auto">Prebuilt hybrid ISO images are generated automatically via GitHub Actions:</p>
+<ol dir="auto">
+<li>Download <strong><code>ferroos-heavy.iso</code></strong> (and its <code>.sha256</code>) from the project's <a href="https://github.com/anti-ghostsec/FerroOS/releases">GitHub Releases</a>. Lite isn't published there; build it yourself with <code>cargo xtask iso</code> (see <a href="#building-from-source">Building from Source</a>).</li>
+<li>Flash the ISO to a USB flash drive using:
+<ul dir="auto">
+<li><strong><a href="https://rufus.ie" rel="nofollow">Rufus</a></strong>: Select <strong>DD Image Mode</strong> when prompted (ensures all installer partition tables are preserved).</li>
+<li><strong><a href="https://etcher.balena.io" rel="nofollow">balenaEtcher</a></strong>: Select image and flash directly.</li>
+<li><strong>Linux / macOS</strong>: <code>sudo dd if=ferroos-heavy.iso of=/dev/sdX bs=4M status=progress conv=fsync</code></li>
+</ul>
+</li>
+<li>Boot your target PC:
+<ul dir="auto">
+<li><strong>UEFI Secure Boot</strong>: Supported out of the box with standard Microsoft-signed shim keys.</li>
+<li><strong>Legacy BIOS</strong>: Fully supported with hybrid MBR/GPT partitioning.</li>
+</ul>
+</li>
+<li>The stick starts a <strong>live session</strong>: the system runs from the stick, every change is kept only in RAM, and nothing is written to the PC's own drives.</li>
+<li>To install, open <strong>Install FerroOS Heavy</strong> from the live session's Start menu. It runs <code>ferro-setup</code>, which installs to an internal SSD/HDD with optional full-disk LUKS2 encryption.</li>
+</ol>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Desktop Experience</h2><a id="desktop-experience" class="anchor" aria-label="Permalink: Desktop Experience" href="#desktop-experience"></a></div>
+<p dir="auto">FerroOS Heavy delivers a responsive, nostalgic Windows 95 user interface designed for modern productivity without desktop environment bloat:</p>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/anti-ghostsec/FerroOS/blob/ferro-os/docs/screenshots/heavy-start-menu.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-start-menu.png" alt="Start Menu" style="max-width: 100%;"></a></td>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/anti-ghostsec/FerroOS/blob/ferro-os/docs/screenshots/heavy-files-and-prompt.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-files-and-prompt.png" alt="Files and Prompt" style="max-width: 100%;"></a></td>
+</tr>
+<tr>
+<td><em>Authentic Windows 95 Start menu with cascading flyouts</em></td>
+<td><em>File Manager in Details view, sorted by size, beside the green Command Prompt</em></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/anti-ghostsec/FerroOS/blob/ferro-os/docs/screenshots/heavy-taskmgr.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-taskmgr.png" alt="Task Manager" style="max-width: 100%;"></a></td>
+<td><a target="_blank" rel="noopener noreferrer" href="https://github.com/anti-ghostsec/FerroOS/blob/ferro-os/docs/screenshots/heavy-window-manager.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-window-manager.png" alt="Display Properties" style="max-width: 100%;"></a></td>
+</tr>
+<tr>
+<td><em>Task Manager's process tree, with each process's owner and RAM budget</em></td>
+<td><em>Display Properties CRT preview and window management</em></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Authentic Windows 95 Start Menu</h3><a id="authentic-windows-95-start-menu" class="anchor" aria-label="Permalink: Authentic Windows 95 Start Menu" href="#authentic-windows-95-start-menu"></a></div>
+<ul dir="auto">
+<li>Dark embossed vertical banner ("FerroOS") and generous 34px item heights with crisp retro icons.</li>
+<li><strong>XDG Desktop Categorization</strong>: Automatically categorizes standard desktop applications into classic cascading flyouts (<em>Accessories</em>, <em>Internet</em>, <em>Multimedia</em>, <em>System Tools</em>, <em>Development</em>, <em>Games</em>).</li>
+<li><strong>Multi-Column Horizontal Overflow</strong>: When a flyout or right-click menu is taller than the screen, its items split into side-by-side columns (authentic Windows 95 multi-column layout).</li>
+<li><strong>Type to Search</strong>: Start typing with the Start menu open to find a program.</li>
+<li><strong>Instant Response &amp; Zero-I/O Caching</strong>: Desktop entries are indexed and cached in memory, so the menu opens without reading the disk.</li>
+<li><strong>Visual Polish</strong>: 3D etched dividers, crisp raster icons (32x32 on the Start menu, 16x16 in flyouts), and classic flyout hover indicators.</li>
+<li><strong>Application Context Menus &amp; Uninstall</strong>: Right-click any application in the Start Menu or Programs submenu to <strong>Open</strong>, <strong>Pin to Taskbar</strong>, <strong>Create Desktop Shortcut</strong>, <strong>Hide from Start menu</strong> (and <em>Show Hidden</em> to bring them back), <strong>Properties</strong>, or <strong>Uninstall...</strong>, which opens a window showing what apt would remove and then runs <code>sudo apt-get remove</code> for the program's package (<code>ferro-uninstall</code>).</li>
+<li>Quick shortcuts for <em>Programs</em>, <em>Documents</em>, <em>My Computer</em>, <em>Settings</em>, <em>Help</em>, <em>Run...</em> (opens Command Prompt), <em>Log Off...</em>, <em>Restart...</em>, and <em>Shut Down...</em>.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Clean Desktop &amp; Dynamic Filesystem Sync</h3><a id="clean-desktop--dynamic-filesystem-sync" class="anchor" aria-label="Permalink: Clean Desktop &amp; Dynamic Filesystem Sync" href="#clean-desktop--dynamic-filesystem-sync"></a></div>
+<ul dir="auto">
+<li><strong>Arranged Desktop Surface</strong>: By default, <strong>Recycle Bin</strong> sits at the top <code>(20, 20)</code>, <strong>My Computer</strong> (system explorer and drive viewer) underneath <code>(20, 96)</code>, <strong>Wisp</strong> (FerroOS's own privacy web browser) at <code>(20, 172)</code>, and <strong>Command Prompt</strong> (CRT green terminal) at <code>(20, 248)</code>.</li>
+<li><strong>Live <code>~/Desktop</code> Sync</strong>: Any files, folders, or <code>.desktop</code> shortcuts created via the shell, terminal, or GUI appear on the desktop automatically.</li>
+<li><strong>Movable Icons &amp; Persistence</strong>: Drag icons freely across the desktop surface; custom positions persist across reboots in <code>~/.config/ferro/desktop.conf</code>. Deleting a preinstalled shortcut permanently hides it.</li>
+<li><strong>Hover Highlights &amp; Selection</strong>: Mousing over desktop shortcuts renders authentic Windows 95 focus outlines with drop-shadowed labels.</li>
+<li><strong>Desktop Icon Organization &amp; Windows 11 Context Menu</strong>:
+<ul dir="auto">
+<li>Right-click desktop context menu:
+<ul dir="auto">
+<li><strong>View</strong>: Toggle <strong>Auto arrange icons</strong> and <strong>Align icons to grid</strong> (persisted across reboots in <code>~/.config/ferro/desktop.conf</code>).</li>
+<li><strong>Arrange by Name</strong> / <strong>Arrange by Type</strong>.</li>
+<li><strong>Refresh</strong>: Instantly syncs and redraws desktop items from disk.</li>
+<li><strong>Paste</strong>: When something has been cut or copied.</li>
+<li><strong>New</strong>: Create <em>Folder</em>, <em>Text Document</em>, or <em>Terminal Shortcut</em> directly on the desktop.</li>
+<li><strong>Open in Terminal</strong>: Opens Command Prompt in <code>~/Desktop</code>.</li>
+<li><strong>Task Manager</strong>: Direct shortcut to Task Manager.</li>
+<li><strong>Restart Desktop</strong>: Restarts the desktop and taskbar without logging off.</li>
+<li><strong>Properties</strong>: Opens Display Properties (<code>ferro-appearance</code>).</li>
+</ul>
+</li>
+<li>Right-click desktop items: <em>Open</em>, <em>Pin to taskbar</em>, <em>Cut</em>, <em>Copy</em>, <em>Rename</em> (inline), <em>Delete</em>, and <em>Properties</em>. Delete moves files and folders to the Recycle Bin (<code>~/.local/share/Trash</code>); shortcuts are removed outright, and files on removable drives are deleted through the File Manager. The Recycle Bin itself offers <em>Open</em>, <em>Empty Recycle Bin</em> and <em>Properties</em>.</li>
+</ul>
+</li>
+<li><strong>Silky Smooth 60+ FPS Motion Pipeline</strong>: Desktop and window movements utilize dirty-rectangle buffering, motion event compression, and deferred client IPC to ensure stutter-free, silky smooth dragging without low-FPS jumps.</li>
+<li><strong>Desktop Hotkeys</strong>: Select any desktop item and press <code>Delete</code> to remove it, <code>Enter</code> to open or run it, or <code>F2</code> to rename it inline. <code>Ctrl+A</code> selects everything, <code>Ctrl+X</code> / <code>Ctrl+C</code> / <code>Ctrl+V</code> cut, copy and paste, and <code>F5</code> refreshes.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">"My Computer" Drive Explorer &amp; Universal Storage Automounting</h3><a id="my-computer-drive-explorer--universal-storage-automounting" class="anchor" aria-label="Permalink: &quot;My Computer&quot; Drive Explorer &amp; Universal Storage Automounting" href="#my-computer-drive-explorer--universal-storage-automounting"></a></div>
+<ul dir="auto">
+<li><strong>My Computer Top-Level View (<code>ferro-files</code>)</strong>: Accessible from the desktop "My Computer" icon, the Start Menu, or by navigating "Up" from the root of any drive. Displays every mounted drive with a letter and authentic Windows 95 drive icons: the drive's own label when it has one, otherwise <code>Local Disk</code>, <code>Removable Disk</code> or <code>CD-ROM Drive</code>, with its size (e.g. <code>Local Disk 500G (C:)</code>). Open VeraCrypt volumes show as <code>VeraCrypt Volume</code>.</li>
+<li><strong>Side Folder Tree</strong>: My Computer, your Desktop/Documents/Downloads/Pictures/Music/Videos folders, the same drives and the Recycle Bin are listed down the left side; files can be dropped onto any of them (hold <code>Ctrl</code> to copy instead of move). Files dropped on a folder in another File Manager window go into that folder.</li>
+<li><strong>Dynamic Drive Discovery</strong>: Drives come from <code>lsblk</code> (internal HDDs, SATA/NVMe SSDs, USB flash drives, SD cards, mounted disk images); network shares come from <code>/proc/mounts</code>.</li>
+<li><strong>Universal Storage Automounting</strong>:
+<ul dir="auto">
+<li>Automatically mounts connected and hotplugged drives to <code>/media/$USER/&lt;Label&gt;</code> using <code>ferro-automount</code> and <code>udisks2</code>.</li>
+<li>Polkit storage rule (<code>/etc/polkit-1/rules.d/60-ferro-storage.rules</code>) allows passwordless storage mounting for local users.</li>
+<li>Kernel and userspace drivers for NTFS (<code>ntfs-3g</code>) and exFAT (<code>exfatprogs</code>).</li>
+<li><strong>Phones and tablets</strong> (USB, <em>File transfer</em>) open by themselves in My Computer, with a phone icon: <code>ferro-automount</code> mounts each with <code>aft-mtp-mount</code> under <code>/run/user/&lt;you&gt;/Phones/&lt;name&gt;</code>. Files are read from the phone as they're copied, not first copied whole into memory (as <code>jmtpfs</code> did). Unplugged or plugged in again, the old mount is taken down at once (<code>fusermount -uz</code>), so nothing is left hanging on a connection that's gone. A locked phone, or one not set to File transfer, is tried again until it opens, and a notification says what to do.</li>
+<li>Folders on a phone are read on their own thread: the window keeps working, and a phone that stops answering is reported after 45 seconds instead of freezing it. Copies show their progress in the status bar with a <strong>Cancel</strong> button (or <code>Esc</code>); a cancelled copy leaves no half file, and a cancelled move leaves the originals in place.</li>
+</ul>
+</li>
+<li><strong>Make comics (CBZ)</strong>, off by default: turn on <em>View → Show 'Add to CBZ'</em> (right-click an empty spot) and right-click a folder for <strong>Add folder to CBZ</strong>, or select several pictures for <strong>Add selection to CBZ</strong>. The pictures are stored in reading order (<code>p2</code> before <code>p10</code>), with no paths or file details, in a new <code>.cbz</code> beside them; nothing is overwritten.</li>
+<li><strong>Hierarchical Drive Navigation</strong>: Seamless two-way folder navigation: double-clicking any drive letter enters its root folder, and clicking "Up" at the drive root brings you back to the "My Computer" drives overview.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Preinstalled Privacy &amp; Media Applications (Heavy)</h3><a id="preinstalled-privacy--media-applications-heavy" class="anchor" aria-label="Permalink: Preinstalled Privacy &amp; Media Applications (Heavy)" href="#preinstalled-privacy--media-applications-heavy"></a></div>
+<ul dir="auto">
+<li><strong>Wisp</strong>: FerroOS's own privacy web browser (<a href="https://github.com/anti-ghostsec/wisp">anti-ghostsec/wisp</a>), built on WebKitGTK. A private session by default (cookies, cache and history never touch the disk), HTTPS-only, tracking parameters stripped, third-party cookies blocked, WebGL and WebRTC off, and plugins for ad and tracker blocking (EasyList, EasyPrivacy, ~110k rules), fingerprint shielding, cookie-banner hiding, dark mode, end-to-end-encrypted bookmarks and passwords, and VidGrab (video downloads with yt-dlp; ffmpeg is preinstalled for HD and MP3). Each update also brings Wisp up to its newest build from its own releases (<code>ferro-wisp-update</code>), so Wisp is as new as Wisp, not as the last FerroOS release; the installed copy stays when there's no newer build, the download doesn't check out, or the build needs libraries the system hasn't got yet.</li>
+<li><strong>Video Player (<code>ferro-video</code>)</strong>: mpv with FerroOS's settings and a light Windows 95-style control bar (grey bevelled Play/Pause, Stop, Previous/Next, Loop, A-B, volume and Full screen buttons, a classic timeline slider with the time beside it, and a matching right-click menu; nothing is drawn while the bar is hidden). It starts silent and loops, Left/Right go to the folder's other videos, the timeline shows a picture of where you point, and Delete moves a video to the Recycle Bin. It runs inside <code>ferro-jail</code>: a booby-trapped video can't reach the internet, start other programs or change files (the player can only move videos from the folder it's playing to the Recycle Bin). Plays music too. Hardware video decoding (VA-API/VDPAU/CUDA) with <code>ferro-heavy drivers</code>.</li>
+<li><strong>Image Viewer (<code>ferro-viewer</code>)</strong>: FerroOS's own viewer for PNG, JPEG, BMP, WebP, animated GIF/WebP and <code>.cbz</code> comics (read page by page in memory, never unpacked to disk), with zoom, pan, slideshow, the folder's other pictures and Delete. Right-drag (or Ctrl+drag) a box to zoom into it. A comic's pages are resized smoothly and sharpened a little when enlarged, so small lettering stays clear on a big screen (a page shows at once and turns smooth a moment later); <strong>T</strong> switches to plain pixels. Other pictures are drawn pixel for pixel, so a photo's finest detail (stars in a night sky) isn't smoothed away. <strong>Edit</strong> (E) lets you drag a box to crop or black out (for privacy), with undo; <strong>Save As</strong> writes a new picture beside the original, re-encoded from its pixels so no EXIF or GPS details go with it. Sandboxed the same way (seccomp, no network, Landlock).</li>
+<li><strong>Archive (<code>ferro-archive</code>)</strong>: opens <code>.zip</code>, <code>.7z</code> and <code>.rar</code> (RAR 4 and RAR 5 too) and makes <code>.7z</code> (the default) and <code>.zip</code>, with nothing to install: the code is pure Rust and built in (<code>zip</code>, <code>sevenz-rust2</code>, and <code>rars</code> for RAR, which is written from the RAR format's description under Apache-2.0, not RARLAB's non-free unrar source). An archive split into several files opens from any one of them, with the rest in the same folder: RAR volumes under both ways of naming them (<code>name.part1.rar</code>, <code>name.part2.rar</code>..., and <code>name.rar</code>, <code>name.r00</code>, <code>name.r01</code>...), with or without a password, and archives cut into numbered pieces (<code>name.7z.001</code>, <code>name.zip.001</code>, <code>name.rar.001</code>...); a part that's missing is named. (A zip spanned the old way, <code>.z01</code>, <code>.z02</code>, <code>.zip</code>, isn't opened.) Lists name, size, packed size and date; <strong>Extract all...</strong>, <strong>Extract selected...</strong> (Ctrl/Shift-click to pick) and <strong>Extract here</strong>, with a progress bar and Cancel for big archives; double-click a file to open it. <strong>Add to archive...</strong> (also on File Explorer's right-click menu) picks files and folders in a Windows 95 style picker (Ctrl/Shift-click for more) and adds them to the open 7z or zip, or makes a new 7z or zip. Adding never changes the archive in place: a new one is written beside it (a zip's old entries copied as they are, a 7z's streamed through again, never on disk) and renamed over it when whole; a RAR is never changed. New archives: Store, Normal or Maximum (LZMA2 for 7z), and an optional password: AES-256, with the file names encrypted too in 7z (zip's AES leaves names readable; the old ZipCrypto is never used). New archives hold only names, contents, last-changed times and rwx bits: no owner or user names, no other times. Links aren't put in.
+<ul dir="auto">
+<li>Safe with archives made to do harm: nothing is written outside the folder chosen (<code>..</code>, absolute paths and drive letters are skipped, files are never written through a symbolic link, and links are only made pointing inside), nothing already there is replaced, and unpacking stops at the free space on the drive, at 1000 times the archive's size past the first GB, at a decoder wanting over 1 GB of memory, or at an entry giving more than it says it holds (zip bombs). Password-protected archives (ZIP's ZipCrypto and AES, 7z's AES with or without its names encrypted, RAR's AES) ask for the password, and say when it's wrong.</li>
+<li>Private: nothing is written but what you ask for. Listing reads only the archive's index; extracting and making stream a piece at a time (never a whole archive in memory), into hidden part-files in the destination that get their names only when whole and are removed on Cancel or an error; nothing goes to <code>/tmp</code> or <code>~/.cache</code>. A file opened from an archive is unpacked into a private folder in memory (<code>$XDG_RUNTIME_DIR</code>, readable only by you), removed when the window closes; programs and shortcuts inside an archive aren't opened, only extracted. Passwords live only in memory and are wiped when done with; there's no history or recent-files list (only the format and level last chosen are kept, in <code>~/.config/ferro/archive.conf</code>), and no file names go to logs.</li>
+<li>Sandboxed like the Image Viewer (seccomp, no network, Landlock: it can't start programs). Opening a file from an archive goes through a small helper started before the sandbox closes, which only opens files in that private folder.</li>
+</ul>
+</li>
+<li><strong>Folio</strong>: FerroOS's own calm, private text editor for writing and code (<a href="https://github.com/anti-ghostsec/folio">github.com/anti-ghostsec/folio</a>); like Wisp, each update brings it to its newest signed build (<code>ferro-folio-update</code>).</li>
+<li><strong>Leaflet</strong>: FerroOS's own light, private app for PDFs and documents (<a href="https://github.com/anti-ghostsec/leaflet">github.com/anti-ghostsec/leaflet</a>): read PDFs, fill in forms, highlight, add notes, turn, delete, reorder and join pages; open DOCX, ODT and RTF, fix them, and save as DOCX or ODT or export a PDF. It has no way to the internet (a private <code>leaflet://</code> scheme, a Content-Security-Policy that allows nothing else, and a closed port for a proxy), a PDF's JavaScript never runs (PDF.js ships without its script engine), and what it saves carries no author, program name or dates. It opens in its Classic look (<code>LEAFLET_THEME=classic</code>, set by <code>/usr/local/bin/leaflet</code>). The image gets the signed release of the commit in <code>heavy/leaflet.commit</code> (<code>tools/heavy/get-leaflet.sh</code> checks the minisign signature against Leaflet's key); like Wisp and Folio, each update then brings it to its newest signed build (<code>ferro-leaflet-update</code>).</li>
+<li><strong>ffmpeg</strong>: Convert, cut and record video and audio from the Command Prompt.</li>
+<li><strong>Desktop URL &amp; OAuth Integration (<code>xdg-open</code>)</strong>: Full XDG MIME protocol handling (<code>x-scheme-handler/http</code>, <code>https</code>) and user D-Bus session bus. External applications, Electron apps, and development tools (e.g., Antigravity, VS Code) open authorization links and OAuth logins ("Continue with Google") directly in Wisp.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">File Associations &amp; System Defaults (<code>ferro-associations</code>)</h3><a id="file-associations--system-defaults-ferro-associations" class="anchor" aria-label="Permalink: File Associations &amp; System Defaults (ferro-associations)" href="#file-associations--system-defaults-ferro-associations"></a></div>
+<ul dir="auto">
+<li>Accessible via <code>Start &gt; Settings &gt; File Associations...</code>.</li>
+<li>Graphical editor for file type associations stored in <code>~/.config/ferro/associations.conf</code>.</li>
+<li>Double-clicking documents in <code>ferro-files</code> or desktop shortcuts opens the associated application:
+<ul dir="auto">
+<li>Text &amp; Code (<code>.txt</code>, <code>.md</code>, <code>.rs</code>, <code>.c</code>, <code>.sh</code>, <code>.conf</code>) -&gt; <strong>Folio</strong></li>
+<li>Images (<code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>, <code>.bmp</code>, <code>.webp</code>, <code>.gif</code>) and comics (<code>.cbz</code>) -&gt; <strong>Image Viewer</strong> (<code>ferro-viewer</code>)</li>
+<li>Video &amp; Audio (<code>.mp4</code>, <code>.mkv</code>, <code>.webm</code>, <code>.avi</code>, <code>.mov</code>, <code>.mp3</code>, <code>.wav</code>, <code>.flac</code>, <code>.ogg</code>, <code>.opus</code>...) -&gt; <strong>Video Player</strong> (<code>ferro-video</code>)</li>
+<li>PDFs and documents (<code>.pdf</code>, <code>.docx</code>, <code>.odt</code>, <code>.rtf</code>) -&gt; <strong>Leaflet</strong>. An installed system whose list still has the old default (<code>pdf = xdg-open %f</code>) opens PDFs in Leaflet too; a program you chose yourself is kept. <strong>Open with</strong> lists Leaflet beside whatever else is installed for the type (Folio too for an <code>.rtf</code>), and File Associations still offers <code>xdg-open</code>.</li>
+<li>Web (<code>.html</code>) -&gt; <strong>Wisp</strong></li>
+<li>Archives (<code>.zip</code>, <code>.7z</code>, <code>.rar</code>, and split ones: <code>.r00</code>, <code>.001</code>) -&gt; <strong>Archive</strong> (<code>ferro-archive</code>); right-click one in File Explorer for <strong>Extract Here</strong>, which unpacks it beside itself through the same safe code, or any files and folders for <strong>Add to archive...</strong>.</li>
+<li>Programs (<code>.deb</code>, <code>.tar.gz</code> and the like) -&gt; installed by <code>ferro-installer</code> in a terminal window (a <code>.deb</code> with apt, a tarball unpacked into <code>C:\Programs</code>).</li>
+<li>Desktop Shortcuts (<code>.desktop</code>) -&gt; FreeDesktop application execution with terminal emulation and working directory support.</li>
+<li>Anything else -&gt; the system's default handler (<code>xdg-open</code>).</li>
+</ul>
+</li>
+<li><strong>Desktop Shortcut Execution</strong>: Double-clicking <code>.desktop</code> application shortcuts or symlinked shortcuts from inside any folder in <code>ferro-files</code> parses their FreeDesktop specifications (<code>Exec=</code>, <code>Terminal=</code>, <code>Path=</code>), strips field codes (<code>%U</code>, <code>%F</code>), sets the working directory, and launches the application or terminal session directly.
+<ul dir="auto">
+<li>Only trusted shortcuts run: owned by you or root, not writable by others, marked executable (or in the system's application folders), and not on a removable drive. Any other <code>.desktop</code> file opens as text, so a shortcut from a USB stick or a download can't start a program.</li>
+</ul>
+</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Taskbar, Window Management &amp; Context Menus</h3><a id="taskbar-window-management--context-menus" class="anchor" aria-label="Permalink: Taskbar, Window Management &amp; Context Menus" href="#taskbar-window-management--context-menus"></a></div>
+<ul dir="auto">
+<li><strong>Windows 11-Sized Elevated Taskbar (40px)</strong>: Modern, spacious 40px taskbar height matching Windows 11 proportions while retaining authentic Windows 95 3D beveled aesthetics, with task buttons left-aligned after the Start button and pinned icons.</li>
+<li><strong>Enlarged Window Caption &amp; Grabbing Area (28px)</strong>: Window title bar height elevated to 28px (<code>TITLE_H</code>) with enlarged 22x20px caption buttons (<code>X</code>, <code>O</code>, <code>_</code>), providing a generous grabbing zone matching Windows 11 ergonomics for effortless dragging and positioning.</li>
+<li><strong>Hardware-Cached Root Pixmap &amp; Flicker-Free Desktop</strong>: Desktop wallpaper and icons are rendered to a hardware-accelerated root <code>Pixmap</code> (<code>_XROOTPMAP_ID</code> and <code>ESETROOT_PMAP_ID</code>) with multi-rectangle X11 expose handling. Moving windows or opening applications never causes desktop icons or wallpaper tiles to vanish or flicker.</li>
+<li><strong>Unpinned Clean Default &amp; Flexible Pinning</strong>: Starts with a clean, distraction-free taskbar (zero forced pins); users can pin any app from the Start menu or desktop context menus.</li>
+<li><strong>Taskbar Right-Click Context Menu</strong>:
+<ul dir="auto">
+<li>Right-click empty taskbar space: Access <strong>Task Manager</strong>, <strong>Show the desktop</strong>, <strong>Display Settings...</strong>, <strong>Network Connections...</strong>, <strong>Volume Control...</strong>, and <strong>Date and Time...</strong>.</li>
+<li>Right-click pinned icons: <strong>Open</strong> or <strong>Unpin from taskbar</strong>.</li>
+<li>Right-click running task buttons: <strong>Restore</strong>, <strong>Minimize</strong>, <strong>Maximize</strong>, or <strong>Close</strong>.</li>
+</ul>
+</li>
+<li><strong>Window Geometry Persistence</strong>: Windows remember their customized size and desktop position across sessions in <code>~/.config/ferro/windows.conf</code> (matching Windows 7 window memory).</li>
+<li><strong>Exact Browser Context Menu &amp; Popup Positioning (ICCCM 4.1.5)</strong>: Continuous root coordinate synchronization during window moves and strict WM position authority during client <code>ConfigureRequest</code>s ensure context menus and dropdowns (e.g. in web browsers) spawn exactly at the mouse cursor, even when windows are moved far to the right screen edge.</li>
+<li><strong>EWMH / NetWM Popup &amp; Dropdown Menu Support</strong>: Full conformance with <code>_NET_WM_WINDOW_TYPE_POPUP_MENU</code>, <code>_DROPDOWN_MENU</code>, <code>_TOOLTIP</code>, <code>_NOTIFICATION</code>, <code>_COMBO</code>, and <code>_DND</code>. Context menus and dropdowns map directly to their exact root screen coordinates without framing or clipping.</li>
+<li>Double-clicking the titlebar toggles window maximize.</li>
+<li>Instant, responsive caption buttons for Close (<code>X</code>), Maximize/Restore (<code>O</code>), and Minimize (<code>_</code>).</li>
+<li>Smooth 6px resize borders with 20px corner drag handles for seamless resizing.</li>
+<li>Aero Snap: Drag window titlebar to top to maximize, or left/right screen edges for 50% split view. <code>Win+Arrow</code> keys do the same from the keyboard.</li>
+<li><code>Alt+Tab</code> / <code>Alt+Shift+Tab</code> switch between windows (see <a href="#global-keyboard-shortcuts">Keyboard Shortcuts</a>).</li>
+<li><strong>Desktops (Workspaces)</strong>: Four desktops by default, each with its own windows, switched with the numbered buttons left of the tray (or the mouse wheel over them) and <code>Ctrl+Win+←/→</code>, as on Windows 10. The taskbar and <code>Alt+Tab</code> show the current desktop's windows; right-click a task button to <strong>Move to Desktop N</strong> or <strong>Show on all desktops</strong>. <code>Ctrl+Win+D</code> adds a desktop and <code>Ctrl+Win+F4</code> closes one, its windows moving to the desktop on its left; the count is kept in <code>~/.config/ferro/workspaces.conf</code>. Pagers and tools such as <code>wmctrl</code> and <code>xdotool</code> work through EWMH's <code>_NET_NUMBER_OF_DESKTOPS</code>, <code>_NET_CURRENT_DESKTOP</code>, <code>_NET_DESKTOP_NAMES</code> and <code>_NET_WM_DESKTOP</code>.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Dedicated Network &amp; Internet GUI (<code>ferro-network</code>)</h3><a id="dedicated-network--internet-gui-ferro-network" class="anchor" aria-label="Permalink: Dedicated Network &amp; Internet GUI (ferro-network)" href="#dedicated-network--internet-gui-ferro-network"></a></div>
+<ul dir="auto">
+<li>Accessible via <code>Start &gt; Settings &gt; Network &amp; Internet...</code>, or the <strong>Network &amp; Privacy settings...</strong> button in the network icon's tray panel.</li>
+<li>Authentic Windows 95 tabbed property sheet dialog:
+<ul dir="auto">
+<li><strong>Ethernet (LAN)</strong>: Live wired interface information including link status, speed, MAC address, IPv4 address, subnet mask, default gateway, and active DNS resolvers. Features one-click <strong>Renew IP (DHCP)</strong>, <strong>Disconnect</strong>, and <strong>Diagnose...</strong> connectivity tests.</li>
+<li><strong>Wi-Fi Networks</strong>: Real-time wireless network scanning with signal strength indicators, security detection, modal password prompt dialog, and one-click Connect / Disconnect backed by NetworkManager (<code>nmcli</code>). <strong>Allow this network's sign-in page</strong> lets a hotel or café Wi-Fi login page through (see <a href="#system-hardening--network-privacy">Encrypted DNS</a>).</li>
+<li><strong>VPN &amp; Tor</strong>: WireGuard VPN on/off with <strong>Import...</strong> for a <code>.conf</code> file, with a kill switch: while the VPN is on, firewall rules (<code>inet ferro_vpn</code>) let traffic out only through <code>wg0</code>, plus the tunnel's own packets to the server and DHCP, so if the tunnel drops nothing goes out from the real address (programs, servers, and what the PC forwards for VMs and containers). They go in before the tunnel comes up, stay until the VPN is switched off, come back with the VPN at startup (before the network) and after a firewall reload. For configs that send everything through the tunnel (<code>AllowedIPs = 0.0.0.0/0</code>); <code>sudo ferro-vpn killswitch off</code> goes without it. While the kill switch guards the tunnel, lookups go only to the VPN's own DNS servers (the config's <code>DNS =</code> line), inside the tunnel: the VPN already sees every connection, so DNS over TLS to Quad9/Cloudflare would only add a second company that sees them. FerroOS's DNS over TLS comes back when the VPN is switched off, and Tor's DNS still wins while Tor is on, and the Tor switch with an option to use Pluggable Transports (obfs4 / Snowflake) where Tor is blocked.</li>
+<li><strong>Hardware Switches</strong>: Dedicated toggles for Network, Microphone, and Camera hardware kill switches.</li>
+</ul>
+</li>
+<li><strong>Out-of-the-Box Ethernet Auto-Connect</strong>: Wired Ethernet interfaces automatically configure and connect with DHCP on boot or cable plug-in via NetworkManager and firewall rules (<code>udp sport 67 udp dport 68</code>).</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Power &amp; Session Management</h3><a id="power--session-management" class="anchor" aria-label="Permalink: Power &amp; Session Management" href="#power--session-management"></a></div>
+<ul dir="auto">
+<li>Instant, passwordless power actions from the Start menu (<em>Shut Down...</em>, <em>Restart...</em>, <em>Log Off...</em>).</li>
+<li>Polkit and sudoers rules allow user accounts in the <code>sudo</code> group to power off and reboot without terminal prompts or permission denials.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Desktop Appearance &amp; Screensavers (<code>ferro-appearance</code>)</h3><a id="desktop-appearance--screensavers-ferro-appearance" class="anchor" aria-label="Permalink: Desktop Appearance &amp; Screensavers (ferro-appearance)" href="#desktop-appearance--screensavers-ferro-appearance"></a></div>
+<ul dir="auto">
+<li>Accessible from <code>Start &gt; Settings &gt; Appearance &amp; Display...</code> or <strong>Properties</strong> on the desktop's right-click menu (the window is <em>Display Properties</em>).</li>
+<li>Features a retro CRT monitor preview rendering the selected background or screensaver in real time.</li>
+<li><strong>Background Tab</strong>:
+<ul dir="auto">
+<li><strong>Browse... File Selection</strong>: Native graphical file dialog (<code>zenity</code>) to select any <code>.png</code>, <code>.jpg</code>, <code>.bmp</code>, or <code>.ppm</code> image for the desktop background.</li>
+<li><strong>Logon Screen Wallpaper Selection</strong>: Dedicated <strong>Logon...</strong> browse button and <strong>Use for the Logon screen</strong> to give the <code>ferro-logon</code> greeting the same picture as the desktop, or its own. Only a copy of the picture and the colour go to the logon screen (<code>/etc/ferro/logon</code>), not the account's settings or where its pictures are kept; unticking puts FerroOS's own back.</li>
+<li><strong>Six Retro Desktop Colors</strong>: <em>Teal</em> (<code>#008080</code>), <em>Slate</em> (<code>#182026</code>), <em>Black</em> (<code>#000000</code>), <em>Navy</em> (<code>#000080</code>), <em>Plum</em> (<code>#550055</code>), and <em>Forest</em> (<code>#005522</code>).</li>
+<li><strong>Dark Mode UI</strong>: Toggle between classic silver/gray 3D bevels and a modern Charcoal Dark Mode for window borders and dialogs.</li>
+<li><strong>Smooth drawing (about 60 MB)</strong>: Runs the <code>picom</code> compositor: VSync, no tearing, smooth dragging. Off by default to save memory.</li>
+<li><strong>System sounds</strong>: Turn the few soft system sounds (startup, errors, questions) on or off. Emptying the Recycle Bin is silent.</li>
+</ul>
+</li>
+<li><strong>Screen Saver Tab</strong>:
+<ul dir="auto">
+<li>Choose between <em>Flying Stars</em>, <em>Phosphor Matrix</em>, <em>Blank Screen</em>, or custom screensavers.</li>
+<li><strong>Browse... Custom Screensaver</strong>: Easily browse and register any executable script or binary as a screensaver.</li>
+<li>Adjust idle activation timeout (1–60 minutes) and toggle password protection on wake.</li>
+<li>Full-screen <strong>Preview</strong> button and quick shortcut button to open the custom screensavers folder.</li>
+</ul>
+</li>
+<li><strong>Windows Tab</strong>: The colour of the active window's title bar (<em>Default</em> navy, <em>Brown</em>, <em>Maroon</em>, <em>Forest</em>, <em>Teal</em>, <em>Plum</em>, <em>Slate</em>, <em>Charcoal</em>, <em>Olive</em>) and of window borders (<em>Default</em> grey, <em>Tan</em>, <em>Brown</em>, <em>Olive</em>, <em>Slate</em>, <em>Charcoal</em>), shown in the preview and on open windows as soon as they're applied.</li>
+<li><strong>Graphics Tab</strong>: On PCs with more than one graphics card, choose which one draws the desktop and which runs programs, and give single programs (Wine, Steam...) a card of their own (<strong>Add...</strong> / <strong>Remove</strong>). A card nothing is set to use is closed to programs (<code>ferro-gpu close</code>): Chromium and Electron apps (OpenCode, Claude, VS Code) open every card while starting, and one whose driver can't draw (nouveau on a GTX 16/RTX card without its firmware) left them with a white window. Naming the card for a program opens it again.</li>
+<li>Changes broadcast instantly to running apps via X11 root window atoms and persist across reboots in <code>~/.config/ferro/appearance.conf</code>.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Retro Screensavers &amp; Screen Lock (<code>ferro-screensaver</code> / <code>Win+L</code>)</h3><a id="retro-screensavers--screen-lock-ferro-screensaver--winl" class="anchor" aria-label="Permalink: Retro Screensavers &amp; Screen Lock (ferro-screensaver / Win+L)" href="#retro-screensavers--screen-lock-ferro-screensaver--winl"></a></div>
+<ul dir="auto">
+<li>Authentic retro screensavers:
+<ul dir="auto">
+<li><strong>Flying Stars</strong>: 3D starfield warp animation with depth perspective.</li>
+<li><strong>Phosphor Matrix</strong>: Retro green phosphor cascading digital rain.</li>
+<li><strong>Blank Screen</strong>: Energy-saving power black display.</li>
+</ul>
+</li>
+<li><strong>Custom Screensavers</strong>: Drop any executable or shell script into <code>~/.local/share/ferro/screensavers/</code> to automatically register it in the Appearance picker.</li>
+<li><strong>Instant Lock (<code>Win+L</code>)</strong>: Press <code>Win+L</code> at any time to instantly lock the screen and require user authentication.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Streamlined System Tray &amp; Status Display</h3><a id="streamlined-system-tray--status-display" class="anchor" aria-label="Permalink: Streamlined System Tray &amp; Status Display" href="#streamlined-system-tray--status-display"></a></div>
+<ul dir="auto">
+<li>Located in the taskbar notification area beside the clock and volume controls.</li>
+<li><strong>Streamlined Tray Icons</strong>: Focused on essential daily utilities:
+<ul dir="auto">
+<li><strong>Network</strong>: Displays link state; clicking opens a small panel with the connection and the Network, VPN, Tor, Microphone and Camera switches, plus <strong>Network &amp; Privacy settings...</strong> for <code>ferro-network</code>.</li>
+<li><strong>Speaker (Volume)</strong>: Left-click opens a volume slider with Mute and <strong>Mixer...</strong>; right-click toggles mute instantly; the scroll wheel changes the volume; middle-click opens the mixer (<code>ferro-volume</code>).</li>
+</ul>
+</li>
+<li><strong>Mixer &amp; Sound Output (<code>ferro-volume</code>)</strong>: Per-control sliders, plus <strong>Play sound on</strong> to pick the speakers, headphones or a monitor's HDMI speakers, with a <strong>Test</strong> button. There's no sound server: <code>ferro-audio</code> points ALSA at the chosen output (<code>~/.config/ferro/sound.conf</code>) and switches on HDMI audio, which starts muted on many graphics cards.</li>
+<li><strong>Sound Enhancer (<code>ferro-enhancer</code>)</strong>: An <strong>On/Off</strong> switch, a <strong>Volume boost</strong> past 100% (up to +12 dB, with a limiter so it never clips), <strong>Loudness</strong> (a gentle leveller that brings quiet and middle parts up towards the peaks, so the boost isn't all eaten by the limiter on loud modern audio), a <strong>Bass boost</strong> with a <strong>Small speakers</strong> tick box (the boost moved up to about 180 Hz, and the deep bass laptop speakers can only rattle at rolled off under 90 Hz), and a ten-band <strong>Equalizer</strong> (31 Hz to 16 kHz) with presets (Flat, Bass, Voice, Music, Treble) and <strong>My own</strong>, which moving any band makes. Control Panel &gt; Sound Enhancer, or Start &gt; Programs &gt; Multimedia. It works without a sound server and downloads nothing: <code>ferro-audio</code> puts a small plugin of ours (<code>ferro-ladspa</code>) into <code>~/.asoundrc</code> with alsa-lib's own <code>ladspa</code> PCM, so every program's sound goes through it before the mixing, on any output (jacks or HDMI). Changes are heard within a moment, even in programs already playing: the plugin looks at <code>~/.config/ferro/enhancer.conf</code> 20 times a second, and what's changed plays once the sound already handed to the card has (a fifth of a second or so). Programs started before the plugin was first put in <code>~/.asoundrc</code> use it once they're started again. Off, every sample goes through untouched. It adds no delay (nothing looks ahead) and costs well under 1% of one CPU core. Each program has its own limiter, so one program never clips; several very loud ones at once can still add up past full scale in the mixing.</li>
+<li><strong>Other Programs' Icons</strong>: Programs that put an icon in the tray (XEmbed) get one; past five, the rest fold behind a <code>&lt;</code> / <code>&gt;</code> button.</li>
+<li><strong>Status Readout &amp; Clock</strong>: Displays live system memory usage and the clock (<code>XX MB  HH:MM AM</code>). Clicking the memory number opens Task Manager, clicking the clock opens Date and Time, and right-clicking either offers both.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Task Manager &amp; Process Context Menus (<code>ferro-taskmgr</code>)</h3><a id="task-manager--process-context-menus-ferro-taskmgr" class="anchor" aria-label="Permalink: Task Manager &amp; Process Context Menus (ferro-taskmgr)" href="#task-manager--process-context-menus-ferro-taskmgr"></a></div>
+<ul dir="auto">
+<li>Accessible via <code>Ctrl+Shift+Esc</code>, the taskbar's memory number, or the Start menu.</li>
+<li><strong>Processes Tab</strong>: Real-time PID, CPU%, memory footprint, user account, and active <strong>RAM Budget</strong>.</li>
+<li><strong>Right-Click Process Context Menu</strong>: Right-click any running process to <strong>End Process</strong>, <strong>Set RAM Budget...</strong>, or <strong>Remove RAM Budget</strong>.</li>
+<li><strong>Per-Process RAM Quotas</strong>: Set strict kernel cgroup v2 memory limits (e.g., <code>512M</code>, <code>2G</code>) with dedicated dialog.</li>
+<li><strong>Performance Tab</strong>: Live 60-second CPU and RAM history graphs.</li>
+<li><strong>Harmonized Memory Reporting</strong>: Memory usage is calculated using true active process and OS footprint (<code>footprint_kb</code>), accounting for Linux kernel low-memory watermark reserves (<code>totalreserve_pages</code>) and page-table bookkeeping. Task Manager and the Taskbar display the identical, accurate active RAM metric.</li>
+<li><strong>Context Menu Isolation</strong>: Process context menus are strictly restricted to row selections on the Processes tab. Right-clicking anywhere on the Performance tab or modal dialogs will never open an unintended process action menu.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Green Phosphor Command Prompt (<code>ferro-terminal</code>)</h3><a id="green-phosphor-command-prompt-ferro-terminal" class="anchor" aria-label="Permalink: Green Phosphor Command Prompt (ferro-terminal)" href="#green-phosphor-command-prompt-ferro-terminal"></a></div>
+<ul dir="auto">
+<li>A <code>bash</code> shell in LXTerminal, styled after phosphor CRT monitors (<code>#33FF33</code> bright green text on <code>#000000</code> deep black).</li>
+<li><strong>Full Clipboard &amp; Context Menu Support</strong>: Windows-style <strong>Ctrl+C</strong> (copy) and <strong>Ctrl+V</strong> (paste) shortcut keys, mouse right-click context menu (<em>Copy</em>, <em>Paste</em>), and terminal text selection.</li>
+<li><strong>Reliable Backspace &amp; Delete</strong>: Configured with terminal driver initializations (<code>stty erase '^?'</code>) and Xresources translations ensuring backspace and delete keys work reliably without control character glitches.</li>
+<li><strong>Everything Linux Has</strong>: Run any program (<code>apt</code>, <code>sudo</code>, <code>python3</code>, <code>git</code>, ...) and <code>ferro-heavy</code> to add drivers and software (see <a href="#modern-hardware--on-demand-capabilities">below</a>). The DOS-style commands (<code>DIR</code>, <code>MEM</code>, <code>WIFI</code>, <code>TOR</code>...) belong to Lite's own prompt, <code>ferro-cmd</code> (see <a href="#keyboard-shortcuts--commands">Commands</a>).</li>
+</ul>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Security, Privacy &amp; Anti-Forensics</h2><a id="security-privacy--anti-forensics" class="anchor" aria-label="Permalink: Security, Privacy &amp; Anti-Forensics" href="#security-privacy--anti-forensics"></a></div>
+<p dir="auto">FerroOS Heavy embeds layered defense-in-depth across the entire operating system stack:</p>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Optional Full Disk Encryption (LUKS2 + Argon2id)</h3><a id="optional-full-disk-encryption-luks2--argon2id" class="anchor" aria-label="Permalink: Optional Full Disk Encryption (LUKS2 + Argon2id)" href="#optional-full-disk-encryption-luks2--argon2id"></a></div>
+<ul dir="auto">
+<li>The installer (<code>ferro-setup</code> / <code>ferro-install</code>) configures LUKS2 full-disk encryption with Argon2id key derivation at 1 GiB of memory and 5 seconds of work per attempt, and requires a passphrase of at least 12 characters.</li>
+<li>Users can uncheck encryption during setup for non-sensitive environments or virtual machine testing.</li>
+<li>No swap is set up, so nothing from memory is ever written to the disk outside the encrypted volume.</li>
+<li>TRIM passes through the encryption (<code>discard</code>, and <code>ferro-trim</code> turns it on for systems installed before), so the SSD knows which blocks are free and doesn't slow to a crawl as it fills. Deleted files' blocks are emptied by the SSD itself; what this shows someone holding the disk is which blocks are in use, never what is in them.</li>
+<li>Disks stay responsive under load: BFQ on SATA and SD drives serves interactive programs ahead of a build's or a copy's backlog, and at most 256 MB of writes wait in memory, so they never pile up into gigabytes sent all at once.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Encrypted Extra Drives (<code>ferro-drives</code>)</h3><a id="encrypted-extra-drives-ferro-drives" class="anchor" aria-label="Permalink: Encrypted Extra Drives (ferro-drives)" href="#encrypted-extra-drives-ferro-drives"></a></div>
+<ul dir="auto">
+<li><strong>Encrypt a Drive</strong> (Start → Programs → System Tools, or type "encrypt" in the Start menu) erases an extra internal disk or USB drive and makes it one LUKS2 (Argon2id) volume holding ext4, owned by you. FerroOS's own disk, the stick it started from, and drives in use are never offered; the root helper (<code>ferro-drive</code>) checks the same rules again.</li>
+<li>When a locked encrypted drive is plugged in, or is already there when you log on, a box asks for its passphrase and it opens in My Computer.</li>
+<li>Tick <strong>Unlock automatically on this PC</strong> to keep a random key for the drive on the (encrypted) system disk: it then opens at startup, before anyone logs on, at a fixed place, <code>/Drives/NAME</code>, which suits a server's data. Services that need it can be ordered <code>After=ferro-drives.service</code>.</li>
+<li>Everything works from the keyboard: Tab moves (the focused control is outlined), Space ticks, Enter goes on and says what's missing.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Duress Password &amp; Anti-Coercion Self-Destruct</h3><a id="duress-password--anti-coercion-self-destruct" class="anchor" aria-label="Permalink: Duress Password &amp; Anti-Coercion Self-Destruct" href="#duress-password--anti-coercion-self-destruct"></a></div>
+<ul dir="auto">
+<li>During setup, an optional secondary <strong>Duress PIN</strong> (at least 10 characters) can be configured alongside your primary password.</li>
+<li>It works at all three prompts: the disk passphrase prompt at startup, the logon screen, and the lock screen. Entered at any of them, the system:
+<ol dir="auto">
+<li>Erases the LUKS2 key slots and overwrites the header area of the FerroOS system disk (and no other disk), so its contents can never be decrypted again, even with the real passphrase.</li>
+<li>Powers off at once.</li>
+</ol>
+</li>
+<li>The PIN is stored only as a salted Argon2id hash. Because the startup check runs before the disk is unlocked, that hash is on the unencrypted boot partition, which is why the PIN must be long: a short one could be guessed from a copy of the disk.</li>
+<li>Limits: it protects against someone who types it on the real machine. It cannot help if the disk was copied first; an examiner working from a copy is not affected by the wipe.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Cold-Boot Memory Extraction Defense</h3><a id="cold-boot-memory-extraction-defense" class="anchor" aria-label="Permalink: Cold-Boot Memory Extraction Defense" href="#cold-boot-memory-extraction-defense"></a></div>
+<ul dir="auto">
+<li>The kernel boots with <code>init_on_alloc=1</code> and <code>init_on_free=1</code>.</li>
+<li>Every physical memory page freed by any process or kernel cache is immediately zeroed by the Linux memory allocator, so no plaintext keys or credentials are left in RAM chips after use.</li>
+<li>Freelist randomization (<code>page_alloc.shuffle=1</code>) makes heap exploits harder; the installed system adds slab cache isolation (<code>slab_nomerge</code>), <code>randomize_kstack_offset=on</code> and <code>vsyscall=none</code>.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">No Sleep: Keys Never Left in a Seized Machine</h3><a id="no-sleep-keys-never-left-in-a-seized-machine" class="anchor" aria-label="Permalink: No Sleep: Keys Never Left in a Seized Machine" href="#no-sleep-keys-never-left-in-a-seized-machine"></a></div>
+<ul dir="auto">
+<li>Sleep keeps the disk's encryption keys in RAM, where a seized machine can be read out (cold-boot and DMA attacks) without the passphrase.</li>
+<li>FerroOS Heavy therefore never sleeps: closing the lid or pressing the sleep key powers off, and suspend and hibernation are disabled.</li>
+<li><strong>Panic key</strong>: <code>Ctrl+Alt+End</code> cuts power instantly, without a clean shutdown, so the keys are gone from memory within moments.</li>
+<li>The kernel starts with IOMMU DMA protection (<code>intel_iommu=on</code>, <code>amd_iommu=force_isolation</code>, <code>iommu=force</code>, <code>iommu.strict=1</code>, <code>efi=disable_early_pci_dma</code>), so Thunderbolt and other plug-in devices can't read memory directly.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Screen Access: Programs Ask Before They See the Screen (<code>ferro-xgate</code>)</h3><a id="screen-access-programs-ask-before-they-see-the-screen-ferro-xgate" class="anchor" aria-label="Permalink: Screen Access: Programs Ask Before They See the Screen (ferro-xgate)" href="#screen-access-programs-ask-before-they-see-the-screen-ferro-xgate"></a></div>
+<ul dir="auto">
+<li>On plain X11 any program can screenshot every window on every desktop, fake key presses for other programs and read what's typed. On Heavy, programs don't reach the display server itself (it runs as <code>:5</code>, its cookie root's alone) but <strong>ferro-xgate</strong>, a gate in front of it that they see as <code>:0</code>. They draw, take the keyboard while they're used and talk to the window manager as before.</li>
+<li><strong>Seeing the screen asks first</strong>: A program that reads the screen's pixels (a screenshot, a screen share, a recording; <code>GetImage</code>, MIT-SHM, copying the screen or another program's windows into its own picture, Composite and DRI3 buffers that aren't its own) waits while a <strong>Screen access</strong> question names it and its process number, shown on every desktop and above every window, so anything private can be closed first. <strong>Allow once</strong> (a few seconds), <strong>Allow until it quits</strong>, or <strong>Don't allow</strong> (Enter, Esc, closing it, or two minutes without an answer); a refused program gets a black picture. The two allowing buttons are greyed out for its first second, and no program can press them: pretend clicks don't get through the gate. While a program is allowed until it quits, a red screen light sits in the tray beside the microphone and camera lights; hovering it says which.</li>
+<li><strong>Window titles</strong>: Another program's window titles (which often name the file that's open) and the command that started it read as empty (<code>WM_NAME</code>, <code>_NET_WM_NAME</code>, <code>WM_COMMAND</code> and the like), unless the program may see the screen at the time; a screen-sharing program's window list fills in once it's allowed.</li>
+<li><strong>The clipboard</strong>: Only the program being used may paste: the one with the keyboard, the one the desktop shows as active, or the one under the mouse pointer (a right-click menu's Paste asks before focus has moved). What's copied (<code>CLIPBOARD</code>) and what's selected (<code>PRIMARY</code>) can't be read by a program in the background, which is told nothing was copied; any program may ask what kinds of thing were copied (text, a picture), never what, so its Paste is ready when you get to it. Drag and drop works as before, and the clipboard history (<code>ferro-clipboard</code>) is trusted to keep what's copied.</li>
+<li><strong>No records of use on disk</strong>: what was installed or removed (apt's logs live in <code>/run/ferro-apt</code>, in memory; dpkg's and <code>update-alternatives</code>' aren't written), logins (<code>wtmp</code>, <code>btmp</code>), virtual machines run (libvirt's logs go at each start) and sites <code>wget</code> downloaded from (<code>hsts = off</code>) aren't kept. Window sizes are remembered per program, but a program not opened for 30 days is forgotten, so <code>~/.config/ferro/windows.conf</code> isn't a list of everything ever used.</li>
+<li><strong>Folders open in the File Manager</strong>: Which folder a File Manager window shows (<code>_FERRO_CURRENT_DIR</code>) is for the File Manager and the window manager only.</li>
+<li><strong>Never allowed</strong>: Pretend input and recording what's typed (XTEST and RECORD are hidden, as are XFree86-DGA and SECURITY), key events from other programs' windows (XInput's raw key events included), grabbing every key, synthetic key and mouse events for other programs, redirecting other programs' windows (becoming a compositor), freezing the display (<code>GrabServer</code>), and letting other hosts onto it.</li>
+<li><strong>Print Screen</strong>: The Snipping Tool (Print Screen), the window manager and picom (Smooth drawing) see the screen without asking. The gate knows them because it starts them itself (<code>ferro-xgate run PROGRAM</code>, which FerroOS's own go through on their own): only a program on its list (root's, in <code>/usr/local/bin</code> or <code>/usr/bin</code>), started that way, without someone else's libraries (<code>LD_PRELOAD</code> and the like are dropped) and not being debugged, is let through; the same file started any other way is asked about like any program. A screen recorder of your own can be added to <code>/etc/ferro/xgate-trusted</code> (one path a line) and started with <code>ferro-xgate run /its/path</code>.</li>
+<li><code>ferro-xgate probe</code> tries each way of seeing the screen and prints what it got.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Tor Routing with Pluggable Transports</h3><a id="tor-routing-with-pluggable-transports" class="anchor" aria-label="Permalink: Tor Routing with Pluggable Transports" href="#tor-routing-with-pluggable-transports"></a></div>
+<ul dir="auto">
+<li><strong>Heavy</strong>: Debian's <code>tor</code>, switched from the network tray panel or <code>Network &gt; VPN &amp; Tor</code> (<code>ferro-tor on [bridges]</code> / <code>ferro-tor off</code>). When on, firewall rules send every program's traffic and DNS through Tor, not only programs set up with a proxy. Pluggable Transports (<code>obfs4proxy</code>, <code>snowflake-client</code>) get through networks that block Tor. Off by default; the switch is remembered across restarts.</li>
+<li><strong>Lite</strong>: Built-in Arti (Rust implementation of Tor) with Pluggable Transports (<code>lyrebird</code>, <code>snowflake-client</code>, <code>webtunnel-client</code>). Turned on per session (<code>TOR ON</code>) or for good (<code>TOR ON PERSIST</code>); bridges via <code>TOR BRIDGE ADD &lt;line&gt;</code>, <code>TOR BRIDGE LIST</code> and <code>TOR BRIDGE CLEAR</code>.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">System Hardening &amp; Network Privacy</h3><a id="system-hardening--network-privacy" class="anchor" aria-label="Permalink: System Hardening &amp; Network Privacy" href="#system-hardening--network-privacy"></a></div>
+<ul dir="auto">
+<li><strong>Encrypted DNS</strong>: Every lookup goes over DNS-over-TLS to Quad9 (<code>dns.quad9.net</code>) or Cloudflare (<code>cloudflare-dns.com</code>), their certificates checked; never plain DNS, and never the resolver a router hands out. For a Wi-Fi sign-in page that blocks them, tick <strong>Allow this network's sign-in page</strong> on the Wi-Fi tab (<code>ferro-portal</code>): it relaxes this for that network only, for up to 10 minutes.</li>
+<li><strong>What updates touch (Settings &gt; Updates)</strong>: <em>Update now</em>, and a tick for each part of FerroOS that updates bring along (<code>heavy/components.list</code>: Wisp, Folio and Leaflet). Unticked, updates leave that part as it is (<code>ferro-update-hold</code>, <code>/etc/ferro/update-hold</code>). Uninstalling one from the Start menu removes it and unticks it, so it doesn't come back with the next update; ticking it again brings it back. Debian packages FerroOS added and someone uninstalled already stay uninstalled.</li>
+<li><strong>Security Updates</strong>: Debian's security updates install themselves daily (<code>unattended-upgrades</code>, limited to the security archive; never a restart).</li>
+<li><strong>MAC Address Randomization</strong>: Ephemeral MAC addresses generated for every Ethernet and Wi-Fi connection, including during Wi-Fi probe scanning.</li>
+<li><strong>Default-Deny Firewall</strong>: <code>nftables</code> drops all inbound connections while permitting outbound traffic and essential ICMP/DHCPv6.</li>
+<li><strong>Restricted Umask</strong>: Files created by users default to private permissions (<code>umask 077</code>).</li>
+<li><strong>Kernel Lockdown</strong>: <code>lockdown=integrity</code>, <code>kptr_restrict=2</code>, <code>dmesg_restrict=1</code>, <code>yama.ptrace_scope=1</code>, <code>unprivileged_bpf_disabled=1</code>, core dumps disabled (<code>suid_dumpable=0</code>), and maximum ASLR entropy (<code>mmap_rnd_bits=32</code>).</li>
+<li><strong>Share (<code>ferro-share</code>)</strong>: Android's Share button, private first. A program opens the Share box with a file, some text or a link; you pick which program gets it. The program sharing isn't told which programs there are, which one you picked, or whether you shared at all, and nothing is remembered between shares (no recent programs, no suggested people). The program picked gets a read-only copy in memory (its own folder under <code>/run/user/&lt;you&gt;</code>, RAM; the only swap is zram, RAM too), never the original or where it came from, and the copy is deleted once it's been read. Pictures lose their location and camera details (ferro-meta) unless you untick it. Environment variables don't pass from one program to the other. In File Explorer: right-click a file, <strong>Share...</strong>.
+<ul dir="auto">
+<li>For programs: <code>ferro-share FILE...</code>, <code>ferro-share --stdin NAME &lt; data</code> (bytes through a pipe, never a file), <code>ferro-share --text TEXT</code> (or <code>-</code> for stdin), <code>ferro-share --url URL</code>; from Rust, the <code>ferro-share</code> crate's <code>share_files</code>, <code>share_bytes</code>, <code>share_text</code>, <code>share_url</code>. A program is offered for what its <code>.desktop</code> entry's <code>MimeType=</code> lists, if its <code>Exec=</code> takes a file (<code>%f</code>, <code>%F</code>, <code>%u</code>, <code>%U</code>); <code>X-Ferro-Share=false</code> leaves it out.</li>
+</ul>
+</li>
+<li><strong>Metadata Removal</strong>: Right-click a file, <strong>Properties</strong>, then the <strong>Info</strong> tab shows its hidden metadata (EXIF, GPS, camera model, author...) with <strong>Strip</strong> / <strong>Strip All</strong> buttons (<code>exiftool</code>).</li>
+</ul>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Modern Hardware &amp; On-Demand Capabilities</h2><a id="modern-hardware--on-demand-capabilities" class="anchor" aria-label="Permalink: Modern Hardware &amp; On-Demand Capabilities" href="#modern-hardware--on-demand-capabilities"></a></div>
+<p dir="auto">FerroOS Heavy includes driver support for modern workstations and laptops, with on-demand acceleration tools accessible via <code>ferro-heavy</code> or the Start menu:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="ferro-heavy menu            # Choose from a list (Start &gt; Settings &gt; Add Programs &amp; Drivers...)
+ferro-heavy status          # View RAM footprint, Secure Boot, LUKS, GPU, and audio status
+ferro-heavy update          # Make a restore point, then update everything that's installed
+ferro-heavy install &lt;name&gt;  # Make a restore point, then install any Debian package
+ferro-heavy drivers         # Install Mesa 3D, Vulkan &amp; VA-API video decode for Intel / AMD
+ferro-heavy nvidia          # Build proprietary NVIDIA DKMS drivers + libcuda
+ferro-heavy enroll-key      # Let Secure Boot load that driver (MOK enrollment)
+ferro-heavy steam           # 32-bit architecture &amp; Vulkan drivers, then Steam (Proton comes with Steam)
+ferro-heavy llm             # Python 3, venv &amp; build tools; then shows the pip commands for PyTorch / llama.cpp
+ferro-heavy cuda            # Install full NVIDIA CUDA compiler toolkit (nvcc &amp; headers)
+ferro-heavy audio           # Set up sound on the output chosen in Volume Control, unmute it, play a test sound
+ferro-heavy torbrowser      # Tor Browser
+ferro-heavy scummvm         # ScummVM: classic adventure &amp; children's games (Pink Panther, Humongous, LucasArts...)
+ferro-heavy wine            # Wine with 32-bit support for Windows programs and older 32-bit/16-bit games"><pre>ferro-heavy menu            <span class="pl-c"><span class="pl-c">#</span> Choose from a list (Start &gt; Settings &gt; Add Programs &amp; Drivers...)</span>
+ferro-heavy status          <span class="pl-c"><span class="pl-c">#</span> View RAM footprint, Secure Boot, LUKS, GPU, and audio status</span>
+ferro-heavy update          <span class="pl-c"><span class="pl-c">#</span> Make a restore point, then update everything that's installed</span>
+ferro-heavy install <span class="pl-k">&lt;</span>name<span class="pl-k">&gt;</span>  <span class="pl-c"><span class="pl-c">#</span> Make a restore point, then install any Debian package</span>
+ferro-heavy drivers         <span class="pl-c"><span class="pl-c">#</span> Install Mesa 3D, Vulkan &amp; VA-API video decode for Intel / AMD</span>
+ferro-heavy nvidia          <span class="pl-c"><span class="pl-c">#</span> Build proprietary NVIDIA DKMS drivers + libcuda</span>
+ferro-heavy enroll-key      <span class="pl-c"><span class="pl-c">#</span> Let Secure Boot load that driver (MOK enrollment)</span>
+ferro-heavy steam           <span class="pl-c"><span class="pl-c">#</span> 32-bit architecture &amp; Vulkan drivers, then Steam (Proton comes with Steam)</span>
+ferro-heavy llm             <span class="pl-c"><span class="pl-c">#</span> Python 3, venv &amp; build tools; then shows the pip commands for PyTorch / llama.cpp</span>
+ferro-heavy cuda            <span class="pl-c"><span class="pl-c">#</span> Install full NVIDIA CUDA compiler toolkit (nvcc &amp; headers)</span>
+ferro-heavy audio           <span class="pl-c"><span class="pl-c">#</span> Set up sound on the output chosen in Volume Control, unmute it, play a test sound</span>
+ferro-heavy torbrowser      <span class="pl-c"><span class="pl-c">#</span> Tor Browser</span>
+ferro-heavy scummvm         <span class="pl-c"><span class="pl-c">#</span> ScummVM: classic adventure &amp; children's games (Pink Panther, Humongous, LucasArts...)</span>
+ferro-heavy wine            <span class="pl-c"><span class="pl-c">#</span> Wine with 32-bit support for Windows programs and older 32-bit/16-bit games</span></pre></div>
+<ul dir="auto">
+<li><strong>Wi-Fi Cards</strong>: Firmware included out of the box for Intel (<code>iwlwifi</code>), Realtek (<code>rtw88</code>/<code>rtw89</code>), MediaTek (<code>mt7921</code>/<code>mt7922</code>), Qualcomm Atheros (<code>ath10k</code>/<code>ath11k</code>), and Broadcom.</li>
+<li><strong>Display Drivers</strong>: Modesetting for Intel Gen1–Gen14, AMD Radeon (<code>amdgpu</code>), NVIDIA (<code>nouveau</code>), with universal UEFI GOP (<code>fbdev</code>) and VESA fallbacks.</li>
+<li><strong>Audio</strong>: No sound server: plain ALSA (<code>alsa-utils</code>), set up by <code>ferro-audio</code> for the output picked in the mixer, with Sound Open Firmware (<code>firmware-sof-signed</code>) for laptop internal speakers and digital microphone arrays.</li>
+</ul>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Ultra-Lean Idle Footprint: How It Works</h2><a id="ultra-lean-idle-footprint-how-it-works" class="anchor" aria-label="Permalink: Ultra-Lean Idle Footprint: How It Works" href="#ultra-lean-idle-footprint-how-it-works"></a></div>
+<p dir="auto">Standard desktop Linux distributions consume between 800 MB and 2.5 GB of RAM at idle. FerroOS Heavy achieves its ultra-lean memory footprint through targeted systems optimization:</p>
+<ol dir="auto">
+<li><strong>Kernel Hash Table Pinning</strong>: Linux dynamically sizes internal dcache, icache, and page hash tables based on total system RAM—consuming 30–50+ MB on modern machines. Heavy pins these tables at boot (<code>dhash_entries=32768 ihash_entries=16384 thash_entries=4096 uhash_entries=512</code>), freeing dozens of megabytes immediately.</li>
+<li><strong>Transparent Hugepage Suppression</strong>: Booting with <code>transparent_hugepage=never</code> prevents the kernel from allocating 2 MB hugepages to small background daemons, avoiding memory fragmentation.</li>
+<li><strong>Lean Xorg Display Layer</strong>: RECORD and XTEST extensions are disabled to reduce memory footprint, while Xorg Composite and unprivileged user namespaces (<code>kernel.unprivileged_userns_clone=1</code>) remain enabled so Chromium, Electron (e.g. Antigravity), and hardware-accelerated GUI apps render cleanly without blank window artifacts.</li>
+<li><strong>Aggressive Cache Reclaim</strong>: <code>vm.vfs_cache_pressure=200</code> and <code>vm.swappiness=10</code> aggressively prioritize reclaiming unused directory/inode caches.</li>
+<li><strong>Capped Journal Buffers</strong>: <code>systemd-journald</code> volatile runtime storage is capped at 4 MB (<code>RuntimeMaxUse=4M</code>) with compression enabled (<code>Compress=yes</code>).</li>
+<li><strong>Lean NetworkManager</strong>: Configured with internal C DHCP client (<code>dhcp=internal</code>), file-only keyfile plugins, and connectivity polling disabled.</li>
+<li><strong>Masked Redundant Daemons</strong>: Virtual consoles <code>tty3</code>–<code>tty6</code>, the ext4 scrubber (<code>e2scrub_all</code>) and firmware-update polling (<code>fwupd-refresh</code>) are masked to eliminate background CPU and RAM wakeups. APT's daily timer stays, since it runs the security updates.</li>
+</ol>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">FerroOS Lite: The 29 MB Companion</h2><a id="ferroos-lite-the-29-mb-companion" class="anchor" aria-label="Permalink: FerroOS Lite: The 29 MB Companion" href="#ferroos-lite-the-29-mb-companion"></a></div>
+<p dir="auto">For embedded systems, retro machines, or air-gapped environments where every megabyte counts, FerroOS Lite runs the same retro user experience in an ultra-compact package:</p>
+<ul dir="auto">
+<li><strong>Monolithic Rust Userspace</strong>: The entire userspace (PID 1 <code>ferro-init</code>, <code>ferro-shell</code>, <code>ferro-net</code>, <code>ferro-cmd</code>) is compiled into a single static binary.</li>
+<li><strong>Direct DRM/KMS Rendering</strong>: Renders straight to the Linux kernel Direct Rendering Manager framebuffer without X11 or Wayland.</li>
+<li><strong>Encrypted Vault</strong>: User files and settings reside in a custom cryptographic vault encrypted with Argon2id and XChaCha20-Poly1305.</li>
+<li><strong>Zero Disk Residue</strong>: The root filesystem runs purely in RAM; shutdown wipes all uncommitted data.</li>
+</ul>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Keyboard Shortcuts &amp; Commands</h2><a id="keyboard-shortcuts--commands" class="anchor" aria-label="Permalink: Keyboard Shortcuts &amp; Commands" href="#keyboard-shortcuts--commands"></a></div>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Global Keyboard Shortcuts</h3><a id="global-keyboard-shortcuts" class="anchor" aria-label="Permalink: Global Keyboard Shortcuts" href="#global-keyboard-shortcuts"></a></div>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Win</code> or <code>Ctrl + Esc</code></td>
+<td>Open / close Start menu</td>
+</tr>
+<tr>
+<td><code>Ctrl + Shift + Esc</code></td>
+<td>Launch Task Manager (<code>ferro-taskmgr</code>)</td>
+</tr>
+<tr>
+<td><code>Win + E</code></td>
+<td>Open File Manager (<code>ferro-files</code>)</td>
+</tr>
+<tr>
+<td><code>Win + D</code></td>
+<td>Show Desktop (minimize / restore all windows)</td>
+</tr>
+<tr>
+<td><code>Ctrl + Win + ←</code> / <code>→</code></td>
+<td>Previous / next desktop (with <code>Shift</code>: take the window along)</td>
+</tr>
+<tr>
+<td><code>Ctrl + Win + D</code> / <code>F4</code></td>
+<td>New desktop / close this desktop</td>
+</tr>
+<tr>
+<td><code>Win + L</code></td>
+<td>Lock the screen</td>
+</tr>
+<tr>
+<td><code>Win + ←</code> / <code>→</code> / <code>↑</code> / <code>↓</code></td>
+<td>Snap the window left / right, maximize, restore (or minimize)</td>
+</tr>
+<tr>
+<td><code>Win + V</code></td>
+<td>Clipboard history</td>
+</tr>
+<tr>
+<td><code>Win + N</code></td>
+<td>Notifications</td>
+</tr>
+<tr>
+<td><code>Print</code> or <code>Win + Shift + S</code></td>
+<td>Snip part of the screen</td>
+</tr>
+<tr>
+<td><code>Alt + F4</code></td>
+<td>Close active window</td>
+</tr>
+<tr>
+<td><code>Alt + Tab</code> / <code>Alt + Shift + Tab</code></td>
+<td>Cycle between open windows</td>
+</tr>
+<tr>
+<td><code>Ctrl + Alt + End</code></td>
+<td>Panic: power off at once (see <a href="#no-sleep-keys-never-left-in-a-seized-machine">No Sleep</a>)</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Lite's Command Prompt (<code>ferro-cmd</code>)</h3><a id="lites-command-prompt-ferro-cmd" class="anchor" aria-label="Permalink: Lite's Command Prompt (ferro-cmd)" href="#lites-command-prompt-ferro-cmd"></a></div>
+<p dir="auto">Heavy's Command Prompt is <code>bash</code>. Lite has its own DOS-style prompt, an interactive line editor with VT100 / ANSI escape processing:</p>
+<ul dir="auto">
+<li><strong>Arrow Keys &amp; Cursor Movement</strong>: Pressing Left / Right arrow moves the insertion point <code>|</code> smoothly across the line without printing raw escape sequences (e.g. <code>^[[D</code>).</li>
+<li><strong>Command History</strong>: Pressing Up / Down arrow recalls and edits previous commands.</li>
+<li><strong>Navigation &amp; Editing Hotkeys</strong>: Supports <code>Home</code> / <code>Ctrl+A</code> (start of line), <code>End</code> / <code>Ctrl+E</code> (end of line), <code>Delete</code> (forward delete), <code>Ctrl+K</code> (delete to end), <code>Ctrl+U</code> (delete to start), and <code>Ctrl+C</code> (cancel).</li>
+<li><strong>Clean Backspace</strong>: Uniformly processes both <code>0x7F</code> (DEL) and <code>0x08</code> (BS) so backspacing never outputs random characters or artifacts.</li>
+</ul>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="DIR / CD / TYPE         Standard file navigation and inspection
+MEM                     Display free, used, and total system memory
+MEM /DETAIL             Detailed memory breakdown including kernel tables
+MEMTEST &lt;MB&gt;            Test that much RAM
+RUN /NET &lt;app&gt;          Launch an application with pre-authorized network access
+RUN /NONET &lt;app&gt;        ...or with none
+RUN /MEM:&lt;size&gt; &lt;app&gt;   ...with a RAM limit
+PERMS /FORGET ALL       Clear all remembered application network permissions
+WIFI LIST               Scan and list available Wi-Fi networks
+WIFI JOIN &lt;ssid&gt;        Connect to a Wi-Fi network (prompts for passphrase)
+WIFI OFF                Disconnect from Wi-Fi
+BATTERY                 Query laptop battery charge level and AC power status
+BRIGHTNESS &lt;0-100&gt;      Adjust display backlight brightness
+VPN IMPORT &lt;path.conf&gt;  Import a WireGuard configuration file
+VPN ON / VPN OFF        Toggle WireGuard VPN tunnel
+TOR ON / TOR OFF        Toggle system-wide Tor routing (TOR ON PERSIST keeps it on)
+TOR BRIDGE ADD/LIST/CLEAR  Manage Tor bridges
+DEBIAN apt install &lt;pkg&gt; Install any Debian package (with persistent LUKS2 storage)
+DEBIAN /RESET           Forget everything installed, at the next start"><pre lang="text" class="notranslate"><code>DIR / CD / TYPE         Standard file navigation and inspection
+MEM                     Display free, used, and total system memory
+MEM /DETAIL             Detailed memory breakdown including kernel tables
+MEMTEST &lt;MB&gt;            Test that much RAM
+RUN /NET &lt;app&gt;          Launch an application with pre-authorized network access
+RUN /NONET &lt;app&gt;        ...or with none
+RUN /MEM:&lt;size&gt; &lt;app&gt;   ...with a RAM limit
+PERMS /FORGET ALL       Clear all remembered application network permissions
+WIFI LIST               Scan and list available Wi-Fi networks
+WIFI JOIN &lt;ssid&gt;        Connect to a Wi-Fi network (prompts for passphrase)
+WIFI OFF                Disconnect from Wi-Fi
+BATTERY                 Query laptop battery charge level and AC power status
+BRIGHTNESS &lt;0-100&gt;      Adjust display backlight brightness
+VPN IMPORT &lt;path.conf&gt;  Import a WireGuard configuration file
+VPN ON / VPN OFF        Toggle WireGuard VPN tunnel
+TOR ON / TOR OFF        Toggle system-wide Tor routing (TOR ON PERSIST keeps it on)
+TOR BRIDGE ADD/LIST/CLEAR  Manage Tor bridges
+DEBIAN apt install &lt;pkg&gt; Install any Debian package (with persistent LUKS2 storage)
+DEBIAN /RESET           Forget everything installed, at the next start
+</code></pre></div>
+<blockquote>
+<p dir="auto"><strong>Note on Debian Package Availability:</strong></p>
+<ul dir="auto">
+<li>Classic <code>synapse</code> (the legacy GTK2 semantic launcher) was deprecated and removed from modern Debian repositories. If you are looking for an application launcher, use <code>rofi</code> (<code>ferro-heavy install rofi</code>) or <code>albert</code>. If you want the Matrix homeserver, use <code>matrix-synapse</code> (<code>ferro-heavy install matrix-synapse</code>).</li>
+</ul>
+</blockquote>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Building from Source</h2><a id="building-from-source" class="anchor" aria-label="Permalink: Building from Source" href="#building-from-source"></a></div>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Prerequisites</h3><a id="prerequisites" class="anchor" aria-label="Permalink: Prerequisites" href="#prerequisites"></a></div>
+<ul dir="auto">
+<li><a href="https://rustup.rs" rel="nofollow">Rust</a> (stable toolchain)</li>
+<li><a href="https://www.qemu.org" rel="nofollow">QEMU</a> (<code>qemu-system-x86_64</code>)</li>
+<li>Host C compiler (<code>clang</code>, <code>llvm</code>, and <code>musl-tools</code> on Linux; MinGW GCC on Windows)</li>
+</ul>
+<p dir="auto">The Rust userspace is compiled on your machine as static <code>x86_64-unknown-linux-musl</code> binaries (hence clang and musl-tools); the kernel, Tor, Debian and Heavy images are built inside isolated, self-contained QEMU builder VMs, so no container engines are required.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="# 1. Preview the desktop in a window on your current operating system
+cargo run -p ferro-preview
+
+# 2. Build FerroOS Heavy hybrid ISO (build/ferroos-heavy.iso)
+cargo xtask heavy-iso
+
+# 3. Run automated virtual window manager test suite with screenshots
+cargo xtask wm-test
+
+# 4. Build FerroOS Lite standalone ISO (build/ferroos.iso)
+cargo xtask iso
+
+# 5. Boot FerroOS Lite in QEMU with 64 MB RAM
+cargo xtask run"><pre><span class="pl-c"><span class="pl-c">#</span> 1. Preview the desktop in a window on your current operating system</span>
+cargo run -p ferro-preview
+
+<span class="pl-c"><span class="pl-c">#</span> 2. Build FerroOS Heavy hybrid ISO (build/ferroos-heavy.iso)</span>
+cargo xtask heavy-iso
+
+<span class="pl-c"><span class="pl-c">#</span> 3. Run automated virtual window manager test suite with screenshots</span>
+cargo xtask wm-test
+
+<span class="pl-c"><span class="pl-c">#</span> 4. Build FerroOS Lite standalone ISO (build/ferroos.iso)</span>
+cargo xtask iso
+
+<span class="pl-c"><span class="pl-c">#</span> 5. Boot FerroOS Lite in QEMU with 64 MB RAM</span>
+cargo xtask run</pre></div>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Automated GitHub Releases</h3><a id="automated-github-releases" class="anchor" aria-label="Permalink: Automated GitHub Releases" href="#automated-github-releases"></a></div>
+<p dir="auto">Automated releases are powered by the <code>.github/workflows/release.yml</code> GitHub Actions workflow. When a version tag (e.g. <code>v1.0.0</code>) is pushed or manually triggered via <code>workflow_dispatch</code>:</p>
+<ul dir="auto">
+<li>The builder automatically provisions the environment, compiles the static userspace binaries, and generates <code>ferroos-heavy.iso</code>.</li>
+<li>Builds Wisp from the commit in <code>heavy/wisp.commit</code> for the image (installed systems then follow Wisp's own releases, which its repository publishes on every push to <code>main</code>) (<code>tools/heavy/build-wisp.sh</code>, in a Debian container), and the update bundle that installed systems fetch with <code>ferro-update</code> (<code>ferroos-heavy-update.tar.gz</code>). The bundle carries FerroOS's own programs plus the release's package lists: <code>ferro-update</code> installs each Debian package newly added to <code>heavy/packages.txt</code> and removes each one listed in <code>heavy/packages-removed.txt</code>, once, so an installed system gets everything a fresh install has. A package someone uninstalled isn't put back, and one that can't be had yet is tried again at the next update. A newer <code>ferro-update</code> in the bundle runs its own steps.</li>
+<li>Computes SHA-256 checksums (<code>ferroos-heavy.iso.sha256</code>, <code>ferroos-heavy-update.tar.gz.sha256</code>) and a signed build-provenance attestation, so a download can be checked against this repository: <code>gh attestation verify ferroos-heavy.iso --repo anti-ghostsec/FerroOS</code>.</li>
+<li>Signs the update bundle (and <code>ferro-update</code> itself) with FerroOS's release key (minisign, the <code>MINISIGN_SECRET_KEY</code> repository secret). <code>ferro-update</code> installs a bundle, downloaded or from a file, only if its signature checks out against the public key it carries (<code>PUBKEY</code> in <code>heavy/ferro-update</code>) and its release is no older than the one installed; <code>ferro-update --check FILE</code> says whether a bundle would be taken, without changing anything.</li>
+<li>Publishes the ISO, the update bundle, <code>ferro-update</code>, the signatures and the checksums to GitHub Releases, and removes all but the two newest releases.</li>
+</ul>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Screenshots</h2><a id="screenshots" class="anchor" aria-label="Permalink: Screenshots" href="#screenshots"></a></div>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th align="center">Logon Screen</th>
+<th align="center">Installation Wizard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/anti-ghostsec/FerroOS/blob/ferro-os/docs/screenshots/heavy-logon.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-logon.png" alt="Logon Screen" style="max-width: 100%;"></a></td>
+<td align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/anti-ghostsec/FerroOS/blob/ferro-os/docs/screenshots/heavy-install.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-install.png" alt="Installation Wizard" style="max-width: 100%;"></a></td>
+</tr>
+<tr>
+<td align="center"><em>Logon screen with session locking &amp; duress protection</em></td>
+<td align="center"><em>Setup wizard with optional full-disk LUKS2 encryption</em></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th align="center">Task Manager Budgets</th>
+<th align="center">Network Kill Switches &amp; Tray</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/anti-ghostsec/FerroOS/blob/ferro-os/docs/screenshots/budgets.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/budgets.png" alt="Budgets" style="max-width: 100%;"></a></td>
+<td align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/anti-ghostsec/FerroOS/blob/ferro-os/docs/screenshots/privacy.png"><img loading="lazy" decoding="async" src="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/privacy.png" alt="Privacy Kill Switches" style="max-width: 100%;"></a></td>
+</tr>
+<tr>
+<td align="center"><em>Per-process RAM budget configuration dialog</em></td>
+<td align="center"><em>Hardware kill switches and privacy controls</em></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<hr>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">License</h2><a id="license" class="anchor" aria-label="Permalink: License" href="#license"></a></div>
+<p dir="auto">FerroOS is dual-licensed under the <a href="https://github.com/anti-ghostsec/FerroOS/blob/ferro-os/LICENSE-MIT">MIT License</a> or the <a href="https://github.com/anti-ghostsec/FerroOS/blob/ferro-os/LICENSE-APACHE">Apache License (Version 2.0)</a>, at your option.</p>
+<p dir="auto">Third-party components packaged in the installation images:</p>
+<ul dir="auto">
+<li>Linux Kernel: GPL-2.0</li>
+<li>GRUB Bootloader: GPL-3.0</li>
+<li>Tor (Heavy): BSD-3-Clause</li>
+<li>Arti (Tor, Lite): MIT / Apache-2.0</li>
+<li>Debian Base Packages: Respective upstream open-source licenses</li>
+</ul>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/FerroOS">FerroOS on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

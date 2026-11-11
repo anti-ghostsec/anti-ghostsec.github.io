@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Torus: host a website as a Tor onion service from your PC or Android phone</title>
+<meta name="description" content="Build a website and host it as a Tor onion service from your own Windows PC or Android phone. No server, no domain, no account.">
+<meta name="keywords" content="host onion site, tor hidden service windows, onion website android, self host tor">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/torus/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="Torus: host a website as a Tor onion service from your PC or Android phone">
+<meta property="og:description" content="Build a website and host it as a Tor onion service from your own Windows PC or Android phone. No server, no domain, no account.">
+<meta property="og:url" content="https://anti-ghostsec.github.io/torus/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Torus: host a website as a Tor onion service from your PC or Android phone">
+<meta name="twitter:description" content="Build a website and host it as a Tor onion service from your own Windows PC or Android phone. No server, no domain, no account.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "Torus", "description": "Build a website and host it as a Tor onion service from your own Windows PC or Android phone. No server, no domain, no account.", "url": "https://anti-ghostsec.github.io/torus/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Windows, Android", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/Torus"], "softwareVersion": "v0.1.10", "downloadUrl": "https://github.com/anti-ghostsec/Torus/releases/latest", "@id": "https://anti-ghostsec.github.io/torus/#app"}, {"@type": "SoftwareSourceCode", "name": "Torus", "codeRepository": "https://github.com/anti-ghostsec/Torus", "programmingLanguage": "Rust", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/torus/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Torus", "item": "https://anti-ghostsec.github.io/torus/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › Torus</p>
+<section class="hero" style="padding-top:12px">
+<h1>🍩 Torus: host a website as a Tor onion service from your PC or Android phone</h1>
+<p>Build a website and host it as a Tor onion service from your own Windows PC or Android phone. No server, no domain, no account.</p>
+<div class="facts"><span class="chip">Rust</span><span class="chip">Latest: v0.1.10</span><span class="chip">Updated 2026-11-10</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/Torus">View source on GitHub</a><a class="btn" href="https://github.com/anti-ghostsec/Torus/releases/latest">Download</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text">
+<p dir="auto">Build a website and host it as a Tor onion service, from your own Windows PC or Android phone. No server, no domain, no hosting company, and no account anywhere.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">What you can make</h2><a id="what-you-can-make" class="anchor" aria-label="Permalink: What you can make" href="#what-you-can-make"></a></div>
+<p dir="auto">Start from a ready-made site and change it in the editor:</p>
+<ul dir="auto">
+<li><strong>Video site</strong>: uploads of up to 10 GB, each one re-encoded before anyone can watch it, so it carries no traces of the camera or app that made it.</li>
+<li><strong>Board</strong> and <strong>microblog</strong>: posts, feeds and view counts.</li>
+<li><strong>Wiki</strong> and <strong>pastebin</strong>.</li>
+</ul>
+<p dir="auto">Sites can have <strong>member accounts</strong>, with moderation (blocked words, approving new accounts) and picture puzzles to keep bots out. A <strong>Monero wallet</strong> kept in the vault lets a site take payments: each site gets an account of its own and each of its users gets a separate address, so nobody looking at the chain can link them.</p>
+<p dir="auto">Pages are plain HTML and CSS, with no scripts and no third-party requests. A built-in checker refuses to publish a page that would leak.</p>
+<p dir="auto">You can also mine a <strong>vanity onion address</strong> that starts with letters you choose.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">How it keeps you safe</h2><a id="how-it-keeps-you-safe" class="anchor" aria-label="Permalink: How it keeps you safe" href="#how-it-keeps-you-safe"></a></div>
+<ul dir="auto">
+<li><strong>Everything is in one encrypted vault.</strong> Sites, keys, visitor data and the wallet are encrypted with Argon2id and XChaCha20-Poly1305. Nothing is readable on disk without your passphrase.</li>
+<li><strong>The network-facing part is sandboxed.</strong> Each site runs in its own host process that gets finished pages and its one onion key, and nothing else: never the vault, your passphrase or other sites. On Windows it runs in an AppContainer. On Linux and Android it runs under Landlock and seccomp.</li>
+<li><strong>Visitors' submissions are sealed.</strong> What visitors send to a sealed collection is encrypted to a key that only the vault holds, using a hybrid of a classical and a post-quantum key agreement. Someone who seizes or breaks into the host can't read it.</li>
+<li><strong>Tor runs inside the app</strong> (Arti), so there's no listening socket at all. Tor's own state is kept encrypted too.</li>
+<li><strong>Nothing about your machine reaches visitors.</strong> Responses carry a small, fixed set of headers, with no clocks, software versions or file times.</li>
+<li><strong>Under pressure:</strong> auto-lock, a panic action, and a decoy passphrase that opens a separate, empty vault.</li>
+<li><strong>Backups:</strong> encrypted backup and restore of everything, or export and import of a single site.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Get it</h2><a id="get-it" class="anchor" aria-label="Permalink: Get it" href="#get-it"></a></div>
+<p dir="auto">Download from <a href="https://github.com/anti-ghostsec/Torus/releases">Releases</a> and check it against <code>SHA256SUMS.txt</code>.</p>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>On</th>
+<th>Download</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Windows 10 or 11</strong></td>
+<td><code>Torus_*_windows_portable.zip</code>: unzip anywhere on an NTFS drive and run <code>Torus\torus.exe</code>. Nothing is installed or written outside that folder.</td>
+</tr>
+<tr>
+<td><strong>Android (64-bit ARM)</strong></td>
+<td><code>Torus_*_arm64.apk</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">The builds aren't code-signed yet, so Windows SmartScreen warns the first time you run it: choose "More info", then "Run anyway".</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Known limits</h2><a id="known-limits" class="anchor" aria-label="Permalink: Known limits" href="#known-limits"></a></div>
+<ul dir="auto">
+<li>Torus hasn't been audited by an independent security firm. Don't rely on it alone if being identified could put you in danger.</li>
+<li>On Android systems without Landlock, a site's files can't be confined. The editor tells you when this happens.</li>
+<li>Your device has to stay on and online for your sites to be reachable.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Layout</h2><a id="layout" class="anchor" aria-label="Permalink: Layout" href="#layout"></a></div>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Crate</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>crates/core</code></td>
+<td>The site model, the no-script HTML compiler and the leak checker</td>
+</tr>
+<tr>
+<td><code>crates/runtime</code></td>
+<td>Serves a site: pages, records, files and accounts</td>
+</tr>
+<tr>
+<td><code>crates/host</code>, <code>crates/host-api</code></td>
+<td>The sandboxed process that faces the network, and how the editor talks to it</td>
+</tr>
+<tr>
+<td><code>crates/tor</code></td>
+<td>Publishes sites as onion services with Arti</td>
+</tr>
+<tr>
+<td><code>crates/onion-key</code></td>
+<td>Makes onion keys and derives their addresses, with no networking code</td>
+</tr>
+<tr>
+<td><code>crates/vault</code></td>
+<td>The encrypted single-file vault</td>
+</tr>
+<tr>
+<td><code>crates/seal</code></td>
+<td>Post-quantum hybrid encryption for visitor submissions</td>
+</tr>
+<tr>
+<td><code>crates/wallet</code></td>
+<td>The Monero wallet</td>
+</tr>
+<tr>
+<td><code>crates/gateway</code></td>
+<td><code>torus-gateway</code>: publishes any web app already running on the machine as an onion service, and mines vanity addresses from the command line</td>
+</tr>
+<tr>
+<td><code>app/</code></td>
+<td>The Tauri editor app</td>
+</tr>
+<tr>
+<td><code>patches/</code></td>
+<td>Patched copies of <code>wry</code>, <code>fs-mistrust</code> and <code>saturating-time</code></td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Building it yourself is covered in <a href="https://github.com/anti-ghostsec/Torus/blob/main/BUILDING.md">BUILDING.md</a>.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Publishing another web app</h2><a id="publishing-another-web-app" class="anchor" aria-label="Permalink: Publishing another web app" href="#publishing-another-web-app"></a></div>
+<p dir="auto">The editor can put a web app that already runs on this computer online at an onion
+address of its own: <strong>Apps on this computer</strong>, in the site settings. Give it a name and
+the port the app listens on, pick a new or saved address (mined, or imported from an
+address file or from Tor's own <code>hs_ed25519_secret_key</code>), and publish it. It runs in a
+confined host of its own, with its own Tor bookkeeping, like a site's.</p>
+<p dir="auto">The same works without the editor: <code>torus-gateway</code> puts the app online as an onion
+service, with Tor inside the process and nothing listening for visitors:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="cargo build --release -p torus-gateway
+torus-gateway address --key onion.key                 # prints the address (makes a key if needed)
+torus-gateway mine --key onion.key PREFIX...          # vanity address; --replace to overwrite
+torus-gateway serve --key onion.key --data tor --to 127.0.0.1:3000   # --with-parent: exit when stdin closes"><pre>cargo build --release -p torus-gateway
+torus-gateway address --key onion.key                 <span class="pl-c"><span class="pl-c">#</span> prints the address (makes a key if needed)</span>
+torus-gateway mine --key onion.key PREFIX...          <span class="pl-c"><span class="pl-c">#</span> vanity address; --replace to overwrite</span>
+torus-gateway serve --key onion.key --data tor --to 127.0.0.1:3000   <span class="pl-c"><span class="pl-c">#</span> --with-parent: exit when stdin closes</span></pre></div>
+<p dir="auto">The key file holds the service's secret identity (64 bytes, the same as the part of
+Tor's <code>hs_ed25519_secret_key</code> after its 32-byte header). Like Tor, the gateway refuses
+a key file other users of the machine could read. Only one gateway runs per Tor folder,
+and with <code>--with-parent</code> it never outlives the program that started it.</p>
+<p dir="auto">Either way, Torus only carries visitors' connections: the app behind it is not confined
+or checked for leaks, so it must be safe to put online itself and listen on 127.0.0.1
+only. Each circuit may hold 64 streams at once and each service 1024; a forwarded stream
+silent for two minutes is closed.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">License</h2><a id="license" class="anchor" aria-label="Permalink: License" href="#license"></a></div>
+<p dir="auto">MIT or Apache-2.0, at your choice.</p>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/Torus">Torus on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

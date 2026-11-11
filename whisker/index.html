@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Whisker: privacy-focused Matrix client in Rust with multiple accounts</title>
+<meta name="description" content="Privacy-focused Matrix client in Rust: many accounts at once, AI agent accounts, encrypted vaults. Linux, Windows, Android.">
+<meta name="keywords" content="matrix client, rust matrix client, multi account matrix, encrypted chat, linux windows android">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/whisker/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="Whisker: privacy-focused Matrix client in Rust with multiple accounts">
+<meta property="og:description" content="Privacy-focused Matrix client in Rust: many accounts at once, AI agent accounts, encrypted vaults. Linux, Windows, Android.">
+<meta property="og:url" content="https://anti-ghostsec.github.io/whisker/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Whisker: privacy-focused Matrix client in Rust with multiple accounts">
+<meta name="twitter:description" content="Privacy-focused Matrix client in Rust: many accounts at once, AI agent accounts, encrypted vaults. Linux, Windows, Android.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "Whisker", "description": "Privacy-focused Matrix client in Rust: many accounts at once, AI agent accounts, encrypted vaults. Linux, Windows, Android.", "url": "https://anti-ghostsec.github.io/whisker/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Linux, Windows, Android", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/whisker"], "softwareVersion": "v0.6.0", "downloadUrl": "https://github.com/anti-ghostsec/whisker/releases/latest", "@id": "https://anti-ghostsec.github.io/whisker/#app"}, {"@type": "SoftwareSourceCode", "name": "whisker", "codeRepository": "https://github.com/anti-ghostsec/whisker", "programmingLanguage": "Rust", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/whisker/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Whisker", "item": "https://anti-ghostsec.github.io/whisker/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › Whisker</p>
+<section class="hero" style="padding-top:12px">
+<h1>💬 Whisker: privacy-focused Matrix client in Rust with multiple accounts</h1>
+<p>Privacy-focused Matrix client in Rust: many accounts at once, AI agent accounts, encrypted vaults. Linux, Windows, Android.</p>
+<div class="facts"><span class="chip">Rust</span><span class="chip">Latest: v0.6.0</span><span class="chip">Updated 2026-11-10</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/whisker">View source on GitHub</a><a class="btn" href="https://github.com/anti-ghostsec/whisker/releases/latest">Download</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text">
+<p dir="auto"><a href="https://github.com/anti-ghostsec/whisker/actions/workflows/build.yml"><img loading="lazy" decoding="async" src="https://github.com/anti-ghostsec/whisker/actions/workflows/build.yml/badge.svg?branch=main" alt="Build" style="max-width: 100%;"></a></p>
+<p dir="auto">A Matrix client written in Rust and built for privacy, running on Linux, Windows and
+Android. It keeps every account on every server signed in at once, can hide alt accounts
+behind a second passphrase, and can run an AI as its own automated account with moderation
+rights that you control.</p>
+<p dir="auto">Whisker is part of the anti-ghostsec family: the <strong>anoncat</strong> homeserver, the <strong>FerroOS</strong>
+operating system and the <strong>Wisp</strong> browser.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Features</h2><a id="features" class="anchor" aria-label="Permalink: Features" href="#features"></a></div>
+<ul dir="auto">
+<li><strong>Sign in or create accounts.</strong> Pick a suggested server (anoncat.gleeze.com) and type
+just your username, or choose <em>Other server…</em> and enter any server; a full address like
+<code>@you:matrix.org</code> works too. Sign-up works on servers that allow open registration or
+hand out registration tokens; servers that need an email or captcha say so.</li>
+<li><strong>Many accounts, signed in at once.</strong> Switch between any account on any server with
+one click. Each account syncs in the background, so nothing goes stale.</li>
+<li><strong>Tags.</strong> Label accounts (<code>main</code>, <code>alt</code>, <code>work</code>, …) and filter the account list by tag.
+Tags never leave your device.</li>
+<li><strong>Hidden vaults.</strong> All accounts are stored in an encrypted vault (Argon2id 64 MiB/3 passes
+<ul dir="auto">
+<li>XChaCha20-Poly1305, the same setup as Enclave). You can make more than one vault, each
+with its own passphrase. Your main passphrase opens only the main vault. Alts in a hidden
+vault don't appear and aren't mentioned anywhere in the main vault until you unlock it
+with its own passphrase. <strong>Lock</strong> closes all vaults. See <a href="#hidden-vaults-on-disk">Hidden vaults on disk</a>
+for what someone with your files can and can't tell.</li>
+</ul>
+</li>
+<li><strong>A proxy per account.</strong> You can give each account its own proxy (for example a Tor SOCKS
+port), so a server can't link your alts by IP address.</li>
+<li><strong>AI accounts.</strong> Each AI signs in as its own Matrix account, separate from yours, with its
+own settings page. Paste the address of any AI API (OpenRouter, Groq, Mistral, DeepSeek,
+Gemini, OpenAI, Venice, LM Studio, llama.cpp, vLLM, Ollama, or any Anthropic-style API).
+Whisker works out what kind of API it is, lists its models, and has a Test button. With
+Venice, its own system prompt and web search are always sent as <em>off</em> (web search would
+pass chat messages to a third-party search engine) unless you switch them on for that AI.</li>
+<li><strong>AI memory.</strong> Each AI remembers the last messages of every room word for word (40 by
+default, saved in the vault so restarts don't wipe it) and folds older ones into a
+running summary, made by the chat model or a cheaper one you name. The prompt stays
+within a token budget (newest messages first, each capped at 2 KiB).</li>
+<li><strong>No bot loops.</strong> An AI never answers your other AI accounts or <code>m.notice</code> messages
+(Matrix's marker for bot output), and after a few replies in quick succession it waits
+for a pause, so two bots in one room can't talk to each other forever. It answers a
+mention only when its name or address appears as a whole word.</li>
+<li><strong>Admin controls.</strong> In the composer, type <code>/kick</code>, <code>/ban</code>, <code>/unban</code>, <code>/invite</code>, <code>/redact</code>,
+<code>/op @user 50</code> or <code>/deop</code>. The AI uses the same actions.</li>
+<li><strong>Server plugins.</strong> If the homeserver runs hot-loaded WASM plugins (anoncat), Whisker
+can find them at runtime and call their methods (no UI uses them yet). See
+<a href="https://github.com/anti-ghostsec/whisker/blob/main/docs/PLUGIN_PROTOCOL.md">docs/PLUGIN_PROTOCOL.md</a>.</li>
+<li><strong>Chat:</strong> Markdown formatting (bold, italic, strikethrough, <code>code</code>, code blocks, quotes,
+lists, headings, clickable links); replies, edits and deletions; image previews with a
+full-size viewer; file cards; date dividers; a multi-line composer (Enter sends,
+Shift+Enter adds a line); and an <strong>attach</strong> button for images and files, as big as your server takes (up to 2 GB),
+with the upload's progress in percent.</li>
+<li><strong>Emoji and reactions.</strong> The ☺ button next to Send opens a searchable emoji picker.
+Reactions show under messages with a count (hover to see who); click one to add or take
+back your own, or right-click a message → <em>React</em>. Emoji are in colour everywhere, with
+nothing to install: Whisker carries Noto Emoji pictures (picker, reactions, suggestions,
+big emoji-only messages) and a trimmed copy of the Noto Color Emoji font, listed before
+the system fonts, for emoji inside text (see <code>apps/whisker/assets</code>).</li>
+<li><strong>Share to Whisker</strong> from other apps: files, pictures, text and links. Whisker asks which
+account should send it (skipped if you only have one), then which room, sends it, and opens
+that room. Several files at once are fine. On FerroOS it's in the Share box; elsewhere use
+"Open with" or run <code>whisker FILE…</code>. If Whisker is already open, the share goes to that
+window; if it's locked, the share waits until you unlock. Starting a different (newer)
+build while an older one is open closes the old one, so the new one takes over. On
+Android it's in the system Share menu.</li>
+<li><strong>Forward</strong> any message from its right-click menu to one or more of your rooms. Images
+and files are re-posted as the same file (nothing is downloaded or uploaded again);
+replies lose their reply link. Forwarding from an encrypted room into an unencrypted
+one makes that file readable to the new room.</li>
+<li><strong>File links:</strong> <em>Copy file link</em> on a picture, video or file's menu copies its address
+(<code>mxc://server/id</code>). Paste one on its own and send it, and it goes out as that picture,
+video or file without being uploaded again; Whisker asks the server only for its type and
+size (and a picture's dimensions). A message that is only such a link (sent from another
+app as text) shows the file itself. Media download addresses
+(<code>https://…/_matrix/…/download/server/id</code>) work too. An encrypted file's address can't
+open it without the message's key, so its link is a matrix.to link to the message: sending
+that re-posts the file, for people who can see the original room. A video's link goes with
+its size and length, read from just the parts of the video that hold them, and a small preview
+frame is uploaded so other apps show a picture (Settings can turn that off). Whisker reads the
+video through a private relay on this computer, so your login never reaches ffmpeg.</li>
+<li><strong>Pictures from other servers:</strong> when one doesn't load, Whisker tries its other forms in turn
+(the sender's thumbnail, the server's, the file itself; a server thumbnail also turns pictures
+Whisker can't read, like AVIF or HEIC, into ones it can). If the server doesn't answer, it
+tries again a few times over the next minutes, then shows "Couldn't load the image"; click it
+to try again. Servers that list the newer logged-in media addresses but turn some files down
+there ("Unrecognized request"), as some matrix-media-repo setups do, get asked at the older
+address instead.</li>
+<li><strong>Images and videos:</strong> right-click the picture or video itself to save it; the full-size
+viewer has Save / Forward / Close buttons and its own right-click menu. <strong>GIFs and
+animated WebP play and loop</strong>, in the timeline and the viewer. Videos show their preview
+frame (when they were sent without one, and are under 200 MB, Whisker makes one with
+ffmpeg if it's installed, reading only the parts of the video it needs where it can; videos
+you send get one the same way). Click a video to <strong>play it right there in the message</strong>, with
+pause, a seek bar, sound and its subtitles (on Linux, with ffmpeg installed; sound goes through
+PulseAudio/PipeWire, else ALSA). Videos start muted: click the speaker for sound. Subtitles
+inside the video (SRT, ASS, WebVTT, MP4 text, or picture subtitles from Blu-ray and DVD rips)
+are drawn on it; the CC button hides them. The corners button (or a double-click) shows it
+<strong>large</strong>, over the whole window; Esc, ✕ or the button again brings it back. One plays at a
+time, and it stops when you switch rooms. Without ffmpeg, and on other systems, it opens in mpv or your
+system's player. The copy goes to the RAM folder and is deleted when you lock or quit.</li>
+<li><strong>Spaces</strong> show as folders in the room list, holding their rooms and sub-spaces (a folded
+space shows the unread count of everything inside). Clicking a space opens its page: every
+room it lists, with <strong>Join</strong> for the ones you aren't in yet and <strong>Open</strong> for the rest, plus
+<strong>Invite people</strong> and <strong>Space info</strong>. Click it again to fold or unfold it. A space you just
+joined shows as a space straight away (Whisker asks the server if its copy doesn't know).
+Right-click a room on the page to open or join it, see its info, invite people, mark it
+read, copy its address or leave it.</li>
+<li><strong>Autocorrect</strong> fixes typos when you finish a word: common ones ("teh" → "the", "dont" →
+"don't", a lone "i" → "I"), and any word that isn't English but is one slip (swapped,
+extra, missing or wrong letter) from exactly one word that is: "thnig" → "thing",
+"messgae" → "message". When two words fit equally it leaves yours alone. Backspace
+straight after a fix keeps what you typed (and that word isn't fixed again). Turn it off
+in Settings. The word list comes from SCOWL (<code>apps/whisker/assets/words-LICENSE.txt</code>).</li>
+<li><strong>Right-click to cut, copy, paste or select all</strong> in every text box and the composer, and
+to copy addresses, descriptions and pinned messages in the side panel.</li>
+<li><strong>Room keys:</strong> Settings → account → <em>Export or import room keys</em> saves your message keys
+to a passphrase-locked file (the format Element uses), or reads one in.</li>
+<li><strong>Threads:</strong> replies in a thread are tucked under the message that started it ("3
+replies"); click that, or right-click → <em>Reply in thread</em>, to read and answer in the side panel.</li>
+<li><strong>Mentions and emoji shortcodes:</strong> type <code>@</code> and part of a name for the closest matches
+(↑/↓ move through them, Tab or Enter takes the highlighted one); picked people become real mentions, so they're notified,
+and mentions show in the accent colour like links (click one for that person's profile).
+<code>:smile:</code> turns into 😄 as you type the closing colon; <code>:smi</code> offers matches, and a
+whole-word <code>:smile</code> is converted when you send. The ☺ button's picker takes the keyboard
+too: type to search, arrows to move, Enter to insert, Escape to close. Replying, editing,
+quoting, picking an emoji or switching rooms puts the cursor back in the message box.</li>
+<li><strong>Clear messages (moderators):</strong> Room info → <em>Clear messages…</em>, or type <code>/clear</code> on its own,
+deletes the last 50, last 500 or all messages in the room for everyone (after asking).
+The command can be renamed (e.g. <code>?clear</code>) or turned off in Settings → <em>Commands</em>.</li>
+<li><strong>Notifications</strong> (Linux desktops) for direct messages, mentions, and rooms you've set to
+notify, never for the room you're looking at or for messages from your own accounts.
+Settings → <em>Notifications and typing</em> picks how much they say: nothing, who and where
+(the default), or the message too.</li>
+<li><strong>Typing:</strong> "Bob is typing…" shows above the composer. Whisker only tells others that
+<em>you're</em> typing if you turn that on.</li>
+<li><strong>Drag to select</strong> any part of a message and copy it with Ctrl+C (turn on <em>Rich message
+text</em> in Settings for bold/italic/clickable links instead; rich text can't be selected).
+Click a <strong>name</strong> to reply to that message; click an <strong>avatar</strong> to open the person's
+profile (direct chat, mention, copy id, kick/ban if you're a moderator, ignore).</li>
+<li><strong>Drag an account</strong> up or down the rail to reorder; the others slide aside like tabs (or
+right-click it for Move up/down). <strong>Double-click an account</strong> to fold the room list away
+for more room to read, and again to bring it back. Room admins can <strong>change a room's picture</strong> from Room info. <strong>Right-click a room</strong> to
+pin it to the top (saved as a favourite, so other apps see it), mark it read, copy its
+address or leave it. Opening a room clears its unread badge using a <em>private</em> read
+receipt, so the server's counter resets without telling anyone you read it.</li>
+<li><strong>Read receipts.</strong> Small avatars under a message show who has read up to there (from
+their public receipts; people who use private receipts, like you, don't appear). Click
+them for the list of readers; click a reader for their profile.</li>
+<li><strong>Repeated joins hidden.</strong> Some servers don't say what a member event replaced, so every
+name or picture change looks like another join; Whisker hides those repeats.</li>
+<li><strong>Room events.</strong> Settings → <em>Show room events</em> adds joins, leaves, invites, kicks, bans,
+renames, description, picture and permission changes as grey lines in the timeline.</li>
+<li><strong>Instant sending.</strong> Your message appears at once (dimmed, "Sending…") and settles when
+the server confirms it; if sending fails, the text goes back in the message box.</li>
+<li><strong>Public rooms</strong> (the <strong>#</strong> button): search your server's or any other server's room
+directory, or join by address like <code>#room:matrix.org</code>. If your server won't fetch another
+server's directory, Whisker asks that server directly (anonymously, but it sees your IP
+unless the account uses a proxy).</li>
+<li><strong>Preview before joining:</strong> <strong>Preview</strong> on a public room, on a room listed on a space's page,
+or on an address, and clicking a matrix.to room link in a message, shows the room without
+joining it: its name, topic and member count and, when its history is open to anyone, its
+newest messages (pictures, videos and reactions too). A bar with <strong>Join</strong> and <strong>Close</strong> takes
+the place of the message box. Encrypted messages, and rooms whose history only members may
+read, can't be shown until you join.</li>
+<li><strong>Create rooms</strong> (the <strong>+</strong> button above the room list): private and encrypted, or public
+with an address; invite people as you create it.</li>
+<li><strong>Profiles</strong>: click anyone's picture (in chat or the member list) to open their profile
+in a side panel: picture, name, address, role, verified status, <strong>Message</strong>, <strong>Verify</strong>,
+mention, copy address, moderation and ignore.</li>
+<li><strong>Verification</strong>: the emoji comparison, for other people and for this session against your
+other sessions (Settings → account → <em>Verify this session</em>); incoming requests pop up.
+People you've verified get a green <em>✓ Verified</em> by their name in the chat, and a red
+<em>⚠ Identity changed</em> if their keys changed since. Encrypted messages from a device its
+owner never verified (or an unknown one) carry a ⚠, with the reason on hover, as in
+Element. A profile lists the person's sessions, verified ones first, and the account page
+says whether this session is verified.</li>
+<li><strong>No other session needed.</strong> A new account gets its cross-signing keys on the device that
+creates or first logs into it, so that session is verified from the start (Settings →
+account → <em>Set up verification</em> does it for an account that has none yet). <em>Make a
+recovery key</em> turns on key backup; a later login can enter that key to verify itself and
+read older messages. Lost every session and the key? <em>Reset verification</em> starts over.
+Your AI accounts and your other accounts on this device verify each other automatically
+(but two people-accounts never do, so alts stay unlinked).</li>
+<li><strong>Room info</strong> (click the room name or <strong>i</strong>, opens in the side panel): description, pinned messages (where rooms
+usually keep their rules), who can join, history visibility, encryption, the member list
+(click anyone to see their profile), inviting people, and editing the name/description if
+you're allowed.</li>
+<li><strong>Your profile</strong>: change your display name and picture in Settings → your account.</li>
+<li><strong>Select text by dragging, like in a web browser:</strong> from the middle of one message, over
+names and whole messages, to the middle of another (hold the mouse above or below the list
+to scroll while selecting). Ctrl+C or right-click → <em>Copy</em> copies it, names on their own lines.</li>
+<li><strong>Right-click a message</strong> to react, reply, forward, copy it, open its links, save its file,
+edit or delete it, or kick/ban its sender if you're a moderator. Settings → <em>Message menu</em>
+also offers Reply in thread, Quote, Play / Open image, Copy link to message, View profile,
+Copy user id and Show source, which start off.</li>
+<li><strong>Settings page</strong> (⚙): dark (the default), light or follow-system theme; auto-lock after
+5/15/60 minutes idle; change a vault's passphrase; nickname, tags and proxy per account;
+a full AI agent setup form (model, API key, effort, permissions, commanders, audit room).</li>
+<li><strong>AI accounts.</strong> An AI chats as its own Matrix account. Add one from Settings → General
+→ <em>Add an AI account</em>, or turn an account you have into one from its settings page. Its
+page under <strong>AI</strong> takes any API address and key (Venice, OpenAI, Anthropic, OpenRouter,
+a local server…), the model (filled in with the service's recommended one, Venice's own
+default or a well-liked quick model, with a <em>Use it</em> button to switch back), and Venice's privacy switches (both off by default).
+<em>Longest reply posted</em> caps replies in characters (cut at the last sentence that fits),
+and <em>Let the AI see pictures</em> (off by default) sends up to three of the newest pictures in the
+last dozen messages (and a picture someone replies to, forwarded ones included), shrunk to 1024 px, to models that can
+see images. The page says whether the chosen chat model can see; for one that can't, pick
+a <em>Picture model</em> from the dropdown of the service's models that can (or type one): it
+describes each picture in words for the chat model. Pictures posted before the AI last
+restarted are fetched again when it answers, and each is fetched only once. Saving warns when the chat model probably can't see and no picture model is set. An AI answers when it's named,
+mentioned, or someone replies to one of its messages or in a thread it started, and shows
+as typing while it writes. Someone talking to it directly is always answered; the
+rapid-exchange limit only holds back answers to its name in passing.</li>
+<li><strong>Character cards.</strong> On an AI's page, <em>Import card…</em> reads Tavern / SillyTavern character
+cards, versions 1, 2 and 3, as <code>.json</code> or as <code>.png</code> (the card hidden in the picture,
+<code>ccv3</code> read before <code>chara</code>). The AI then plays that character: description,
+personality, scenario and example messages go into its instructions (your own text stays,
+and a card's system prompt can place it with <code>{{original}}</code>), <code>{{char}}</code> and <code>{{user}}</code>
+are filled in, lorebook entries are added when their keywords come up (constant,
+selective and case-sensitive entries and the scan depth are honoured, and so are the
+CCv3 <code>@@depth</code>, <code>@@role</code>, <code>@@position</code>, <code>@@activate</code> and <code>@@dont_activate</code> decorators and
+SillyTavern's "at depth" setting; no <code>@@</code> line ever reaches the model). Entries set to a
+depth and the card's post-history instructions go at the end of the conversation, after
+the message being answered, where reminders actually work. A <code>&lt;state&gt;…&lt;/state&gt;</code> block in
+a reply is never posted, even cut off: it's kept and shown back to the model next time.
+It greets
+with the first message when it joins a room (can be turned off). Every field can be
+edited; <em>Export .png</em> / <em>Export .json</em> write it back out as CCv3 (plus v2 in the PNG, for
+older apps), keeping fields Whisker doesn't use. <em>Use the card's name and picture</em> sets
+the AI account's display name and avatar. Cards and their pictures are kept in the vault.</li>
+<li><strong>End-to-end encryption.</strong> Built on matrix-rust-sdk. Each account's local store
+(room state and encryption keys) is kept <em>inside its vault file</em>, not in a folder of
+its own: while a vault is unlocked the store runs from RAM, and it is packed back into
+the vault every 10 minutes and when you lock or quit. Caches (timeline, media) stay
+in RAM and are rebuilt from the server.</li>
+<li><strong>Owner-only files.</strong> On Linux and Android the data folder and everything in it are
+readable by your user only (folders 0700, files 0600), including installs made by
+older versions. Older versions kept stores in a <code>stores</code> folder; each one moves into
+its vault (and is deleted) the first time that vault is unlocked.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Hidden vaults on disk</h2><a id="hidden-vaults-on-disk" class="anchor" aria-label="Permalink: Hidden vaults on disk" href="#hidden-vaults-on-disk"></a></div>
+<p dir="auto">On disk, Whisker keeps nothing but <code>settings.json</code> (theme and lock timer) and the
+<code>vaults</code> folder. Each vault file holds its accounts <em>and</em> their Matrix stores, so there
+is no per-account file or folder to count.</p>
+<p dir="auto">The <code>vaults</code> folder always holds more files than you have vaults. Whisker adds <em>decoys</em>
+on first run, whenever a vault is created, and now and then on unlock. A decoy has the
+same header and key-derivation cost as a real vault and a size from the same steps
+(powers of two from 64 KiB; decoys go up to 16 MiB); its contents are random, so
+without a passphrase nobody can tell it from a vault, and "Whisker made those" is always
+a true answer. A vault is rewritten in place, so it keeps its creation time, and after
+every write all files get the same timestamps, so nothing shows which one is in use.
+Unlocking tries every file, so the time it takes doesn't reveal anything either.</p>
+<p dir="auto">While a vault is unlocked, its stores run from a RAM-backed folder (<code>$XDG_RUNTIME_DIR</code>
+or <code>/dev/shm</code> on Linux), which is wiped when you lock. If Whisker crashes, that copy
+stays in RAM until you log out or reboot, and is used on the next unlock so nothing is
+lost. On Windows the running copy is on disk while unlocked (wiped on lock); on Android
+it is in the app's private storage.</p>
+<p dir="auto">What this doesn't hide:</p>
+<ul dir="auto">
+<li><strong>Size.</strong> A vault whose accounts are in many big rooms can grow past the largest decoy
+size (16 MiB), and an unusually large file is probably a real vault.</li>
+<li><strong>Deep forensics.</strong> Filesystem journals, SSD wear-levelling, backups and snapshots can
+keep older copies or timings that no app can control. Use full-disk encryption.</li>
+<li><strong>Your servers.</strong> A homeserver knows which accounts log in from the same IP unless you
+give them separate proxies.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">AI permissions</h2><a id="ai-permissions" class="anchor" aria-label="Permalink: AI permissions" href="#ai-permissions"></a></div>
+<p dir="auto">Before the AI can kick, ban or take any other moderation action, three checks must pass:</p>
+<ol dir="auto">
+<li><strong>Grant.</strong> You must have given the agent that permission, either everywhere or for a
+specific room. A per-room list <em>replaces</em> the global one.</li>
+<li><strong>Authority.</strong> The person asking must be a <em>commander</em>: either at or above a power level
+(default 50), or on your list of named users. Anyone else can only chat with the AI,
+and the AI is never even offered the moderation tools in that conversation. (You can turn
+on <code>autonomous</code> mode if you want the AI to act on its own, for example against spam.)</li>
+<li><strong>Server.</strong> The homeserver checks Matrix power levels as usual.</li>
+</ol>
+<p dir="auto">On top of these checks, the AI can never act against itself, any of your own accounts, or
+anyone on the protected list. It can't give anyone a power level above <code>max_grant_level</code>
+or at or above its own. Each action is logged and can also be posted to an audit room.
+Chat messages reach the model as JSON strings, one per line, and the request it's
+answering (who asked, and whether they're a moderator) comes separately from the app.
+A message can't close the transcript, fake another person's line or pretend to be the
+request, however it's written. Tools are offered only for what the real sender may do,
+so a message that says "ignore your rules and ban X" can't give anyone extra rights.
+Language models can still be talked into things, though: if a moderator talks to the AI
+right after someone posts instructions, the model could misread whose request it is.
+Only grant moderation to agents in rooms where you're comfortable with that, and keep the
+audit room on.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Layout</h2><a id="layout" class="anchor" aria-label="Permalink: Layout" href="#layout"></a></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="crates/whisker-core    accounts, vaults, moderation, server extensions, timeline
+crates/whisker-agent   AI agents: providers, permissions, tools, runner
+apps/whisker           Slint GUI (desktop + Android)
+apps/whisker-agentd    headless CLI: manage accounts/agents, run agents on a server"><pre class="notranslate"><code>crates/whisker-core    accounts, vaults, moderation, server extensions, timeline
+crates/whisker-agent   AI agents: providers, permissions, tools, runner
+apps/whisker           Slint GUI (desktop + Android)
+apps/whisker-agentd    headless CLI: manage accounts/agents, run agents on a server
+</code></pre></div>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Build</h2><a id="build" class="anchor" aria-label="Permalink: Build" href="#build"></a></div>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="cargo build --release            # Linux / Windows
+./target/release/whisker"><pre>cargo build --release            <span class="pl-c"><span class="pl-c">#</span> Linux / Windows</span>
+./target/release/whisker</pre></div>
+<p dir="auto">Use the release build for real use; debug builds are much slower (dependencies are
+optimised in debug too, but Whisker's own code isn't).</p>
+<p dir="auto">Every push builds Linux, Windows and Android artifacts in Actions. A <code>v*</code> tag attaches
+them to a release.</p>
+<p dir="auto">To have Whisker in the app menu and the FerroOS Share box, install its desktop entry (it
+expects <code>whisker</code> on your <code>PATH</code>, e.g. linked into <code>~/.local/bin</code>):</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="ln -s &quot;$PWD/target/release/whisker&quot; ~/.local/bin/whisker
+cp apps/whisker/whisker.desktop ~/.local/share/applications/"><pre>ln -s <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$PWD</span>/target/release/whisker<span class="pl-pds">"</span></span> <span class="pl-k">~</span>/.local/bin/whisker
+cp apps/whisker/whisker.desktop <span class="pl-k">~</span>/.local/share/applications/</pre></div>
+<p dir="auto">Android needs the NDK and <a href="https://github.com/rust-mobile/xbuild"><code>xbuild</code></a> or <code>cargo-apk</code>.
+The share menu entry, permissions and package name are in <code>apps/whisker/Cargo.toml</code> under
+<code>[package.metadata.android]</code> (cargo-apk's format):</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="rustup target add aarch64-linux-android
+x build -p whisker --platform android --arch arm64"><pre>rustup target add aarch64-linux-android
+x build -p whisker --platform android --arch arm64</pre></div>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Setting up an AI account</h2><a id="setting-up-an-ai-account" class="anchor" aria-label="Permalink: Setting up an AI account" href="#setting-up-an-ai-account"></a></div>
+<ol dir="auto">
+<li>In the GUI, click <strong>+</strong>, sign in to the bot's account, and tick
+<em>Automated AI account</em>. Or use <code>whisker-agentd login --agent …</code>. An account you've
+already added can become an AI too: <em>Settings → its page → Use this account as an AI</em>.</li>
+<li>Whisker opens its settings page. Paste the API address (e.g. <code>api.venice.ai/api/v1</code>, <code>openrouter.ai/api</code> or
+<code>localhost:11434</code>), add a key if it needs one, press <strong>Connect</strong>, pick a model, set its
+permissions, then <strong>Test</strong> and <strong>Save</strong>. Each AI has its own page under <em>Settings → AI</em>.</li>
+</ol>
+<p dir="auto">From a shell instead:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="whisker-agentd accounts                       # find the AI account's id
+export AI_KEY=...
+whisker-agentd agent add --account &lt;id&gt; --api-url openrouter.ai/api --api-key-env AI_KEY
+                                               # lists the models; then add --model &lt;name&gt;"><pre>whisker-agentd accounts                       <span class="pl-c"><span class="pl-c">#</span> find the AI account's id</span>
+<span class="pl-k">export</span> AI_KEY=...
+whisker-agentd agent add --account <span class="pl-k">&lt;</span>id<span class="pl-k">&gt;</span> --api-url openrouter.ai/api --api-key-env AI_KEY
+                                               <span class="pl-c"><span class="pl-c">#</span> lists the models; then add --model &lt;name&gt;</span></pre></div>
+<p dir="auto">Agents start when you unlock the vault in the GUI. To keep one running all the time, run
+<code>whisker-agentd run</code> on a server instead (not both at once on the same data directory).</p>
+<p dir="auto">The agent joins rooms when a commander or one of your own accounts invites it. It replies
+when someone mentions it and to every DM (<code>--trigger every</code> makes it read every message).</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Status</h2><a id="status" class="anchor" aria-label="Permalink: Status" href="#status"></a></div>
+<p dir="auto">This is an early version. It already does: vaults and hidden vaults, many accounts at once
+with tags, spaces, rooms, history, threads, replies, edits, reactions, forwarding, media,
+mentions, notifications, typing, read receipts, session verification, moderation, AI accounts
+with character cards, and plugin discovery. Still to do: video and audio playback inside the app, notifications on Windows and macOS,
+UI for plugin features, and an
+Android package that has been tested on a device.</p>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/whisker">whisker on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

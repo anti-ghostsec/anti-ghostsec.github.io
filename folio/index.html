@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Folio: calm, private text editor for Linux (GTK 4)</title>
+<meta name="description" content="A calm, private text editor for Linux — writing first, code second. GTK 4 + WebKit, dark by default, remembers nothing.">
+<meta name="keywords" content="text editor linux, distraction free editor, private text editor, writing app linux">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/folio/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="Folio: calm, private text editor for Linux (GTK 4)">
+<meta property="og:description" content="A calm, private text editor for Linux — writing first, code second. GTK 4 + WebKit, dark by default, remembers nothing.">
+<meta property="og:url" content="https://anti-ghostsec.github.io/folio/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Folio: calm, private text editor for Linux (GTK 4)">
+<meta name="twitter:description" content="A calm, private text editor for Linux — writing first, code second. GTK 4 + WebKit, dark by default, remembers nothing.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "Folio", "description": "A calm, private text editor for Linux — writing first, code second. GTK 4 + WebKit, dark by default, remembers nothing.", "url": "https://anti-ghostsec.github.io/folio/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Linux", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/folio"], "softwareVersion": "build-ae9b088", "downloadUrl": "https://github.com/anti-ghostsec/folio/releases/latest", "@id": "https://anti-ghostsec.github.io/folio/#app"}, {"@type": "SoftwareSourceCode", "name": "folio", "codeRepository": "https://github.com/anti-ghostsec/folio", "programmingLanguage": "JavaScript", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/folio/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Folio", "item": "https://anti-ghostsec.github.io/folio/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › Folio</p>
+<section class="hero" style="padding-top:12px">
+<h1>📝 Folio: calm, private text editor for Linux (GTK 4)</h1>
+<p>A calm, private text editor for Linux — writing first, code second. GTK 4 + WebKit, dark by default, remembers nothing.</p>
+<div class="facts"><span class="chip">JavaScript</span><span class="chip">MIT</span><span class="chip">Latest: build-ae9b088</span><span class="chip">Updated 2026-11-10</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/folio">View source on GitHub</a><a class="btn" href="https://github.com/anti-ghostsec/folio/releases/latest">Download</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text">
+<p dir="auto">A calm, private text editor for Linux — made for writing first, code second.</p>
+<p dir="auto">Folio is a small GTK 4 app that hosts a hand-built editor UI in WebKit. It opens in a dark theme, keeps the
+chrome out of your way, and forgets everything when you close it.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Features</h2><a id="features" class="anchor" aria-label="Permalink: Features" href="#features"></a></div>
+<p dir="auto"><strong>Writing</strong></p>
+<ul dir="auto">
+<li>Centered reading column with adjustable width, size and line spacing</li>
+<li>Three bundled typefaces: Literata (serif), Inter (sans), JetBrains Mono</li>
+<li>Four themes: Night (default), Ink, Paper, Sepia</li>
+<li>Spell check, live word count and reading time</li>
+<li>Markdown highlighting; lists and quotes continue on Enter</li>
+<li>Markdown preview (the eye button, Ctrl+Shift+M): the document formatted, read-only. Nothing in the file is run, and pictures aren't fetched (a picture shows as its description), so reading a document never tells a server so; links open in your browser</li>
+<li>Focus mode, typewriter scrolling, toolbars that fade while you type</li>
+</ul>
+<p dir="auto"><strong>Code</strong></p>
+<ul dir="auto">
+<li>Syntax colours for ~15 languages (Python, JS/TS, C/C++, Rust, Go, Java/Kotlin/C#, Shell, HTML/XML, CSS, JSON, YAML/TOML/INI, SQL, Lua, Ruby, PHP)</li>
+<li>Line numbers, auto-indent, Tab/Shift+Tab indenting</li>
+<li>Toggle comment (Ctrl+/), move line (Alt+↑/↓), duplicate line (Ctrl+Shift+D)</li>
+</ul>
+<p dir="auto"><strong>General</strong></p>
+<ul dir="auto">
+<li>A Save button (Ctrl+S) that lights up while there's something to save</li>
+<li>Tabs (drag to reorder), find &amp; replace with regex, drag files onto the window to open</li>
+<li>Keeps CRLF line endings and the file's encoding when saving; atomic saves</li>
+<li>Reloads files changed on disk if you haven't edited them</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Privacy</h2><a id="privacy" class="anchor" aria-label="Permalink: Privacy" href="#privacy"></a></div>
+<p dir="auto">The only thing Folio writes on its own is <code>~/.config/folio/settings.json</code> (theme, fonts, sizes, window size).</p>
+<ul dir="auto">
+<li>It does not remember which files or notes were open. Every launch starts fresh.</li>
+<li>Unsaved notes exist only in memory; Folio asks before closing if any would be lost.</li>
+<li>The web view uses an ephemeral session — no cookies, cache or storage on disk.</li>
+<li>Opened and saved files are not added to the desktop's "Recent files" list.</li>
+<li>No network access, telemetry or update checks.</li>
+</ul>
+<p dir="auto">The editor page can't reach into your files on its own. It only gets a file you opened yourself (from the
+command line or "Open with", the Open dialog, or by dropping it on the window), and Save As writes where the
+Save dialog says, nowhere else. The page also loads nothing but Folio's own scripts, styles and fonts: a
+content security policy rules out inline code and anything from a network.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Requirements</h2><a id="requirements" class="anchor" aria-label="Permalink: Requirements" href="#requirements"></a></div>
+<ul dir="auto">
+<li>Python 3.10+</li>
+<li>GTK 4 and WebKitGTK 6.0 with GObject introspection</li>
+</ul>
+<p dir="auto">Debian / Ubuntu:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-webkit-6.0"><pre>sudo apt install python3-gi gir1.2-gtk-4.0 gir1.2-webkit-6.0</pre></div>
+<p dir="auto">Fedora:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="sudo dnf install python3-gobject gtk4 webkitgtk6.0"><pre>sudo dnf install python3-gobject gtk4 webkitgtk6.0</pre></div>
+<p dir="auto">Arch:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="sudo pacman -S python-gobject gtk4 webkitgtk-6.0"><pre>sudo pacman -S python-gobject gtk4 webkitgtk-6.0</pre></div>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Run</h2><a id="run" class="anchor" aria-label="Permalink: Run" href="#run"></a></div>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="python3 folio.py [FILE ...]"><pre>python3 folio.py [FILE ...]</pre></div>
+<p dir="auto">To add Folio to your app menu (and the "Open with" list):</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="./install.sh"><pre>./install.sh</pre></div>
+<p dir="auto"><code>./install.sh --uninstall</code> removes it again.</p>
+<p dir="auto">To run the tests (they need nothing but Python):</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="python3 -m unittest discover -s tests"><pre>python3 -m unittest discover -s tests</pre></div>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Keyboard shortcuts</h2><a id="keyboard-shortcuts" class="anchor" aria-label="Permalink: Keyboard shortcuts" href="#keyboard-shortcuts"></a></div>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Keys</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New note / Open / Save / Save as</td>
+<td>Ctrl+N / Ctrl+O / Ctrl+S / Ctrl+Shift+S</td>
+</tr>
+<tr>
+<td>Close tab / Quit</td>
+<td>Ctrl+W / Ctrl+Q</td>
+</tr>
+<tr>
+<td>Next / previous tab</td>
+<td>Ctrl+Tab / Ctrl+Shift+Tab</td>
+</tr>
+<tr>
+<td>Find / Replace</td>
+<td>Ctrl+F / Ctrl+H</td>
+</tr>
+<tr>
+<td>Text size</td>
+<td>Ctrl+= / Ctrl+− / Ctrl+0</td>
+</tr>
+<tr>
+<td>Focus mode / Full screen</td>
+<td>Ctrl+Shift+F / F11</td>
+</tr>
+<tr>
+<td>Markdown preview / back to editing</td>
+<td>Ctrl+Shift+M / Esc</td>
+</tr>
+<tr>
+<td>Settings</td>
+<td>Ctrl+,</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">License</h2><a id="license" class="anchor" aria-label="Permalink: License" href="#license"></a></div>
+<p dir="auto">Code is MIT licensed (see <a href="https://github.com/anti-ghostsec/folio/blob/main/LICENSE">LICENSE</a>). The bundled fonts are under the SIL Open Font License 1.1 —
+see <a href="https://github.com/anti-ghostsec/folio/blob/main/ui/fonts/licenses">ui/fonts/licenses</a>.</p>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/folio">folio on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

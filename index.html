@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>anti-ghostsec: Private, open-source software for people who&#x27;d rather not be watched</title>
+<meta name="description" content="Open-source privacy software, mostly in Rust: FerroOS (a hardened Linux with a Windows 95 desktop), a private web browser, Matrix client, text editor, PDF app, video editor, encrypted Android vault and Tor tools. No telemetry.">
+<meta name="keywords" content="privacy software, open source privacy apps, rust privacy, windows 95 linux, tor apps, no telemetry">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="anti-ghostsec: Private, open-source software for people who&#x27;d rather not be watched">
+<meta property="og:description" content="Open-source privacy software, mostly in Rust: FerroOS (a hardened Linux with a Windows 95 desktop), a private web browser, Matrix client, text editor, PDF app, video editor, encrypted Android vault and Tor tools. No telemetry.">
+<meta property="og:url" content="https://anti-ghostsec.github.io/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="anti-ghostsec: Private, open-source software for people who&#x27;d rather not be watched">
+<meta name="twitter:description" content="Open-source privacy software, mostly in Rust: FerroOS (a hardened Linux with a Windows 95 desktop), a private web browser, Matrix client, text editor, PDF app, video editor, encrypted Android vault and Tor tools. No telemetry.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://anti-ghostsec.github.io/#site", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "description": "Open-source privacy software, mostly in Rust: FerroOS (a hardened Linux with a Windows 95 desktop), a private web browser, Matrix client, text editor, PDF app, video editor, encrypted Android vault and Tor tools. No telemetry.", "publisher": {"@id": "https://anti-ghostsec.github.io/#author"}}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}, {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://anti-ghostsec.github.io/ferroos/", "name": "FerroOS"}, {"@type": "ListItem", "position": 2, "url": "https://anti-ghostsec.github.io/wisp/", "name": "Wisp"}, {"@type": "ListItem", "position": 3, "url": "https://anti-ghostsec.github.io/whisker/", "name": "Whisker"}, {"@type": "ListItem", "position": 4, "url": "https://anti-ghostsec.github.io/folio/", "name": "Folio"}, {"@type": "ListItem", "position": 5, "url": "https://anti-ghostsec.github.io/leaflet/", "name": "Leaflet"}, {"@type": "ListItem", "position": 6, "url": "https://anti-ghostsec.github.io/flicker/", "name": "Flicker"}, {"@type": "ListItem", "position": 7, "url": "https://anti-ghostsec.github.io/enclave/", "name": "Enclave"}, {"@type": "ListItem", "position": 8, "url": "https://anti-ghostsec.github.io/sentinel-protocol/", "name": "The Sentinel Protocol"}, {"@type": "ListItem", "position": 9, "url": "https://anti-ghostsec.github.io/torus/", "name": "Torus"}, {"@type": "ListItem", "position": 10, "url": "https://anti-ghostsec.github.io/anoncode/", "name": "AnonCode"}, {"@type": "ListItem", "position": 11, "url": "https://anti-ghostsec.github.io/bettersearch/", "name": "BetterSearch"}, {"@type": "ListItem", "position": 12, "url": "https://anti-ghostsec.github.io/nuba/", "name": "Nuba"}, {"@type": "ListItem", "position": 13, "url": "https://anti-ghostsec.github.io/vidgrab/", "name": "vidgrab"}, {"@type": "ListItem", "position": 14, "url": "https://anti-ghostsec.github.io/cutframe/", "name": "CutFrame"}]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<section class="hero">
+<h1>Private, open-source software for people who&#x27;d rather not be watched</h1>
+<p>Small, fast, open-source programs, mostly written in Rust. Nothing phones home, files are saved without hidden metadata, and most of it runs fine on a 1&nbsp;GB machine.</p>
+<div class="chips"><span class="chip">Rust</span><span class="chip">No telemetry</span><span class="chip">Tor built in</span><span class="chip">Open source</span></div>
+<div class="btns"><a class="btn primary" href="/ferroos/">Try FerroOS</a><a class="btn" href="https://github.com/anti-ghostsec">Everything on GitHub</a></div>
+</section>
+<div id="projects">
+<h2 class="group">⭐ Flagship</h2>
+<a class="flag" href="/ferroos/"><img src="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png" alt="The FerroOS desktop, styled like Windows 95" width="1280" height="800">
+<div><h3>FerroOS</h3><p>A hardened, privacy-first Linux with an authentic Windows 95 desktop: full-disk encryption, a duress PIN, Tor built in, and Steam/Proton on a lean Debian base.</p><p class="meta">Rust</p></div></a>
+<h2 class="group">Apps</h2>
+<div class="grid"><a class="card" href="/wisp/"><h3>🌐 Wisp</h3>
+<p>A small, privacy-focused web browser on WebKitGTK 6 and GTK 4, written in Rust, with a plugin system</p><span class="meta">Rust</span></a><a class="card" href="/whisker/"><h3>💬 Whisker</h3>
+<p>Privacy-focused Matrix client in Rust: many accounts at once, AI agent accounts, encrypted vaults. Linux, Windows, Android.</p><span class="meta">Rust</span></a><a class="card" href="/folio/"><h3>📝 Folio</h3>
+<p>A calm, private text editor for Linux — writing first, code second. GTK 4 + WebKit, dark by default, remembers nothing.</p><span class="meta">JavaScript</span></a><a class="card" href="/leaflet/"><h3>📄 Leaflet</h3>
+<p>A light, private PDF and document app for Linux: read, fill in and annotate PDFs, edit DOCX/ODT. No network, no metadata. GTK 4 + WebKit.</p><span class="meta">Python</span></a><a class="card" href="/flicker/"><h3>🎬 Flicker</h3>
+<p>A light, private video editor in Rust: multi-track timeline with live preview and sound, encrypted projects, exports with no metadata. Windows 95 look.</p><span class="meta">Rust</span></a><a class="card" href="/enclave/"><h3>🗄️ Enclave</h3>
+<p>An encrypted file vault for Android: no ads, no internet permission, no analytics. Duress passwords, decoy vault and encrypted backups.</p><span class="meta">Kotlin</span></a></div>
+<h2 class="group">Networks without a company in the middle</h2>
+<div class="grid"><a class="card" href="/sentinel-protocol/"><h3>🛡️ The Sentinel Protocol</h3>
+<p>A social network, messenger and group rooms in one app, with Tor built in and run by volunteers instead of a company. No phone number or email.</p><span class="meta">Rust</span></a><a class="card" href="/torus/"><h3>🍩 Torus</h3>
+<p>Build a website and host it as a Tor onion service from your own Windows PC or Android phone. No server, no domain, no account.</p><span class="meta">Rust</span></a></div>
+<h2 class="group">Tools</h2>
+<div class="grid"><a class="card" href="/anoncode/"><h3>🤖 AnonCode</h3>
+<p>A private AI coding agent with a native Rust interface: every project is its own passphrase-sealed vault (files, chats, API keys). Built around opencode, with a reviewer loop and FOCUS context compression.</p><span class="meta">TypeScript</span></a><a class="card" href="/bettersearch/"><h3>🖼️ BetterSearch</h3>
+<p>Desktop booru search in Rust: boolean searches, links and relations, encrypted local vault</p><span class="meta">Rust</span></a><a class="card" href="/nuba/"><h3>🌙 Nuba</h3>
+<p>A fast, privacy-friendly anime tracker and discovery site with its own accounts (no email), instant search, and no JavaScript needed.</p><span class="meta">TypeScript</span></a><a class="card" href="/vidgrab/"><h3>⬇️ vidgrab</h3>
+<p>LibreWolf/Firefox add-on that downloads videos from YouTube and 1000+ sites via yt-dlp</p><span class="meta">Python</span></a><a class="card" href="/cutframe/"><h3>✂️ CutFrame</h3>
+<p>Cross-platform Rust video tool (subtitle embedding → full editor) for Windows, Linux and Android</p><span class="meta">Rust</span></a></div>
+</div>
+<h2 class="group">How everything here is built</h2>
+<ul class="principles">
+<li><strong>Nothing leaves your machine unless you ask.</strong> No telemetry, no analytics, no update pings behind your back.</li>
+<li><strong>No traces in your files.</strong> Saved documents, photos and videos are stripped of author names, dates, GPS and program versions.</li>
+<li><strong>Light by design.</strong> Most of it runs comfortably on a 1&nbsp;GB machine.</li>
+<li><strong>Verifiable releases.</strong> Builds come from public CI, with checksums or signatures you can check.</li>
+<li><strong>Honest about limits.</strong> Every README says what a project doesn't do yet.</li>
+</ul>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

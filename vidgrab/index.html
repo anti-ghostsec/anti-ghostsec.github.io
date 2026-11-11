@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>vidgrab: LibreWolf and Firefox add-on to download videos with yt-dlp</title>
+<meta name="description" content="LibreWolf/Firefox add-on that downloads videos from YouTube and 1000+ sites via yt-dlp">
+<meta name="keywords" content="firefox video downloader, librewolf addon, yt-dlp extension, youtube downloader addon">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/vidgrab/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="vidgrab: LibreWolf and Firefox add-on to download videos with yt-dlp">
+<meta property="og:description" content="LibreWolf/Firefox add-on that downloads videos from YouTube and 1000+ sites via yt-dlp">
+<meta property="og:url" content="https://anti-ghostsec.github.io/vidgrab/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="vidgrab: LibreWolf and Firefox add-on to download videos with yt-dlp">
+<meta name="twitter:description" content="LibreWolf/Firefox add-on that downloads videos from YouTube and 1000+ sites via yt-dlp">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "vidgrab", "description": "LibreWolf/Firefox add-on that downloads videos from YouTube and 1000+ sites via yt-dlp", "url": "https://anti-ghostsec.github.io/vidgrab/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Firefox, LibreWolf", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/vidgrab"], "@id": "https://anti-ghostsec.github.io/vidgrab/#app"}, {"@type": "SoftwareSourceCode", "name": "vidgrab", "codeRepository": "https://github.com/anti-ghostsec/vidgrab", "programmingLanguage": "Python", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/vidgrab/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "vidgrab", "item": "https://anti-ghostsec.github.io/vidgrab/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › vidgrab</p>
+<section class="hero" style="padding-top:12px">
+<h1>⬇️ vidgrab: LibreWolf and Firefox add-on to download videos with yt-dlp</h1>
+<p>LibreWolf/Firefox add-on that downloads videos from YouTube and 1000+ sites via yt-dlp</p>
+<div class="facts"><span class="chip">Python</span><span class="chip">Updated 2026-11-02</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/vidgrab">View source on GitHub</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text">
+<p dir="auto">A LibreWolf / Firefox add-on that downloads videos from YouTube and the
+1000+ other sites <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a> supports
+(PeerTube, Odysee, Rumble, BitChute, Vimeo, Dailymotion, Twitch VODs, …).</p>
+<p dir="auto">Old in-browser downloaders keep breaking because YouTube changes its player
+code every few weeks. VidGrab hands the actual downloading to yt-dlp, which is
+updated within days of every change — when something breaks, click
+<strong>Update yt-dlp</strong> in settings instead of waiting for an add-on update.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">How it works</h2><a id="how-it-works" class="anchor" aria-label="Permalink: How it works" href="#how-it-works"></a></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="extension (popup, right-click menu, stream sniffer)
+   │  native messaging
+   ▼
+host/vidgrab_host.py  ──►  yt-dlp  ──►  ffmpeg  ──►  ~/Downloads"><pre class="notranslate"><code>extension (popup, right-click menu, stream sniffer)
+   │  native messaging
+   ▼
+host/vidgrab_host.py  ──►  yt-dlp  ──►  ffmpeg  ──►  ~/Downloads
+</code></pre></div>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Install</h2><a id="install" class="anchor" aria-label="Permalink: Install" href="#install"></a></div>
+<ol dir="auto">
+<li>
+<p dir="auto">Install the helper and yt-dlp:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="./install.sh --fetch-ytdlp"><pre>./install.sh --fetch-ytdlp</pre></div>
+<p dir="auto">You also need <code>ffmpeg</code> (<code>sudo apt install ffmpeg</code>) for HD video (YouTube
+serves video and audio separately above 360p) and MP3 conversion.</p>
+</li>
+<li>
+<p dir="auto">Build the add-on:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="./build.sh"><pre>./build.sh</pre></div>
+</li>
+<li>
+<p dir="auto">Install it in LibreWolf. LibreWolf lets you run unsigned add-ons permanently:</p>
+<ul dir="auto">
+<li>open <code>about:config</code>, set <code>xpinstall.signatures.required</code> to <code>false</code></li>
+<li>open <code>about:addons</code> → gear icon → <strong>Install Add-on From File…</strong> → pick <code>dist/vidgrab.xpi</code></li>
+</ul>
+<p dir="auto">For quick testing without that change, use <code>about:debugging</code> →
+<strong>This LibreWolf</strong> → <strong>Load Temporary Add-on…</strong> → pick <code>extension/manifest.json</code>
+(removed again when the browser restarts).</p>
+</li>
+</ol>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Use</h2><a id="use" class="anchor" aria-label="Permalink: Use" href="#use"></a></div>
+<ul dir="auto">
+<li><strong>Toolbar button</strong> → choose quality → <strong>Download</strong> downloads the video on the current page.</li>
+<li><strong>Right-click</strong> a page or a link → <em>Download video on this page</em> / <em>Download linked video</em> / <em>…as MP3</em>.</li>
+<li>On sites yt-dlp doesn't know, the toolbar icon shows a green dot when it
+spots a video stream (MP4, WebM, HLS <code>.m3u8</code>, DASH <code>.mpd</code>); the popup lists
+them under <em>Detected media streams</em>. Start the video playing first so the
+page actually requests the stream.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Settings</h2><a id="settings" class="anchor" aria-label="Permalink: Settings" href="#settings"></a></div>
+<p dir="auto">Download folder, default quality, file name template, playlists, subtitles,
+embedded metadata/thumbnail, SponsorBlock, and extra yt-dlp arguments.
+Extra arguments take download, format, subtitle and file-name options only
+(<code>--limit-rate</code>, <code>-N</code>, <code>-f</code>, <code>--sub-langs</code>, …): ones that run programs or
+reach other files (<code>--exec</code>, <code>-o</code>, <code>--config-locations</code>, …) are refused, the
+file name template must stay inside the download folder, and the yt-dlp
+path must name a <code>yt-dlp</code> program. <code>python3 tests/test_host.py</code> checks this.</p>
+<p dir="auto"><strong>Age-restricted, members-only, or "Sign in to confirm you're not a bot"
+errors</strong> are handled automatically: when a site asks for a login, VidGrab
+retries using your LibreWolf cookies. The helper finds the profile of the
+running browser by itself (shown on the settings page). Change this under
+<em>Use my LibreWolf login</em>, or set <em>Cookie source override</em> if it picks the
+wrong profile.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Troubleshooting</h2><a id="troubleshooting" class="anchor" aria-label="Permalink: Troubleshooting" href="#troubleshooting"></a></div>
+<ul dir="auto">
+<li><strong>"Native helper not found"</strong> — run <code>./install.sh</code> again and restart LibreWolf.
+Check <code>~/.librewolf/native-messaging-hosts/vidgrab.json</code> exists.</li>
+<li><strong>A site stopped working</strong> — Settings → <em>Update yt-dlp</em>.</li>
+<li><strong>Flatpak LibreWolf</strong> — the sandbox blocks native helpers. Use the distro
+package/AppImage, or put the manifest in
+<code>~/.var/app/io.gitlab.librewolf-community/.librewolf/native-messaging-hosts/</code>
+and grant <code>flatpak override --user --talk-name=org.freedesktop.Flatpak io.gitlab.librewolf-community</code>
+(then the host must call out via <code>flatpak-spawn --host</code>; not supported out of the box).</li>
+<li><strong>Uninstall the helper</strong> — <code>./install.sh --uninstall</code>.</li>
+</ul>
+<p dir="auto">Only download content you have the right to download.</p>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/vidgrab">vidgrab on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

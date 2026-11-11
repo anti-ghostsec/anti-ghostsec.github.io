@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Enclave: encrypted file vault for Android with no internet permission</title>
+<meta name="description" content="An encrypted file vault for Android: no ads, no internet permission, no analytics. Duress passwords, decoy vault and encrypted backups.">
+<meta name="keywords" content="android encrypted vault, file locker android, duress password, decoy vault, no internet permission">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/enclave/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="Enclave: encrypted file vault for Android with no internet permission">
+<meta property="og:description" content="An encrypted file vault for Android: no ads, no internet permission, no analytics. Duress passwords, decoy vault and encrypted backups.">
+<meta property="og:url" content="https://anti-ghostsec.github.io/enclave/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Enclave: encrypted file vault for Android with no internet permission">
+<meta name="twitter:description" content="An encrypted file vault for Android: no ads, no internet permission, no analytics. Duress passwords, decoy vault and encrypted backups.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "Enclave", "description": "An encrypted file vault for Android: no ads, no internet permission, no analytics. Duress passwords, decoy vault and encrypted backups.", "url": "https://anti-ghostsec.github.io/enclave/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Android", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/Enclave"], "softwareVersion": "v0.4.0", "downloadUrl": "https://github.com/anti-ghostsec/Enclave/releases/latest", "@id": "https://anti-ghostsec.github.io/enclave/#app"}, {"@type": "SoftwareSourceCode", "name": "Enclave", "codeRepository": "https://github.com/anti-ghostsec/Enclave", "programmingLanguage": "Kotlin", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/enclave/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Enclave", "item": "https://anti-ghostsec.github.io/enclave/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › Enclave</p>
+<section class="hero" style="padding-top:12px">
+<h1>🗄️ Enclave: encrypted file vault for Android with no internet permission</h1>
+<p>An encrypted file vault for Android: no ads, no internet permission, no analytics. Duress passwords, decoy vault and encrypted backups.</p>
+<div class="facts"><span class="chip">Kotlin</span><span class="chip">Latest: v0.4.0</span><span class="chip">Updated 2026-11-10</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/Enclave">View source on GitHub</a><a class="btn" href="https://github.com/anti-ghostsec/Enclave/releases/latest">Download</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text">
+<p dir="auto">An encrypted file vault for Android. No ads, no internet permission, no analytics.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Features</h2><a id="features" class="anchor" aria-label="Permalink: Features" href="#features"></a></div>
+<ul dir="auto">
+<li><strong>Encrypted vault</strong> for any files: folders, move, multi-select, search, sort, a grid or list view with encrypted thumbnails, and a duplicate finder.</li>
+<li><strong>Built-in viewer</strong>: swipe through photos, GIFs, videos and audio. It has pinch zoom, a slideshow and a delete button. Videos start muted and loop. Playback reads straight from the encrypted file.</li>
+<li><strong>Safer sharing</strong>: Enclave's own share list shows apps only, never people or recent chats. You can limit it to apps you choose and confirm before anything is sent. Shared links end when the screen turns off, or after 30 minutes.</li>
+<li><strong>Other apps can pick from Enclave</strong> (opt-in): browsers and chats can attach a vault file directly.</li>
+<li><strong>Password plus an optional keyfile</strong>, <strong>duress passwords</strong> (decoy vault or silent wipe), wipe after N wrong attempts, and exponential lock-out. A decoy opened on its own never writes to the containers, so it can't damage the hidden real vault. Changes made in it work normally but are kept only until it locks. You fill it for real from Settings while the real vault is open. After a wipe for too many wrong passwords the lock screen looks exactly the same and every password is "wrong". To start again, clear Enclave's storage in Android Settings.</li>
+<li><strong>Disguise</strong> (off by default): a preset name and icon, a working calculator front, or a custom home-screen icon.</li>
+<li>Locks when the screen turns off or Enclave is left. Screenshots, recent-apps previews and audio capture are blocked. Settings needed while locked (disguise, lock-out) are sealed by a hardware key, not kept in plain preferences. The lock-out uses time since boot, so changing the clock doesn't skip it.</li>
+<li><strong>Encrypted backups</strong> (Settings → Backup): one file holding the whole vault, protected only by a password you choose, so it can be restored on another phone. A restore adds everything to the open vault, in a new folder.</li>
+<li>A built-in folder browser for import, export and keyfiles. It works inside profiles where the system file picker doesn't, such as Motorola Secure Folder, and shows photo and video previews that are made in memory and never saved.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Security model</h2><a id="security-model" class="anchor" aria-label="Permalink: Security model" href="#security-model"></a></div>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Argon2id (64 MiB, 3 passes)</td>
+<td>Turns the password (plus the SHA-512 of the keyfile, used as Argon2's secret) into a 256-bit key-encryption key.</td>
+</tr>
+<tr>
+<td>Header key slots</td>
+<td>4 slots, each holding the master key wrapped with AES-256-GCM. Unused slots are random bytes, so the number of passwords, and which one is a duress password, can't be told apart.</td>
+</tr>
+<tr>
+<td>Hardware key</td>
+<td>The header is sealed by a non-exportable AES-256 key in StrongBox or the TEE, so copied app data can't be brute-forced off the device. Deleting this key crypto-shreds the vault.</td>
+</tr>
+<tr>
+<td>Files</td>
+<td>Each file has its own random 256-bit key and is encrypted with chunked AES-256-GCM. The chunk index and a final-chunk flag are in the AAD, which stops chunks being reordered or the file truncated. Names and folders live in an encrypted index.</td>
+</tr>
+<tr>
+<td>Deniable containers</td>
+<td>Everything lives in equal-sized 4 GiB containers of random-looking bytes (<a href="https://github.com/anti-ghostsec/Enclave/blob/main/native/deniable"><code>native/deniable</code></a>). Each vault is volumes inside them, scattered in 4 KiB blocks encrypted with XChaCha20-Poly1305 and opened by a key derived from the vault's master key. Without a key, nothing says how many vaults there are, how many files, how big they are or when they were written. When space runs low, another container is added, so a vault grows without limit and without copying anything.</td>
+</tr>
+<tr>
+<td>Crash safety</td>
+<td>New data only ever goes into space nothing saved still uses. The other containers are flushed first, then the root (index, settings and where every file lives) and the home container, which the crate saves atomically. A power cut leaves the previous state intact.</td>
+</tr>
+<tr>
+<td>Backups</td>
+<td>Argon2id (128 MiB, 4 passes) turns the backup password into a key. The vault's sealed index, settings and every encrypted file and preview are copied byte for byte into 1 MiB AES-256-GCM chunks (the chunk number and a final-chunk flag are in the AAD), padded with Padmé. The file is a salt and a nonce prefix followed by ciphertext: nothing in it is recognisable without the password. It's written under a temporary name and renamed only once complete.</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto"><strong>Quantum resistance:</strong> Enclave uses only 256-bit symmetric cryptography (AES-256, SHA-2 and Argon2id), with no RSA or ECC anywhere.</p>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Known limits</h3><a id="known-limits" class="anchor" aria-label="Permalink: Known limits" href="#known-limits"></a></div>
+<ul dir="auto">
+<li>A backup doesn't need the phone's security chip: whoever has the file can guess passwords offline as fast as their hardware allows. Use a long, unique backup password, and keep the file somewhere safe.</li>
+<li>Enclave hasn't been audited by an independent security firm. If being found out could put you in danger, don't rely on it alone.</li>
+<li>A backup of the raw vault only works on the same phone, because it's bound to that phone's hardware key. Uninstalling Enclave or resetting the phone destroys the vault.</li>
+<li>The containers' total size is visible: it's a rough upper bound on how much is stored.</li>
+<li>A decoy made before containers keeps its own directory, which shows a second vault exists. Remove it and add a new decoy to move it inside the containers.</li>
+<li>On flash storage the controller can keep old copies of blocks that no app can reach.</li>
+<li>"Open with" and "Share" give the decrypted bytes to the receiving app, which could keep a copy. Exported files are plaintext. Links to shared files survive an automatic lock for up to 30 minutes, so a player or upload can finish. They end on "Lock now" or when the screen turns off.</li>
+<li>Passwords typed into the UI pass through immutable strings that can't be wiped from memory.</li>
+<li>The folder browser needs Android's "All files access" permission.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Upgrading from earlier versions</h2><a id="upgrading-from-earlier-versions" class="anchor" aria-label="Permalink: Upgrading from earlier versions" href="#upgrading-from-earlier-versions"></a></div>
+<p dir="auto">Vaults in the original one-directory format move into the containers on their first unlock after updating. Every encrypted file, preview, the index and the settings are copied byte for byte, nothing is decrypted, and each copy is checked against its original with SHA-256. Only once the move is marked complete is the old directory removed. If it's interrupted, the old vault is untouched and the next unlock carries on.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Build</h2><a id="build" class="anchor" aria-label="Permalink: Build" href="#build"></a></div>
+<p dir="auto">Needs the Android NDK (r29) and Rust with the <code>aarch64-linux-android</code> target. Gradle builds the Rust code itself.</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="./gradlew assembleDebug                       # app/build/outputs/apk/debug/app-debug.apk
+./gradlew testDebugUnitTest                   # file-format and upgrade tests, run on the PC
+./gradlew assembleRelease                     # signed if the properties below are set"><pre class="notranslate"><code>./gradlew assembleDebug                       # app/build/outputs/apk/debug/app-debug.apk
+./gradlew testDebugUnitTest                   # file-format and upgrade tests, run on the PC
+./gradlew assembleRelease                     # signed if the properties below are set
+</code></pre></div>
+<p dir="auto">Release signing is read from your user-level <code>~/.gradle/gradle.properties</code>, never from this repository:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="ENCLAVE_STORE_FILE=/path/to/release.jks
+ENCLAVE_STORE_PASSWORD=...
+ENCLAVE_KEY_ALIAS=...
+ENCLAVE_KEY_PASSWORD=..."><pre class="notranslate"><code>ENCLAVE_STORE_FILE=/path/to/release.jks
+ENCLAVE_STORE_PASSWORD=...
+ENCLAVE_KEY_ALIAS=...
+ENCLAVE_KEY_PASSWORD=...
+</code></pre></div>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/Enclave">Enclave on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

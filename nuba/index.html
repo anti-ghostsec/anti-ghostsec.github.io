@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nuba: fast, privacy-friendly anime tracker with no email and no JavaScript</title>
+<meta name="description" content="A fast, privacy-friendly anime tracker and discovery site with its own accounts (no email), instant search, and no JavaScript needed.">
+<meta name="keywords" content="anime tracker, myanimelist alternative, anilist alternative, private anime list">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/nuba/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="Nuba: fast, privacy-friendly anime tracker with no email and no JavaScript">
+<meta property="og:description" content="A fast, privacy-friendly anime tracker and discovery site with its own accounts (no email), instant search, and no JavaScript needed.">
+<meta property="og:url" content="https://anti-ghostsec.github.io/nuba/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nuba: fast, privacy-friendly anime tracker with no email and no JavaScript">
+<meta name="twitter:description" content="A fast, privacy-friendly anime tracker and discovery site with its own accounts (no email), instant search, and no JavaScript needed.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "Nuba", "description": "A fast, privacy-friendly anime tracker and discovery site with its own accounts (no email), instant search, and no JavaScript needed.", "url": "https://anti-ghostsec.github.io/nuba/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/nuba"], "@id": "https://anti-ghostsec.github.io/nuba/#app"}, {"@type": "SoftwareSourceCode", "name": "nuba", "codeRepository": "https://github.com/anti-ghostsec/nuba", "programmingLanguage": "TypeScript", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/nuba/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Nuba", "item": "https://anti-ghostsec.github.io/nuba/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › Nuba</p>
+<section class="hero" style="padding-top:12px">
+<h1>🌙 Nuba: fast, privacy-friendly anime tracker with no email and no JavaScript</h1>
+<p>A fast, privacy-friendly anime tracker and discovery site with its own accounts (no email), instant search, and no JavaScript needed.</p>
+<div class="facts"><span class="chip">TypeScript</span><span class="chip">Updated 2026-11-02</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/nuba">View source on GitHub</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text">
+<p dir="auto">A fast, privacy-friendly tracker and discovery site. It ships configured for anime,
+with data from <a href="https://anilist.co" rel="nofollow">AniList</a>, but the data source and wording are
+swappable: the same app can track books, games, or anything else with a catalog.
+Named after <em>nubatama</em>, an old poetic word for black.</p>
+<p dir="auto">Nuba does not host, embed or link to unofficial content. The "Where to watch"
+section only shows official services listed by the catalog.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Features</h2><a id="features" class="anchor" aria-label="Permalink: Features" href="#features"></a></div>
+<ul dir="auto">
+<li>Home page with a hero carousel, shelves, a top-ranked list and a release schedule
+in the viewer's timezone (whatever the catalog provides)</li>
+<li>Typo-tolerant search ("narto" finds Naruto) with filters for format, year, season,
+status, tags, studio, genre and sort, served from a local title index so it is instant and doesn't
+use the catalog's rate limit</li>
+<li>Browsing and detail pages with outbound links and recommendations</li>
+<li>Optional adult titles: a signed-in, self-declared 18+ setting, off by default</li>
+<li>Settings with account tools (rename, change password, sign out other devices,
+export or clear your list, delete your account) and per-device display options</li>
+<li><strong>Nuba's own accounts and lists</strong>: username and password only, no email, nothing
+linked to a third-party account. Continue Watching row, status badges on cards,
+one-click progress, and a list editor on every title</li>
+<li>Dark/light mode, 8 accent presets or any custom color, title language, reduce-motion</li>
+<li>Works with JavaScript disabled (Tor Browser "Safest"): server-rendered pages,
+CSS-only menu and tabs, and plain forms for sign-in, settings and lists</li>
+<li>Catalog data and images go through the server, with caching, so visitors' browsers
+never contact third parties</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Run it</h2><a id="run-it" class="anchor" aria-label="Permalink: Run it" href="#run-it"></a></div>
+<p dir="auto">Requires Node.js 20.19+.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="npm install
+npm run dev        # http://localhost:5173"><pre>npm install
+npm run dev        <span class="pl-c"><span class="pl-c">#</span> http://localhost:5173</span></pre></div>
+<p dir="auto">Production:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="cp .env.example .env   # then edit it: at least ORIGIN
+npm run build
+npm start              # reads .env"><pre>cp .env.example .env   <span class="pl-c"><span class="pl-c">#</span> then edit it: at least ORIGIN</span>
+npm run build
+npm start              <span class="pl-c"><span class="pl-c">#</span> reads .env</span></pre></div>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Admins</h3><a id="admins" class="anchor" aria-label="Permalink: Admins" href="#admins"></a></div>
+<p dir="auto">Register an account on the site, then make it an admin on the server:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="npm run admin -- &lt;username&gt;            # grant
+npm run admin -- &lt;username&gt; --remove   # revoke
+npm run admin -- --list                # show admins"><pre>npm run admin -- <span class="pl-k">&lt;</span>username<span class="pl-k">&gt;</span>            <span class="pl-c"><span class="pl-c">#</span> grant</span>
+npm run admin -- <span class="pl-k">&lt;</span>username<span class="pl-k">&gt;</span> --remove   <span class="pl-c"><span class="pl-c">#</span> revoke</span>
+npm run admin -- --list                <span class="pl-c"><span class="pl-c">#</span> show admins</span></pre></div>
+<p dir="auto">Admins get an Admin page (account menu → Admin) with site stats, the catalog's
+sync status, and account tools: reset a forgotten password (there is no email, so
+the admin passes the new one on), grant or remove admin, delete an account. Admin
+rights can only be granted from the server, never through the website.</p>
+<p dir="auto">See <code>.env.example</code> for configuration. Accounts and lists are stored in
+<code>data/nuba.db</code> (SQLite); back up that file to back up your users.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">How it fits together</h2><a id="how-it-fits-together" class="anchor" aria-label="Permalink: How it fits together" href="#how-it-fits-together"></a></div>
+<markdown-accessiblity-table><table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>Where</th>
+<th>What to change to repurpose Nuba</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data source</td>
+<td><code>src/lib/server/catalog/</code></td>
+<td>Add a folder that implements the <code>Catalog</code> interface in <code>catalog/types.ts</code>, register it in <code>catalog/index.ts</code>, set <code>NUBA_CATALOG</code></td>
+</tr>
+<tr>
+<td>Wording</td>
+<td><code>src/lib/site.ts</code></td>
+<td>Site name, search placeholder, unit name (episode → chapter), list status labels</td>
+</tr>
+<tr>
+<td>Data model</td>
+<td><code>src/lib/types.ts</code></td>
+<td>Generic <code>Item</code>, <code>ItemDetail</code>, <code>HomeFeed</code>, used by every page</td>
+</tr>
+<tr>
+<td>Search index</td>
+<td><code>src/lib/server/title-index.ts</code></td>
+<td>Generic. A catalog fills it with records (names, card, filter values); see <code>catalog/anilist/crawl.ts</code></td>
+</tr>
+<tr>
+<td>Accounts and lists</td>
+<td><code>src/lib/server/users.ts</code>, <code>library.ts</code></td>
+<td>Independent of the catalog. Each list entry stores a snapshot of its item, so lists keep working if the catalog changes or goes offline</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p dir="auto">Nothing outside <code>src/lib/server/catalog/</code> knows AniList exists. Syncing lists with
+AniList (or another service) can be added later as a separate, optional feature.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Hosting as a Tor onion service</h2><a id="hosting-as-a-tor-onion-service" class="anchor" aria-label="Permalink: Hosting as a Tor onion service" href="#hosting-as-a-tor-onion-service"></a></div>
+<ol dir="auto">
+<li>
+<p dir="auto">Point a hidden service at Nuba in <code>/etc/tor/torrc</code>, then restart Tor:</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="HiddenServiceDir /var/lib/tor/nuba/
+HiddenServicePort 80 127.0.0.1:3000"><pre class="notranslate"><code>HiddenServiceDir /var/lib/tor/nuba/
+HiddenServicePort 80 127.0.0.1:3000
+</code></pre></div>
+</li>
+<li>
+<p dir="auto">Your address is in <code>/var/lib/tor/nuba/hostname</code>. Put it in <code>.env</code>, with plain
+<code>http</code> (Tor already encrypts and authenticates the connection):</p>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="ORIGIN=http://youraddress.onion
+HOST=127.0.0.1
+PORT=3000"><pre class="notranslate"><code>ORIGIN=http://youraddress.onion
+HOST=127.0.0.1
+PORT=3000
+</code></pre></div>
+<p dir="auto"><strong>ORIGIN is required.</strong> Without it the server assumes <code>https://</code>, and every form
+(sign-in, lists, settings) is rejected as cross-site on a plain-http onion.</p>
+</li>
+<li>
+<p dir="auto"><code>npm run build &amp;&amp; npm start</code>. Keep <code>HOST=127.0.0.1</code> so the server is only
+reachable through Tor.</p>
+</li>
+</ol>
+<p dir="auto">Everything works in Tor Browser's "Safest" mode (JavaScript off): pages are
+rendered on the server, menus and tabs are CSS-only, and all actions are plain
+forms. Keep <code>NUBA_IMAGE_PROXY=true</code> so images come from your own server. Images
+are kept in <code>data/images/</code> after the first view.</p>
+<p dir="auto">While the site is private, set <code>NUBA_REGISTRATION=closed</code> once your own account
+exists. To mirror on clearnet too, set <code>NUBA_ONION_URL</code> there so Tor Browser offers
+the onion.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Privacy and security</h2><a id="privacy-and-security" class="anchor" aria-label="Permalink: Privacy and security" href="#privacy-and-security"></a></div>
+<ul dir="auto">
+<li>Visitors' browsers only ever talk to your server: no third-party scripts, fonts,
+images or analytics, enforced by a Content Security Policy.</li>
+<li>No email, no IP addresses stored or logged by Nuba, no tracking cookies. Two
+cookies: the session (random token, only its hash stored) and display preferences.</li>
+<li>Passwords are hashed with scrypt. Sign-in attempts are throttled per username and
+sign-ups site-wide (over Tor everyone shares one IP), with a bot trap on sign-up.</li>
+<li>Profiles are private unless their owner makes them public. Avatars are picked from
+catalog art: there are no uploads to moderate.</li>
+<li>Headers: no-referrer, no framing, nosniff, a strict permissions policy, and
+<code>no-store</code> caching for signed-in pages.</li>
+<li>The image proxy only fetches https images from the catalog's own hosts and never
+follows redirects.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Notes</h2><a id="notes" class="anchor" aria-label="Permalink: Notes" href="#notes"></a></div>
+<ul dir="auto">
+<li>Passwords are hashed with scrypt; sessions are random tokens of which only a hash
+is stored. There is no email, so forgotten passwords cannot be reset.</li>
+<li>Repeated wrong passwords for one username are slowed down per username rather than
+per IP, because over Tor every visitor shares an IP.</li>
+<li>AniList rate-limits API clients (currently about 30 requests per minute). Nuba caches
+responses in memory and serves stale data while refreshing.</li>
+<li>On first start Nuba downloads AniList's title list (about 22,000 anime, ~50 requests,
+a few minutes) into <code>data/nuba.db</code>, then checks for changes every 30 minutes. It
+pauses whenever visitors need the rate limit. Until the first pass finishes, text
+searches go to AniList directly.</li>
+<li>Not affiliated with AniList.</li>
+</ul>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/nuba">nuba on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

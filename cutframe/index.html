@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CutFrame: cross-platform Rust video tool for subtitles and editing</title>
+<meta name="description" content="Cross-platform Rust video tool (subtitle embedding → full editor) for Windows, Linux and Android">
+<meta name="keywords" content="embed subtitles video, burn subtitles, rust video tool, windows linux android">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/cutframe/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="CutFrame: cross-platform Rust video tool for subtitles and editing">
+<meta property="og:description" content="Cross-platform Rust video tool (subtitle embedding → full editor) for Windows, Linux and Android">
+<meta property="og:url" content="https://anti-ghostsec.github.io/cutframe/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CutFrame: cross-platform Rust video tool for subtitles and editing">
+<meta name="twitter:description" content="Cross-platform Rust video tool (subtitle embedding → full editor) for Windows, Linux and Android">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "CutFrame", "description": "Cross-platform Rust video tool (subtitle embedding → full editor) for Windows, Linux and Android", "url": "https://anti-ghostsec.github.io/cutframe/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Linux, Windows, Android", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/CutFrame"], "@id": "https://anti-ghostsec.github.io/cutframe/#app"}, {"@type": "SoftwareSourceCode", "name": "CutFrame", "codeRepository": "https://github.com/anti-ghostsec/CutFrame", "programmingLanguage": "Rust", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/cutframe/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "CutFrame", "item": "https://anti-ghostsec.github.io/cutframe/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › CutFrame</p>
+<section class="hero" style="padding-top:12px">
+<h1>✂️ CutFrame: cross-platform Rust video tool for subtitles and editing</h1>
+<p>Cross-platform Rust video tool (subtitle embedding → full editor) for Windows, Linux and Android</p>
+<div class="facts"><span class="chip">Rust</span><span class="chip">Updated 2026-11-08</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/CutFrame">View source on GitHub</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text">
+<p dir="auto">A cross-platform video tool written in Rust. Right now it can <strong>embed subtitles</strong> and <strong>trim/cut videos</strong>. It's meant to grow into a full video editor for Windows, Linux and Android.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Features (v0.5)</h2><a id="features-v05" class="anchor" aria-label="Permalink: Features (v0.5)" href="#features-v05"></a></div>
+<p dir="auto">CutFrame is a video player with a menu bar. Playback loops, and the timeline ends where the picture does (even when a file's audio runs longer). Everything you can do lives in the menus, so the window stays a plain video screen and new features slot in as new menu entries.</p>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Cutting</h3><a id="cutting" class="anchor" aria-label="Permalink: Cutting" href="#cutting"></a></div>
+<ol dir="auto">
+<li><strong>Cut &gt; Cut Mode</strong> (or press <code>C</code>). Two handles appear on the timeline under the video.</li>
+<li>Drag the handles: grab them anywhere along their height. The picture follows the handle you're dragging, so you see exactly where the cut lands. <code>I</code> / <code>O</code> move the start / end handle to the playhead.</li>
+<li>Press <strong>Space</strong> to play: playback loops over the result, between the handles in <em>Keep</em> mode, or around the removed part in <em>Remove</em> mode.</li>
+<li><strong>Apply</strong> (in the menu bar, or <code>Enter</code>) cuts the video. The result becomes the current video and the timeline adapts, so you can keep cutting without re-importing. <code>Esc</code> cancels.</li>
+</ol>
+<ul dir="auto">
+<li><strong>Cut &gt; Keep / Remove between handles</strong> picks what applying does.</li>
+<li><strong>Cut &gt; Accuracy:</strong> <em>Precise</em> (default) re-encodes to H.264/AAC so the cut lands on the exact frame. <em>Fast</em> copies the streams losslessly but starts each part on a keyframe.</li>
+<li>Subtitle tracks in the video are cut along with it. Subtitles loaded for preview are retimed too, so they stay in sync after every cut.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Undo and saving</h3><a id="undo-and-saving" class="anchor" aria-label="Permalink: Undo and saving" href="#undo-and-saving"></a></div>
+<ul dir="auto">
+<li>Every applied edit is a step. <strong>Edit &gt; Undo / Redo</strong> (<code>Ctrl+Z</code> / <code>Ctrl+Y</code>) move between them. <strong>File &gt; Revert to Original</strong> goes all the way back.</li>
+<li>Edits go to temporary working files: the original is never touched. <strong>File &gt; Save As</strong> (<code>Ctrl+S</code>) writes the current video. Quitting or opening another video with unsaved edits asks first.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Subtitles</h3><a id="subtitles" class="anchor" aria-label="Permalink: Subtitles" href="#subtitles"></a></div>
+<ul dir="auto">
+<li><strong>Subtitles &gt; Load for Preview</strong> draws a <code>.srt</code>, <code>.ass</code>/<code>.ssa</code> or <code>.vtt</code> file over the video, exactly as burn-in renders it.</li>
+<li><strong>Add as Track</strong> adds it as a track viewers can turn on or off (fast, no quality loss). <strong>Burn into Picture</strong> draws it into the video so it shows on every player (re-encodes). Both are edits you can undo. <strong>Track Language</strong> sets the track's language.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">General</h3><a id="general" class="anchor" aria-label="Permalink: General" href="#general"></a></div>
+<ul dir="auto">
+<li><strong>View &gt; Theme:</strong> <em>Windows 95</em> (default: grey 3D bevels, navy highlights), <em>Light</em> or <em>Dark</em>. The choice is remembered.</li>
+<li>Drag and drop a video to open it, or a subtitle file to preview it. From the command line: <code>cutframe video.mp4 subs.srt</code>.</li>
+<li><strong>Help &gt; Keyboard Shortcuts</strong> lists every key.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Running</h2><a id="running" class="anchor" aria-label="Permalink: Running" href="#running"></a></div>
+<p dir="auto">You need <a href="https://rustup.rs" rel="nofollow">Rust</a> and <a href="https://ffmpeg.org/download.html" rel="nofollow">FFmpeg</a> (<code>ffmpeg</code> and <code>ffprobe</code> must be on <code>PATH</code>, or sit next to the <code>cutframe</code> executable).</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="cargo run --release"><pre>cargo run --release</pre></div>
+<p dir="auto">Try it with the files in <code>samples/</code>.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="cargo test            # unit tests + end-to-end tests against real ffmpeg"><pre>cargo <span class="pl-c1">test</span>            <span class="pl-c"><span class="pl-c">#</span> unit tests + end-to-end tests against real ffmpeg</span></pre></div>
+<p dir="auto">To check the UI without a screen grabber (for scripts and CI), set <code>CUTFRAME_SCREENSHOT=out.ppm</code>. <code>CUTFRAME_SCREENSHOT_AFTER=&lt;secs&gt;</code> sets how long it waits first, <code>CUTFRAME_AUTOPLAY=1</code> starts playing, and <code>CUTFRAME_CUT=2,4</code> opens cut mode with the handles at 2s and 4s.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Project layout</h2><a id="project-layout" class="anchor" aria-label="Permalink: Project layout" href="#project-layout"></a></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="crates/
+  cutframe-core/   UI-agnostic media logic (no GUI dependencies)
+    engine.rs        `Engine` trait: the seam for swapping media backends
+    ffmpeg.rs        FfmpegCli: engine that drives ffmpeg/ffprobe executables
+    subtitles.rs     EmbedRequest + ffmpeg argument building (pure, unit-tested)
+    edit.rs          TimeRange / keep_ranges / TrimRequest (trim &amp; cut)
+    retime.rs        Shifts/clips SRT and ASS cues to match a trim
+    preview.rs       PreviewRequest / Frame / FrameSource for on-screen playback
+    media.rs         MediaInfo / StreamInfo from probing
+    job.rs           Progress + CancelToken for long-running jobs
+  cutframe-app/    egui/eframe GUI
+    app.rs           Window: menu bar, video, transport, status bar, dialogs
+    player.rs        Player (decoder thread + frame clock + range looping)
+    timeline.rs      The timeline and its cut handles
+    session.rs       Edit history: one working file per applied edit
+    theme.rs         Windows 95 / Light / Dark looks
+    common.rs        File pickers, JobRunner"><pre class="notranslate"><code>crates/
+  cutframe-core/   UI-agnostic media logic (no GUI dependencies)
+    engine.rs        `Engine` trait: the seam for swapping media backends
+    ffmpeg.rs        FfmpegCli: engine that drives ffmpeg/ffprobe executables
+    subtitles.rs     EmbedRequest + ffmpeg argument building (pure, unit-tested)
+    edit.rs          TimeRange / keep_ranges / TrimRequest (trim &amp; cut)
+    retime.rs        Shifts/clips SRT and ASS cues to match a trim
+    preview.rs       PreviewRequest / Frame / FrameSource for on-screen playback
+    media.rs         MediaInfo / StreamInfo from probing
+    job.rs           Progress + CancelToken for long-running jobs
+  cutframe-app/    egui/eframe GUI
+    app.rs           Window: menu bar, video, transport, status bar, dialogs
+    player.rs        Player (decoder thread + frame clock + range looping)
+    timeline.rs      The timeline and its cut handles
+    session.rs       Edit history: one working file per applied edit
+    theme.rs         Windows 95 / Light / Dark looks
+    common.rs        File pickers, JobRunner
+</code></pre></div>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Design notes for the full editor</h2><a id="design-notes-for-the-full-editor" class="anchor" aria-label="Permalink: Design notes for the full editor" href="#design-notes-for-the-full-editor"></a></div>
+<ul dir="auto">
+<li><strong>Core vs. UI.</strong> All media work goes through <code>cutframe_core::Engine</code>. The GUI never builds ffmpeg commands itself, so the backend can change without touching the UI.</li>
+<li><strong>Engines.</strong> <code>FfmpegCli</code> is the simplest way to get going on desktop. Options for later:
+<ul dir="auto">
+<li>Link libav* in-process with the <code>ffmpeg-next</code> crate. You need this for frame-accurate preview and scrubbing on a timeline.</li>
+<li>On Android you can't spawn an <code>ffmpeg</code> binary from <code>PATH</code>. Use one of these:
+<ul dir="auto">
+<li>bundle FFmpeg as a native library (<code>.so</code>) and implement <code>Engine</code> over it</li>
+<li>use <code>MediaCodec</code>/<code>MediaMuxer</code> through JNI</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Preview.</strong> <code>FfmpegCli</code> streams scaled frames from ffmpeg as PPM images (each image carries its own size) at up to 30 fps. Subtitles go through the same libass filter as burn-in, so what you see is what you'll export. The preview has no audio yet: the plan is <code>cpal</code> playback with the audio as the master clock. For a real timeline, switch the decoder to <code>ffmpeg-next</code> so seeking is faster.</li>
+<li><strong>Trimming without re-encoding.</strong> Copy mode never seeks, because FFmpeg's quick-seek lands on different keyframes in different containers. One pass with the segment muxer splits the file at keyframes into pieces whose timestamps start at 0. The pieces are joined, each cut to length. Subtitles are never cut by FFmpeg: they're extracted from the untouched source and retimed in Rust (<code>retime.rs</code>). To debug a real file, run <code>cargo run -p cutframe-core --example trim -- IN OUT START END [precise]</code>.</li>
+<li><strong>Menus, not screens.</strong> New features are menu entries that run an edit on the current video and push a step onto the session (<code>session.rs</code>), the same way cuts do. That keeps undo, saving and "keep working on the result" free for every feature.</li>
+<li><strong>Android.</strong> The GUI is egui/eframe, which runs on Android through <code>android-activity</code>. The app code lives in a library (<code>lib.rs</code>) so a <code>cdylib</code> with <code>android_main</code> can reuse it. File pickers are behind <code>cfg(target_os = "android")</code> stubs, and they still need the Storage Access Framework.</li>
+<li><strong>Windows.</strong> Release builds use the GUI subsystem, so no console window appears. FFmpeg child processes start with <code>CREATE_NO_WINDOW</code>. Ship <code>ffmpeg.exe</code> and <code>ffprobe.exe</code> next to <code>cutframe.exe</code>.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Roadmap</h2><a id="roadmap" class="anchor" aria-label="Permalink: Roadmap" href="#roadmap"></a></div>
+<ol dir="auto">
+<li><del>Embed subtitles (soft/hard)</del></li>
+<li><del>Video preview player</del> (audio playback still to do)</li>
+<li><del>Trim / cut</del>. Still to do: joining separate files (concatenate).</li>
+<li>Timeline with multiple tracks</li>
+<li>Subtitle editor (edit timings and text in-app)</li>
+<li>Android build + packaging (cargo-apk / xbuild); Windows installer</li>
+</ol>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/CutFrame">CutFrame on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>

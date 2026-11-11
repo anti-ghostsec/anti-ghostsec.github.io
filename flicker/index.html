@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flicker: light, private video editor in Rust with a Windows 95 look</title>
+<meta name="description" content="A light, private video editor in Rust: multi-track timeline with live preview and sound, encrypted projects, exports with no metadata. Windows 95 look.">
+<meta name="keywords" content="video editor rust, lightweight video editor linux, remove video metadata, encrypted video projects">
+<meta name="author" content="anti-ghostsec">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://anti-ghostsec.github.io/flicker/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="anti-ghostsec">
+<meta property="og:title" content="Flicker: light, private video editor in Rust with a Windows 95 look">
+<meta property="og:description" content="A light, private video editor in Rust: multi-track timeline with live preview and sound, encrypted projects, exports with no metadata. Windows 95 look.">
+<meta property="og:url" content="https://anti-ghostsec.github.io/flicker/">
+<meta property="og:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Flicker: light, private video editor in Rust with a Windows 95 look">
+<meta name="twitter:description" content="A light, private video editor in Rust: multi-track timeline with live preview and sound, encrypted projects, exports with no metadata. Windows 95 look.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/anti-ghostsec/FerroOS/ferro-os/docs/screenshots/heavy-desktop.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "Flicker", "description": "A light, private video editor in Rust: multi-track timeline with live preview and sound, encrypted projects, exports with no metadata. Windows 95 look.", "url": "https://anti-ghostsec.github.io/flicker/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Linux", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "sameAs": ["https://github.com/anti-ghostsec/Flicker"], "softwareVersion": "build-0212969", "downloadUrl": "https://github.com/anti-ghostsec/Flicker/releases/latest", "@id": "https://anti-ghostsec.github.io/flicker/#app"}, {"@type": "SoftwareSourceCode", "name": "Flicker", "codeRepository": "https://github.com/anti-ghostsec/Flicker", "programmingLanguage": "Rust", "author": {"@id": "https://anti-ghostsec.github.io/#author"}, "targetProduct": {"@id": "https://anti-ghostsec.github.io/flicker/#app"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://anti-ghostsec.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Flicker", "item": "https://anti-ghostsec.github.io/flicker/"}]}, {"@type": "Person", "@id": "https://anti-ghostsec.github.io/#author", "name": "anti-ghostsec", "url": "https://anti-ghostsec.github.io/", "sameAs": ["https://github.com/anti-ghostsec"]}]}</script>
+<style>
+:root{--bg:#fbfbf8;--fg:#1d1f21;--muted:#5d6166;--card:#fff;--line:#e3e3dc;--accent:#007a7a;--accent-ink:#fff;--code:#f1f1ec}
+@media (prefers-color-scheme:dark){:root{--bg:#121416;--fg:#e8e8e3;--muted:#9ea3a8;--card:#1a1d20;--line:#2b2f33;--accent:#3cbcbc;--accent-ink:#071414;--code:#202428}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}img{max-width:100%;height:auto}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.top{border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;gap:16px;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--fg);text-decoration:none;letter-spacing:.2px}
+nav a{margin-left:14px;color:var(--muted);text-decoration:none}nav a:hover{color:var(--accent)}
+.hero{padding:48px 0 24px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 12px}
+.hero p{color:var(--muted);font-size:18px;max-width:680px;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+h2.group{margin:40px 0 14px;font-size:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--fg)}
+.card:hover{border-color:var(--accent)}.card h3{margin:0;font-size:17px}.card p{margin:0;color:var(--muted);font-size:15px}
+.card .meta{font-size:13px;color:var(--muted);margin-top:auto;padding-top:6px}
+.flag{display:grid;grid-template-columns:1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--fg)}
+@media(min-width:760px){.flag{grid-template-columns:1.3fr 1fr;align-items:center}}
+.flag img{border-radius:8px;border:1px solid var(--line)}.flag h3{margin:0 0 6px;font-size:22px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.crumbs{font-size:14px;color:var(--muted);padding-top:20px}.crumbs a{color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+article.readme{border-top:1px solid var(--line);margin-top:24px;padding-top:8px;overflow-wrap:anywhere}
+article.readme table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%}
+article.readme th,article.readme td{border:1px solid var(--line);padding:6px 10px;vertical-align:top}
+article.readme pre{background:var(--code);padding:12px;border-radius:8px;overflow-x:auto}
+article.readme code{background:var(--code);padding:1px 5px;border-radius:4px;font-size:.92em}article.readme pre code{padding:0;background:none}
+article.readme blockquote{margin:0;padding:4px 16px;border-left:3px solid var(--line);color:var(--muted)}
+article.readme .markdown-heading{position:relative}article.readme a.anchor{display:none}
+.principles li{margin:6px 0}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="/">anti-ghostsec</a>
+<nav><a href="/#projects">Projects</a><a href="https://github.com/anti-ghostsec">GitHub</a></nav></div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">Home</a> › Flicker</p>
+<section class="hero" style="padding-top:12px">
+<h1>🎬 Flicker: light, private video editor in Rust with a Windows 95 look</h1>
+<p>A light, private video editor in Rust: multi-track timeline with live preview and sound, encrypted projects, exports with no metadata. Windows 95 look.</p>
+<div class="facts"><span class="chip">Rust</span><span class="chip">MIT</span><span class="chip">Latest: build-0212969</span><span class="chip">Updated 2026-11-10</span></div>
+<div class="btns"><a class="btn primary" href="https://github.com/anti-ghostsec/Flicker">View source on GitHub</a><a class="btn" href="https://github.com/anti-ghostsec/Flicker/releases/latest">Download</a></div>
+</section>
+<article class="readme">
+<div id="readme" class="md" data-path="README.md"><article class="markdown-body entry-content container-lg" itemprop="text">
+<p dir="auto">A cross-platform video editor written in Rust: a <strong>timeline</strong> with video, picture and audio tracks, <strong>transitions</strong>, <strong>sound in the preview</strong>, <strong>subtitles</strong> and <strong>private exports</strong>. It's meant to stay light enough for an old laptop with 1 GB of RAM. It runs on Linux now; Windows and Android are planned.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Features (v0.7)</h2><a id="features-v07" class="anchor" aria-label="Permalink: Features (v0.7)" href="#features-v07"></a></div>
+<p dir="auto">Flicker is one window: the player at the top, the timeline under it, and a menu bar. Every change shows in the player straight away: there's no render or "apply" step. Only exporting takes time.</p>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">The timeline</h3><a id="the-timeline" class="anchor" aria-label="Permalink: The timeline" href="#the-timeline"></a></div>
+<ul dir="auto">
+<li><strong>Tracks:</strong> V1 for videos and pictures, V2 (and more, with <strong>+ Video Track</strong>) drawn over V1, and audio tracks A1, A2… (<strong>+ Audio Track</strong>) for music and voice on top of the videos' own sound. Each track has <strong>M</strong> (mute its sound) and video tracks <strong>H</strong> (hide their picture). Right-click a track to remove it once it's empty.</li>
+<li><strong>Adding files:</strong> drag videos, pictures and sound files from the file manager onto a track, at the spot where they should start. A video dropped on an audio track adds just its sound. <strong>File &gt; Add to Timeline…</strong> (<code>Ctrl+I</code>) puts videos and pictures at the end of V1, and sound at the playhead on the first audio track with room (or a new one).</li>
+<li><strong>Moving:</strong> drag a clip along its track or to another track of the same kind. Clips never cover each other: dropped on another clip, a clip goes to the nearest free spot. Edges snap to the playhead and to other clips.</li>
+<li><strong>Trimming:</strong> drag a clip's left or right edge. The player shows the frame at the edge while you drag. A picture's length is just its right edge (or <strong>Length</strong> in the clip's properties).</li>
+<li><strong>Splitting:</strong> <code>S</code> splits the selected clip at the playhead (or every clip under the playhead when none is selected). <strong>Delete</strong> (<code>Del</code>) leaves a gap; <strong>Ripple Delete</strong> (<code>Shift+Del</code>) closes it.</li>
+<li><strong>Clip properties</strong> (in the strip above the tracks when a clip is selected, or right-click): volume from 0 to 200%, mute, fade in and fade out.</li>
+<li><strong>Transitions:</strong> right-click the join between two clips that touch, or use <strong>From previous</strong> in the properties: <em>Cut</em>, <em>Cross-fade</em> or <em>Dip to black</em>, 0.5 s to 10 s. The second clip moves back to overlap the first by the transition's length (everything after it on that track moves with it). Cross-fades show as an X on the clip, dips as a V.</li>
+<li><strong>Zoom and scroll:</strong> <code>+</code> / <code>-</code>, <strong>Fit</strong>, or <code>Ctrl</code>+wheel around the pointer. The wheel scrolls along the timeline (or up and down when the tracks don't all fit); the scrollbar under the tracks works too. Click or drag the ruler to move the playhead.</li>
+<li><strong>Undo / Redo</strong> (<code>Ctrl+Z</code> / <code>Ctrl+Y</code>) for every change; a drag is one step.</li>
+<li>Clips of another size are fitted with black bars (on V1) or with see-through borders (on V2 and up, so V1 shows around them). The frame size and rate come from the first video.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Playing</h3><a id="playing" class="anchor" aria-label="Permalink: Playing" href="#playing"></a></div>
+<ul dir="auto">
+<li><strong>Space</strong> plays the timeline from the playhead, with sound, as it is right now. Changing something while it plays carries on from the same spot with the change. <code>←</code> / <code>→</code> step one frame, <code>Shift+←</code> / <code>→</code> five seconds, <code>Home</code> / <code>End</code> jump to the start or end.</li>
+<li>The picture follows the sound card's clock. On Linux sound goes to ALSA's default device through <code>libasound.so.2</code>, loaded when playback starts (nothing to install for building). If no sound device opens, playback carries on silently and says why next to the time.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Projects</h3><a id="projects" class="anchor" aria-label="Permalink: Projects" href="#projects"></a></div>
+<ul dir="auto">
+<li><strong>File &gt; New Project</strong> (<code>Ctrl+N</code>), <strong>Open Project…</strong> (<code>Ctrl+O</code>), <strong>Save Project</strong> (<code>Ctrl+S</code>) and <strong>Save Project As…</strong> (<code>Ctrl+Shift+S</code>). A project is a small <code>.flicker</code> file that points at your files; nothing is copied. Files moved into the project's folder are found there.</li>
+<li>Project files are <strong>encrypted</strong> with a password you choose. The first Save of a new project asks for it twice; it's kept in memory until the project is closed, so later saves don't ask. Opening a project asks for its password (a wrong one says so and lets you try again). <strong>File &gt; Change Project Password…</strong> sets a new one and saves with it. A password can't be recovered: without it the project can't be opened. Plain projects from earlier versions still open; they're saved encrypted the next time (the status bar says so).</li>
+<li>A project from someone else can't make Flicker open anything but files on your computer. When a project is opened (encrypted, or a plain one from an earlier version), a clip or subtitle file is used only if it's a full path to a file that's there, or a file of that name in the project's folder. A file that's gone stays on the timeline and the status bar names it as missing; anything else a project might name (a web address, a relative name, a device) is treated the same way, as a missing file of that name in the project's folder.</li>
+<li>New, Open and quitting ask first when there are unsaved changes.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Exporting</h3><a id="exporting" class="anchor" aria-label="Permalink: Exporting" href="#exporting"></a></div>
+<ul dir="auto">
+<li><strong>File &gt; Export Video…</strong> (<code>Ctrl+E</code>) renders the timeline to MP4 (H.264 + AAC), WebM (VP9 + Opus), MKV or MOV, with progress and <strong>Cancel</strong> in the status bar. ffmpeg writes straight into the chosen file in one pass; nothing else is written anywhere (no staging copy, nothing in <code>/tmp</code>). If the export is cancelled or fails, the unfinished file is deleted and the status bar says so.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Subtitles</h3><a id="subtitles" class="anchor" aria-label="Permalink: Subtitles" href="#subtitles"></a></div>
+<ul dir="auto">
+<li><strong>Subtitles &gt; Load…</strong> draws a <code>.srt</code>, <code>.ass</code>/<code>.ssa</code> or <code>.vtt</code> file over the preview, timed to the timeline, exactly as burning in renders it. <strong>Show on Video</strong> turns it off and on.</li>
+<li><strong>Subtitles &gt; When Exporting:</strong> <em>Leave Out</em>, <em>Add as Track</em> (viewers can turn it on or off; <strong>Track Language</strong> sets its language) or <em>Burn into Picture</em>. It's saved with the project.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">Privacy</h3><a id="privacy" class="anchor" aria-label="Permalink: Privacy" href="#privacy"></a></div>
+<ul dir="auto">
+<li>Exported files carry no tags copied from the source (title, comment, camera, GPS location, dates), no chapters and no data tracks.</li>
+<li>They carry no encoder name or version and no creation time. x264's version string, which sits inside the H.264 stream, is removed too. All of this happens while the file is written: no unscrubbed copy is ever on disk, not even for a moment. (Each track's encoder tag is left as a single space, the only way to stop ffmpeg filling in "Lavc libx264".) <strong>File &gt; Preferences &gt; Write encoder name and dates into exported files</strong> turns the encoder name and today's date back on (off by default). MKV and WebM must name the writing program: there it's just <code>Lavf</code>, with no version.</li>
+<li><strong>Projects are encrypted.</strong> A <code>.flicker</code> file is a short header (<code>FLKPRJ</code>, a version byte, a random salt and nonce) and then ciphertext: no clip names, paths or times in clear. The key comes from your password with Argon2id (64 MiB, 3 passes); the contents are sealed with XChaCha20-Poly1305 (the header too is authenticated, so any change to the file is noticed). Salt and nonce are new on every save. The project's JSON only exists in memory and is wiped after use; the <code>name.flicker-part</code> file written just before the rename holds only ciphertext and is readable by you alone. The password is wiped from memory on New, Open and quitting.</li>
+<li><strong>No network</strong>, ever, and no recent-files list. ffmpeg and ffprobe are given every file as <code>file:&lt;path&gt;</code> and may read inputs from local files only (<code>-protocol_whitelist file</code>), so neither a file's name nor a playlist posing as a video can make them connect anywhere. Settings (the theme and that one tick) are written only when you change one, to <code>~/.config/flicker/settings</code> (<code>%APPDATA%\Flicker\settings</code> on Windows).</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h3 class="heading-element" dir="auto">General</h3><a id="general" class="anchor" aria-label="Permalink: General" href="#general"></a></div>
+<ul dir="auto">
+<li><strong>View &gt; Theme:</strong> <em>Windows 95</em> (default: grey 3D bevels, navy highlights), <em>Light</em> or <em>Dark</em>. The choice is remembered. <code>FLICKER_THEME=classic</code> (the Windows 95 look; also <code>light</code> or <code>dark</code>) forces a theme for one run without saving it. FerroOS's menu entry starts Flicker that way.</li>
+<li>From the command line: <code>flicker project.flicker</code>, or <code>flicker clip1.mp4 clip2.mp4 music.mp3 subs.srt</code> to start a timeline with those files.</li>
+<li><strong>Help &gt; Keyboard Shortcuts</strong> lists every key.</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Running</h2><a id="running" class="anchor" aria-label="Permalink: Running" href="#running"></a></div>
+<p dir="auto">You need <a href="https://rustup.rs" rel="nofollow">Rust</a> and <a href="https://ffmpeg.org/download.html" rel="nofollow">FFmpeg</a> (<code>ffmpeg</code> and <code>ffprobe</code> must be on <code>PATH</code>, or sit next to the <code>flicker</code> executable).</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="cargo run --release"><pre>cargo run --release</pre></div>
+<p dir="auto">Try it with the files in <code>samples/</code>.</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="cargo test            # unit tests + end-to-end tests against real ffmpeg"><pre>cargo <span class="pl-c1">test</span>            <span class="pl-c"><span class="pl-c">#</span> unit tests + end-to-end tests against real ffmpeg</span></pre></div>
+<p dir="auto">To check the UI without a screen grabber (for scripts and CI), set <code>FLICKER_SCREENSHOT=out.ppm</code>. <code>FLICKER_SCREENSHOT_AFTER=&lt;secs&gt;</code> sets how long it waits first, <code>FLICKER_AUTOPLAY=1</code> starts playing, <code>FLICKER_SEEK=3.5</code> moves the playhead, <code>FLICKER_SELECT=V1:2</code> selects the third clip on V1, <code>FLICKER_ZOOM=60</code> sets the zoom (pixels per second), <code>FLICKER_DIALOG=shortcuts</code>, <code>about</code>, <code>unsaved</code>, <code>password</code> or <code>change-password</code> opens that dialog and <code>FLICKER_EXPORT=out.mp4</code> starts exporting there. <code>FLICKER_SYNC_LOG=file</code> writes, for every frame played, the sound clock and the frame's time, and how long each decode took to show its first frame.</p>
+<p dir="auto">When testing playback on a machine with speakers, point ALSA at a file that only defines a null device, e.g. <code>ALSA_CONFIG_PATH=silent.conf</code> with <code>pcm.!default { type null }</code> in it. Don't list <code>/usr/share/alsa/alsa.conf</code> in front of it: that file loads <code>~/.asoundrc</code>, which can win.</p>
+<p dir="auto">To see the ffmpeg arguments behind a project: <code>cargo run -p flicker-core --example graph -- project.flicker [preview|sound|export] [from] [to]</code> (it reads an encrypted project's password from stdin).</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Project layout</h2><a id="project-layout" class="anchor" aria-label="Permalink: Project layout" href="#project-layout"></a></div>
+<div class="snippet-clipboard-content notranslate position-relative overflow-auto" data-snippet-clipboard-copy-content="crates/
+  flicker-core/   UI-agnostic media logic (no GUI dependencies)
+    engine.rs        `Engine` trait: the seam for swapping media backends
+    ffmpeg.rs        FfmpegCli: engine that drives ffmpeg/ffprobe executables
+    timeline.rs      Tracks and clips, and every timeline edit (move, trim, split, transitions…)
+    render.rs        The timeline as an ffmpeg filter graph: export and preview arguments
+    project.rs       .flicker project files (Argon2id + XChaCha20-Poly1305)
+    privacy.rs       Private saves: no source tags, encoder names or dates
+    subtitles.rs     Subtitle formats, filter-path escaping, embedding
+    input.rs         How files are handed to ffmpeg (local files only), paths from projects
+    preview.rs       Frames and PCM for on-screen playback
+    edit.rs          TimeRange / TrimRequest (trim &amp; cut of a single file)
+    retime.rs        Shifts/clips SRT and ASS cues to match a trim
+    audio.rs         Volume / mute / fade of a single file
+    media.rs         MediaInfo / StreamInfo from probing
+    job.rs           Progress + CancelToken for long-running jobs
+  flicker-app/    egui/eframe GUI
+    app.rs           Window: menu bar, player, transport, timeline panel, status bar, dialogs
+    timeline.rs      The timeline panel: ruler, tracks, clips, dragging, menus, properties
+    player.rs        Plays the timeline: decoder thread, sound clock, scrub frames
+    sound.rs         Sound output (ALSA via libasound.so.2, loaded at run time)
+    project.rs       The open project: timeline, file, undo/redo
+    theme.rs         Windows 95 / Light / Dark looks
+    settings.rs      Remembered theme and tags choice
+    common.rs        File pickers, JobRunner"><pre class="notranslate"><code>crates/
+  flicker-core/   UI-agnostic media logic (no GUI dependencies)
+    engine.rs        `Engine` trait: the seam for swapping media backends
+    ffmpeg.rs        FfmpegCli: engine that drives ffmpeg/ffprobe executables
+    timeline.rs      Tracks and clips, and every timeline edit (move, trim, split, transitions…)
+    render.rs        The timeline as an ffmpeg filter graph: export and preview arguments
+    project.rs       .flicker project files (Argon2id + XChaCha20-Poly1305)
+    privacy.rs       Private saves: no source tags, encoder names or dates
+    subtitles.rs     Subtitle formats, filter-path escaping, embedding
+    input.rs         How files are handed to ffmpeg (local files only), paths from projects
+    preview.rs       Frames and PCM for on-screen playback
+    edit.rs          TimeRange / TrimRequest (trim &amp; cut of a single file)
+    retime.rs        Shifts/clips SRT and ASS cues to match a trim
+    audio.rs         Volume / mute / fade of a single file
+    media.rs         MediaInfo / StreamInfo from probing
+    job.rs           Progress + CancelToken for long-running jobs
+  flicker-app/    egui/eframe GUI
+    app.rs           Window: menu bar, player, transport, timeline panel, status bar, dialogs
+    timeline.rs      The timeline panel: ruler, tracks, clips, dragging, menus, properties
+    player.rs        Plays the timeline: decoder thread, sound clock, scrub frames
+    sound.rs         Sound output (ALSA via libasound.so.2, loaded at run time)
+    project.rs       The open project: timeline, file, undo/redo
+    theme.rs         Windows 95 / Light / Dark looks
+    settings.rs      Remembered theme and tags choice
+    common.rs        File pickers, JobRunner
+</code></pre></div>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Design notes</h2><a id="design-notes" class="anchor" aria-label="Permalink: Design notes" href="#design-notes"></a></div>
+<ul dir="auto">
+<li><strong>Core vs. UI.</strong> All media work goes through <code>flicker_core::Engine</code>. The GUI never builds ffmpeg commands itself, so the backend can change without touching the UI.</li>
+<li><strong>Edits are model changes.</strong> Moving, trimming, splitting, fades and transitions change a small <code>Timeline</code> value (<code>timeline.rs</code>); undo keeps whole snapshots of it. Nothing is rendered until the player or an export asks.</li>
+<li><strong>One graph for everything.</strong> <code>render.rs</code> turns any stretch of the timeline into one <code>-filter_complex</code> graph: a black background, every visible clip scaled to the frame and laid over it at its time (<code>overlay</code>, V1 first, so V2 lands on top), and every audible clip's sound delayed to its time (<code>adelay</code>) and mixed (<code>amix</code>). Fades and transitions are <code>fade</code>/<code>afade</code> filters timed in each clip's own time, so a stretch can start halfway through a clip or a transition. A cross-fade fades the later clip in over the earlier one; a dip fades the first to black and the second in from black. Pictures are decoded once and repeated in the graph.</li>
+<li><strong>Preview.</strong> The player plays the timeline as a chain of 8-second stretches, each its own ffmpeg process (the next one starts 1.5 s before it's needed), so ffmpeg only opens the files that play in the next few seconds. One process writes small PPM frames, a second one 48 kHz PCM for the sound card; decoding starts half a second before each seek point and cuts that off in the graph, because some decoders (MP3) give silence just after a seek. While paused, a single frame is decoded for each change or scrub position (the newest request wins; recent frames are kept). For faster scrubbing, decoding could move in-process with libav (<code>ffmpeg-next</code>).</li>
+<li><strong>Sound output.</strong> <code>sound.rs</code> binds the eight libasound calls it needs by hand and loads the library with <code>dlopen</code>, so there are no ALSA headers or <code>-sys</code> crates at build time. The picture follows how much sound the card has played (written minus <code>snd_pcm_delay</code>); the sound waits for the first frame so both start together.</li>
+<li><strong>No tags.</strong> An export is one ffmpeg pass into the chosen file: <code>-map_metadata -1 -map_chapters -1</code> (no source tags or chapters), only the picture, sound and subtitle outputs mapped (no data tracks), <code>-fflags +bitexact</code> (the muxer writes no version or dates), <code>-flags +bitexact</code> on every encoder, <code>-metadata:s encoder= </code> (otherwise ffmpeg tags each track "Lavc libx264"), and <code>filter_units=remove_types=6</code> to strip x264's SEI message. The subtitle language is set on the track. The subtitle file is read where it is, for a track or for burning in. On Cancel or an error the half-written file is deleted (a file of that name ffmpeg never got to is left alone).</li>
+<li><strong>Android.</strong> The GUI is egui/eframe, which runs on Android through <code>android-activity</code>. The app code lives in a library (<code>lib.rs</code>) so a <code>cdylib</code> with <code>android_main</code> can reuse it. File pickers are behind <code>cfg(target_os = "android")</code> stubs, and they still need the Storage Access Framework; sound would need AAudio or OpenSL.</li>
+<li><strong>Windows.</strong> Release builds use the GUI subsystem, so no console window appears. FFmpeg child processes start with <code>CREATE_NO_WINDOW</code>. Ship <code>ffmpeg.exe</code> and <code>ffprobe.exe</code> next to <code>flicker.exe</code>. Preview sound on Windows isn't written yet (it plays silently).</li>
+</ul>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Roadmap</h2><a id="roadmap" class="anchor" aria-label="Permalink: Roadmap" href="#roadmap"></a></div>
+<ol dir="auto">
+<li><del>Embed subtitles (soft/hard)</del></li>
+<li><del>Video preview player</del></li>
+<li><del>Trim / cut</del>, <del>joining clips and pictures</del>, <del>volume, mute and fades</del></li>
+<li><del>A multi-track timeline, music tracks, sound in the preview, projects</del></li>
+<li>Text and titles; picture adjustments (crop, rotate, speed)</li>
+<li>Subtitle editor (edit timings and text in-app)</li>
+<li>Android build + packaging (cargo-apk / xbuild); Windows installer</li>
+</ol>
+<p dir="auto">More detail in <a href="https://github.com/anti-ghostsec/Flicker/blob/master/ROADMAP.md">ROADMAP.md</a>.</p>
+<div class="markdown-heading" dir="auto"><h2 class="heading-element" dir="auto">Releases</h2><a id="releases" class="anchor" aria-label="Permalink: Releases" href="#releases"></a></div>
+<p dir="auto"><code>.github/workflows/release.yml</code> builds, tests and publishes a signed Linux build (<code>flicker-linux.tar.gz</code> + <code>.minisig</code>) on every push to <code>master</code> (and only from <code>master</code>; the actions it uses are pinned to a commit). It refuses to run until <code>minisign.pub</code> holds Flicker's real public key (it's a placeholder now) and the <code>MINISIGN_SECRET_KEY</code> secret is set:</p>
+<div class="highlight highlight-source-shell notranslate position-relative overflow-auto" dir="auto" data-snippet-clipboard-copy-content="minisign -G -p minisign.pub -s flicker.key   # keep flicker.key private; put its contents in the secret"><pre>minisign -G -p minisign.pub -s flicker.key   <span class="pl-c"><span class="pl-c">#</span> keep flicker.key private; put its contents in the secret</span></pre></div>
+</article></div>
+</article>
+<p><a href="https://github.com/anti-ghostsec/Flicker">Flicker on GitHub</a> · <a href="/#projects">More projects</a></p>
+</main>
+<footer><div class="wrap">Open source, no telemetry. Source code on <a href="https://github.com/anti-ghostsec">GitHub</a>.</div></footer>
+</body>
+</html>
